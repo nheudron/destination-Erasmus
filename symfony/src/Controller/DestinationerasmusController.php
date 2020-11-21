@@ -23,4 +23,11 @@ class DestinationerasmusController extends AbstractController
     public function home(){
         return $this->render('destinationerasmus/home.html.twig');
     }
+
+    /**
+     * @Route("/destination", name="dest")
+     */
+    public function dest(){
+        return $this->render('destinationerasmus/dest.html.twig');
+    }
 }
