@@ -1,0 +1,27 @@
+#map{
+    height: 500px;
+}
+
+.legende {
+    padding: 6px 8px;
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    display: inline-flex;
+    flex-direction: column;
+}
+
+.legende div {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.legende div:last-child {
+    margin: 0;
+}
+
+.legende div p {
+    margin-left: 10px;
+}
