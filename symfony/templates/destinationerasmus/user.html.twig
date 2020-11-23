@@ -1,0 +1,10 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    User - {{ user.firstName }} {{ user.lastName }}
+{% endblock %}
+
+{% block body %}
+    <p>Vous êtes {{ user.getFirstName }} {{ user.lastName }}</p>
+    <p>Votre mail est {{ user.getUsername }}</p>
+{% endblock %}
