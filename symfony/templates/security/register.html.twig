@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Please Register!{% endblock %}
+
+{% block body %}
+    <div style="width: 400px;padding: 30px">
+    {% if form is not null and form is not empty %}
+        {% form_theme form 'bootstrap_4_layout.html.twig' %}
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        {{ form_end(form) }}
+    {% endif %}
+    </div>
+{% endblock %}
