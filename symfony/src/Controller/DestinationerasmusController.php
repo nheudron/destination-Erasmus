@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class DestinationErasmusController extends AbstractController
+class DestinationerasmusController extends AbstractController
 {
     /** @var IUserService */
     private $userService;
@@ -36,7 +36,7 @@ class DestinationErasmusController extends AbstractController
      */
     public function index(): Response
     {
-        return $this->render('destinationErasmus/index.html.twig', [
+        return $this->render('destinationerasmus/index.html.twig', [
             'controller_name' => 'DestinationErasmusController',
         ]);
     }
@@ -51,7 +51,7 @@ class DestinationErasmusController extends AbstractController
         $model = new UnivListModel();
         $model->setUnivList($gameList);
 
-        return $this->render('destinationErasmus/home.html.twig', [
+        return $this->render('destinationerasmus/home.html.twig', [
             'model' => $model
         ]);
     }
@@ -65,7 +65,7 @@ class DestinationErasmusController extends AbstractController
     {
         $univ = $this->universityService->getUnivById($univId);
 
-        return $this->render('destinationErasmus/dest.html.twig', [
+        return $this->render('destinationerasmus/dest.html.twig', [
             "univ" => $univ
         ]);
     }
@@ -78,7 +78,7 @@ class DestinationErasmusController extends AbstractController
     {
         $user = $this->userService->getUserByMail($this->getUser()->getUsername());
 
-        return $this->render('destinationErasmus/user.html.twig', [
+        return $this->render('destinationerasmus/user.html.twig', [
             'user'=>$user
         ]);
     }
