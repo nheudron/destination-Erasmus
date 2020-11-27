@@ -4,9 +4,12 @@
 	{{ univ.name }}
 {% endblock %}
 
-{% block body %}
+{% block main %}
 	<h1>{{ univ.name }}</h1>
-	<p>Langue : {{ univ.language }}.</p>
-	<p>Places disponibles : {{ univ.availablePlaces }}.</p>
-	<p>{{ univ.favorites }} personnes ont aimés cette destination.</p>
+	<p>Langue :
+		{{ univ.language }}.</p>
+	<p>Places disponibles :
+		{{ univ.availablePlaces }}.</p>
+	<p>{{ univ.favorites }}
+		personnes ont aimés cette destination.</p>
 {% endblock %}

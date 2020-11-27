@@ -5,30 +5,49 @@
 {% endblock %}
 
 {% block stylesheets %}
-	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css"
-        integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
-        crossorigin="" />
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" crossorigin=""/>
 	<link rel="stylesheet" href="/css/map.css">
 {% endblock %}
 
-{% block body %}
-	{% for univ in model.univList %}
-		<a href="{{ path('dest', { 'univId': univ.id }) }}">
-			<h1>{{ univ.name }}</h1>
-		</a>
-	{% endfor %}
+{% block main %}
+	<div id="map"></div>
 
-	<div id="map">
+	<section class="filtersSection">
+		<h2>Trouver une destination</h2>
+		<div class="filters">
+			<div class="center">
+				<form>
+					<select>
+						<option>IR & SEP</option>
+						<option>IR</option>
+						<option>SEP</option>
+					</select>
+					<select>
+						<option>LV1 & LV2</option>
+						<option>LV1</option>
+						<option>LV2 Espagnol</option>
+						<option>LV2 Allemand</option>
+					</select>
+					<select>
+						<option>Majeures</option>
+						<option>1</option>
+						<option>1</option>
+						<option>1</option>
+					</select>
+					<button>
+						Rechercher
+					</button>
+				</form>
+			</div>
+		</div>
 
 	</div>
+</section>
+{% for univ in model.univList %}
+	<a href="{{ path('dest', { 'univId': univ.id }) }}">
+		<h1>{{ univ.name }}</h1>
+	</a>
+{% endfor %}{% endblock %}{% block javascripts %}
+<script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" crossorigin=""></script>
 
-{% endblock %}
-
-{% block javascripts %}
-	<script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"
-    	integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw=="
-    	crossorigin="">
-    	</script>
-	
-	<script src="/js/map.js"></script>
-{% endblock %}
+<script src="/js/map.js"></script>{% endblock %}
