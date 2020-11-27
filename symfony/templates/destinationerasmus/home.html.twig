@@ -12,16 +12,11 @@
 {% endblock %}
 
 {% block body %}
-
-	<a href="{{ path('dest')}}">
-		<h1>Article 1 titre manuel</h1>
-	</a>
-	<a href="{{ path('dest')}}">
-		<h1>Article 2 titre manuel</h1>
-	</a>
-	<a href="{{ path('dest')}}">
-		<h1>Article 3 titre manuel</h1>
-	</a>
+	{% for univ in model.univList %}
+		<a href="{{ path('dest', { 'univId': univ.id }) }}">
+			<h1>{{ univ.name }}</h1>
+		</a>
+	{% endfor %}
 
 	<div id="map">
 

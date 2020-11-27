@@ -1,11 +1,12 @@
 {% extends "base.html.twig" %}
 
 {% block title %}
-	{{ name_destination }}
+	{{ univ.name }}
 {% endblock %}
 
 {% block body %}
-
-	//Contenu de la page HTML
-
+	<h1>{{ univ.name }}</h1>
+	<p>Langue : {{ univ.language }}.</p>
+	<p>Places disponibles : {{ univ.availablePlaces }}.</p>
+	<p>{{ univ.favorites }} personnes ont aimés cette destination.</p>
 {% endblock %}

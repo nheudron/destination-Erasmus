@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Universities;
 use App\Entity\Users;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\DBAL\Logging\DebugStack;
@@ -42,6 +43,22 @@ class AppFixtures extends Fixture implements ContainerAwareInterface
         $user->setFirstName("Nicolas");
         $user->setRoles(["ROLE_ADMIN"]);
         $this->em->persist($user);
+
+        //  UNIVERSITY
+
+        $univ1 = new Universities();
+        $univ1->setName("Obuda University");
+        $univ1->setAvailablePlaces(12);
+        $univ1->setFavorites(5);
+        $univ1->setLanguage("LV1");
+        $this->em->persist($univ1);
+
+        $univ2 = new Universities();
+        $univ2->setName("Super university");
+        $univ2->setAvailablePlaces(3);
+        $univ2->setFavorites(162);
+        $univ2->setLanguage("LV1");
+        $this->em->persist($univ2);
 
         $this->em->flush();
 
