@@ -1,0 +1,25 @@
+#map{
+    height: 100vh;
+}
+
+.mapleftdescription{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.mapleftdescription .leftdescription{
+    width: 40vw;
+    text-align: center;
+    background: #a4bcd2;
+    color: white;
+}
+
+.formulaireVoyage{
+    margin: 50px 0;
+}
+
+#map{
+    height: 100vh;
+    width: 100%;
+}
