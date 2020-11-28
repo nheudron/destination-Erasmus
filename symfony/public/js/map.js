@@ -173,7 +173,15 @@ function initMap() {
     }
 }
 
+function checkTicked(){
+    ir.on("add",function(ev){console.log("ir added")});
+    sep.on("add",function(ev){console.log("sep added")});
+    ir.on("remove",function(ev){console.log("ir removed")});
+    sep.on("remove",function(ev){console.log("sep removed")});
+}
+
 window.onload = function () {
     // Fonction d'initialisation qui s'exécute lorsque le DOM est chargé
     initMap();
+    checkTicked();
 };
