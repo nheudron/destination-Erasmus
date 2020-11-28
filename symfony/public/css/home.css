@@ -33,6 +33,13 @@
     margin-top: 10px;
 }
 
+.anchor{
+    display: block;
+    position: relative;
+    top: -60px;
+    visibility: hidden;
+}
+
 .filtresLines {
   padding: 5px 0;
   margin-bottom: 15px;
