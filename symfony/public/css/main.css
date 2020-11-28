@@ -45,12 +45,13 @@ button {
   background-color: #859bae;
   border: none;
   color: white;
-  padding: 6px 10px;
+  padding: 8px 10px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
   cursor: pointer;
+  border-radius: 12px;
 }
 /* Header -------------------------------------------------------------*/
 .header {

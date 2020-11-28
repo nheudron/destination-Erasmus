@@ -31,37 +31,36 @@
 
 		<div id="map"></div>
 	</div>
-	<section class="filtersSection">
-		<h2>Trouver une destination</h2>
-		<div class="filters">
-			<div class="center">
-				<form>
-					<select>
+
+		<h2 class="filtersSection">Trouver une destination</h2>
+		<div class="filtresLines">
+			<div class="filters">
+				<form >
+					<i class="fas fa-sliders-h fas-fa-2x"></i>
+					<select class="custom-select">
 						<option>IR & SEP</option>
 						<option>IR</option>
 						<option>SEP</option>
 					</select>
-					<select>
+					<select class="custom-select">
 						<option>LV1 & LV2</option>
 						<option>LV1</option>
 						<option>LV2 Espagnol</option>
 						<option>LV2 Allemand</option>
 					</select>
-					<select>
+					<select class="custom-select">
 						<option>Majeures</option>
 						<option>1</option>
 						<option>1</option>
 						<option>1</option>
 					</select>
-					<button>
+					<button class="submitButton">
 						Rechercher
 					</button>
 				</form>
 			</div>
 		</div>
 
-	</div>
-</section>
 {% for univ in model.univList %}
 	<section class="destList">
 		<div class="destination">
@@ -69,7 +68,7 @@
 				<a href="{{ path('dest', { 'univId': univ.id }) }}">
 					<h4><i class="fas fa-globe-europe"></i> {{ univ.name }}</h4>
 				</a>
-				<a class="addFavs"><i class="far fa-heart"></i></a>
+				<a href="" class="addFavs"><i class="far fa-heart"></i></a>
 			</header>
 			<main>
 				<p>Country:<span class="right">Language: {{ univ.language }}</span></p>
