@@ -35,15 +35,18 @@
 		</header>
 
 		<div id="deroulant" class="deroulant deroulantHidden">
-			<a href="">
-				<li>Mon Compte</li>
-			</a>
-			<a href="">
-				<li>Déconnexion</li>
-			</a>
-			<a href="">
-				<li>Connexion</li>
-			</a>
+			{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+				<a href="">
+					<li>Mon Compte</li>
+				</a>
+				<a href="">
+					<li>Déconnexion</li>
+				</a>
+			{% else %}
+				<a href="login">
+					<li>Connexion</li>
+				</a>
+			{% endif %}
 		</div>
 		<main id="main"> {% block main %}{% endblock %}
 			</main>
@@ -74,4 +77,4 @@ deroulant.classList.add('deroulantHidden');
 			</script>
 		</body>
 	</html>
-</body></html>
+</body></html></body></html>
