@@ -38,7 +38,7 @@ class AppFixtures extends Fixture implements ContainerAwareInterface
 
         $user = new Users();
         $user->setEmail("test@esaip.org");
-        $user->setPassword(password_hash("motdepasse",PASSWORD_DEFAULT));
+        $user->setPassword(password_hash("c",PASSWORD_DEFAULT));
         $user->setLastName("Poisson");
         $user->setFirstName("Nicolas");
         $user->setRoles(["ROLE_ADMIN"]);
