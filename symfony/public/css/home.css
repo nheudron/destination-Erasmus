@@ -38,8 +38,33 @@
 .destination header {
   background-color: #677b8d;
   color: white;
+  display: flex;
+  justify-content: space-between;
 }
 
 .destination h4 {
-  margin: 0;
+  margin: 0 0 0 20px;
+  padding: 2px 0;
+}
+
+.destination main{
+  margin: 0 20px 0px 20px;
+  width: 100% - 20px;
+  font-size: 18px;
+}
+.destination main p{
+  width: 100% - 20px;
+}
+.destination .right{
+  float: right;
+}
+
+.destination footer{
+  text-align: center;
+  font-size: 15px;
+  color: grey;
+}
+.addFavs{
+  margin: 2px 20px 0 0;
+  font-size: 24px;
 }
