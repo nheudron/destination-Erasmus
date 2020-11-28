@@ -1,17 +1,36 @@
 {% extends "base.html.twig" %}
 
 {% block title %}
-	Destination Erasmus
+	index
 {% endblock %}
 
 {% block stylesheets %}
 	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" crossorigin=""/>
 	<link rel="stylesheet" href="/css/map.css">
+	<link rel="stylesheet" href="/css/home.css">
 {% endblock %}
 
 {% block main %}
-	<div id="map"></div>
 
+	<div class="mapleftdescription">
+		<div class="leftdescription">
+			<h2>Bienvenue sur<br>Destination Erasmus,<br>la plateforme collaborative pour t'aider à choisir ta destination</h2>
+
+			<div class="formulaireVoyage">
+				<p>Tu es déjà partie en séjour Erasmus ?</p>
+				<p>Viens ajouter des informations sur ta destination :</p>
+				<script>
+					console.log("lien à ajouter");
+				</script>
+				<a href="/">Indiquer mon dernier séjour</a>
+			</div>
+
+			<p>Voir la liste des destinations si dessous<br><i class="fas fa-arrow-down"></i>
+			</p>
+		</div>
+
+		<div id="map"></div>
+	</div>
 	<section class="filtersSection">
 		<h2>Trouver une destination</h2>
 		<div class="filters">
