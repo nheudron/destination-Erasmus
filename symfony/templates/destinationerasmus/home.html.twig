@@ -72,8 +72,11 @@
 			</header>
 			<main>
 				<p>Country:
+					<span>Langue :{{ univ.language }}</span>
 				</p>
 				<p>City:
+					<span>Places disponibles :
+						{{ univ.availablePlaces }}</span>
 				</p>
 				<p>Formation:
 				</p>
@@ -82,6 +85,10 @@
 				<p>Lessons:
 				</p>
 			</main>
+			<footer>
+				<p>{{ univ.favorites }}
+					personnes ont ajoutées cette destination aux favoris</p>
+			</footer>
 
 		</div>
 	</section>

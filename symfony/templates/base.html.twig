@@ -36,7 +36,7 @@
 
 		<div id="deroulant" class="deroulant deroulantHidden">
 			{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-				<a href="">
+				<a href="user">
 					<li>Mon Compte</li>
 				</a>
 				<a href="">
@@ -48,7 +48,7 @@
 				</a>
 			{% endif %}
 		</div>
-		<main id="main"> {% block main %}{% endblock %}
+		<main id="main" class="main"> {% block main %}{% endblock %}
 			</main>
 
 			<footer id="footer">
