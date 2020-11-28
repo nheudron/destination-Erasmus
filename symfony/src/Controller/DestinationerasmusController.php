@@ -82,4 +82,13 @@ class DestinationerasmusController extends AbstractController
             'user'=>$user
         ]);
     }
+
+    /**
+     * @return Response
+     * @Route(path="/fav", name="fav")
+     */
+    public function fav(): Response
+    {
+        return $this->render('destinationerasmus/fav.html.twig');
+    }
 }
