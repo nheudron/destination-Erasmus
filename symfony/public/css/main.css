@@ -164,17 +164,18 @@ button {
 /* main -------------------------------------------------------------*/
 .main {
   margin-top: 60px;
+  background-color: #F3F2EF;
+  padding-bottom: 20px;
 }
 
 /* Footer -------------------------------------------------------------*/
 
 #footer {
-  padding: 1em 0 60px 0;
+  padding: 1em 0 1em 0;
   background-color: #677b8d;
   text-align: center;
   color: white;
   font-size: 14px;
-  margin-top: 20px;
 }
 #footer > h3 {
   margin: 0;
