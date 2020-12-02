@@ -1,8 +1,61 @@
+/*PAGE HOME ----------------------------------------------------------*/
 .filtersSection {
   text-align: center;
   color: #859bae;
 }
 
+.pagination {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.pagination * {
+  width: 30px;
+}
+
+.pagination .current {
+  border-radius: 20px;
+  border: 4px solid #859bae;
+  background-color: #859bae;
+  color: white;
+  padding: 0px 5px;
+}
+
+.pagination .page {
+  border-radius: 20px;
+  border: 4px solid #859bae;
+  color: #859bae;
+  text-align: center;
+  margin: 2px;
+}
+
+.pagination .page a {
+  padding: 2px 2px;
+  position: relative;
+  left: 3px;
+}
+
+.pagination .next {
+  margin-left: 10px;
+  color: #859bae;
+}
+
+.pagination .last {
+  margin-left: 10px;
+  color: #859bae;
+}
+
+.pagination .first {
+  margin-right: 10px;
+  color: #859bae;
+}
+
+.pagination .previous {
+  margin-right: 10px;
+  color: #859bae;
+}
+
+/*PAGE DESTINATION ----------------------------------------------------------*/
 .headimage {
   width: 100%;
   height: 400px;

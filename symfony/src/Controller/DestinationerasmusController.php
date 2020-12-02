@@ -34,14 +34,18 @@ class DestinationerasmusController extends AbstractController
      * @return Response
      * @Route(path="/", name="home")
      */
-    public function home(): Response
+    public function home(Request $request, PaginatorInterface $paginator)
     {
         /** @var Universities[] $gameList */
         $gameList = $this->universityService->getAllUniv();
         $model = new UnivListModel();
         $model->setUnivList($gameList);
 
-        
+        $model = $paginator->paginate(
+            $gameList, // Requête contenant les données à paginer (ici nos articles)
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            5 // Nombre de résultats par page
+        );
 
         return $this->render('destinationerasmus/home.html.twig', [
             'model' => $model
