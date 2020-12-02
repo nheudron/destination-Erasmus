@@ -5,3 +5,94 @@ $base-color-dark: #677b8d;
   text-align: center;
   color: $base-color;
 }
+.headimage {
+  width: 100%;
+  height: 400px;
+  align-items: center;
+  align-content: center;
+  object-fit: cover;
+  width: 100%;
+  overflow: hidden;
+  z-index: -10;
+}
+.univHead {
+  margin: auto;
+  width: 500px;
+  text-align: center;
+  position: relative;
+  bottom: 50px;
+  h1 {
+    background-color: white;
+    box-shadow: 2px 2px 5px 1px rgba(131, 131, 131, 0.5);
+    border-radius: 12px;
+    text-transform: uppercase;
+    padding: 10px;
+    width: 300px;
+    text-overflow: ellipsis;
+    font-size: 20px;
+  }
+  .fa-heart {
+    font-size: 40px;
+    line-height: 53px;
+    color: white;
+    text-shadow: 2px 2px rgba(131, 131, 131, 0.5);
+  }
+  div {
+    display: flex;
+    justify-content: space-around;
+    font-size: 16px;
+    color: grey;
+    * {
+      margin: 16px;
+    }
+  }
+}
+
+.destBody {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+  .destMain {
+    width: 1000px;
+    margin: 10px;
+
+    .destBoxStyle {
+      color: white;
+      background-color: $base-color;
+      border-radius: 12px;
+      padding: 10px;
+      h2 {
+        text-align: center;
+        margin: 0;
+      }
+      p {
+        margin-left: 10px;
+        text-align: justify;
+      }
+    }
+  }
+  .destColumn {
+    width: 300px;
+    margin: 10px;
+
+    .destBoxStyle {
+      h4 {
+        color: white;
+        background-color: $base-color;
+        text-align: center;
+        padding: 10px;
+        border-top-left-radius: 12px;
+        border-top-right-radius: 12px;
+        margin: 0;
+      }
+      div{
+        background-color: white;
+        height: 200px;
+        border-bottom-left-radius: 12px;
+        border-bottom-right-radius: 12px;
+        overflow: hidden;
+      }
+    }
+  }
+}

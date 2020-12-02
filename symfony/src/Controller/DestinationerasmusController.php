@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Knp\Component\Pager\PaginatorInterface;
 
 class DestinationerasmusController extends AbstractController
 {
@@ -29,17 +30,6 @@ class DestinationerasmusController extends AbstractController
         $this->userService = $userService;
         $this->universityService = $universityService;
     }
-
-    /**
-     * @return Response
-     * @Route(path="/destinationErasmus", name="destinationErasmus")
-     */
-    public function index(): Response
-    {
-        return $this->render('destinationerasmus/index.html.twig', [
-            'controller_name' => 'DestinationErasmusController',
-        ]);
-    }
     /**
      * @return Response
      * @Route(path="/", name="home")
@@ -50,6 +40,8 @@ class DestinationerasmusController extends AbstractController
         $gameList = $this->universityService->getAllUniv();
         $model = new UnivListModel();
         $model->setUnivList($gameList);
+
+        
 
         return $this->render('destinationerasmus/home.html.twig', [
             'model' => $model

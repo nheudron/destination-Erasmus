@@ -1,15 +1,39 @@
 {% extends "base.html.twig" %}
-
+{# Style de cette page présent dans style.scss #}
 {% block title %}
 	{{ univ.name }}
 {% endblock %}
 
 {% block main %}
-	<h1>{{ univ.name }}</h1>
-	<p>Langue :
-		{{ univ.language }}.</p>
-	<p>Places disponibles :
-		{{ univ.availablePlaces }}.</p>
-	<p>{{ univ.favorites }}
-		personnes ont aimés cette destination.</p>
+	<img id="headimage" class="headimage" src="https://via.placeholder.com/2000x400" alt="Head image">
+	<div class="univHead">
+		<div>
+			<img src="https://via.placeholder.com/53" alt="pays">
+			<h1 class="UnivName">{{ univ.name }}</h1>
+			<i class="far fa-heart"></i>
+		</div>
+		
+		<div>
+			<p>Erasmus {{ univ.language }}</p>
+			<p>Places disponibles : {{ univ.availablePlaces }}</p>
+			<p>{{ univ.favorites }} favs</p>
+		</div>
+	</div>
+
+	<div class="destBody" >
+		<section class="destMain">
+			<div class="destBoxStyle">
+				<h2>Commentaires sur la destination</h2>
+				<p>les commentaires</p>
+			</div>
+		</section>
+		<section class="destColumn">
+			<div class="destBoxStyle">
+				<h4 >Les étudiants déjà partis</h4>
+				<div></div>
+			</div>
+		</section>
+	</div>
+
+
 {% endblock %}

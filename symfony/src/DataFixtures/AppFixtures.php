@@ -60,6 +60,16 @@ class AppFixtures extends Fixture implements ContainerAwareInterface
         $univ2->setLanguage("LV1");
         $this->em->persist($univ2);
 
+        for($i = 1; $i <= 5; $i++){
+            $univ = new Universities();
+            $univ -> setName("université $i");
+            $univ -> setAvailablePlaces("$i");
+            $univ -> setFavorites("$i");
+            $univ -> setLanguage("LV2");
+            $this->em->persist($univ);
+        }
+
+
         $this->em->flush();
 
         echo "QUERIES: ".count($stackLogger->queries)."\n"; //numbers of queries (persists)
