@@ -42,7 +42,7 @@ class DestinationerasmusController extends AbstractController
         $model->setUnivList($gameList);
 
         $model = $paginator->paginate(
-            $gameList, // Requête contenant les données à paginer (ici nos articles)
+            $gameList, // Requête contenant les données à paginer (ici nos universités)
             $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
             5 // Nombre de résultats par page
         );

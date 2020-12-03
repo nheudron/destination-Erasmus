@@ -18,6 +18,8 @@ html {
 }
 p {
   margin: 0;
+  @import url("https://fonts.googleapis.com/css2?family=Text+Me+One&display=swap");
+  font-family: "text me One";
 }
 h1 {
   font: inherit;
@@ -164,7 +166,7 @@ button {
 /* main -------------------------------------------------------------*/
 .main {
   margin-top: 60px;
-  background-color: #F3F2EF;
+  background-color: #f3f2ef;
   padding-bottom: 20px;
 }
 
