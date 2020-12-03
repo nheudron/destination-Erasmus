@@ -2,8 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Filiere;
 use App\Entity\Universities;
 use App\Model\UnivListModel;
+use App\Model\FiliereListModel;
+use App\Service\IFiliereService;
 use App\Service\IUserService;
 use App\Service\IUniversityService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,15 +23,19 @@ class DestinationerasmusController extends AbstractController
     private $userService;
     /** @var IUniversityService */
     private $universityService;
+    /** @var IFiliereService */
+    private $filiereService;
 
     public function __construct
     (
         IUserService $userService,
-        IUniversityService $universityService
+        IUniversityService $universityService,
+        IFiliereService $filiereService
     )
     {
         $this->userService = $userService;
         $this->universityService = $universityService;
+        $this->filiereService = $filiereService;
     }
     /**
      * @return Response
@@ -47,8 +54,14 @@ class DestinationerasmusController extends AbstractController
             5 // Nombre de résultats par page
         );
 
+        /** @var Filiere[] $gameListFilieres */
+        $gameListFilieres = $this->filiereService->getAllFilieres();
+        $modelFiliere = new FiliereListModel();
+        $modelFiliere->setFiliereList($gameListFilieres);
+
         return $this->render('destinationerasmus/home.html.twig', [
-            'model' => $model
+            'model' => $model,
+            'modelFiliere' => $modelFiliere
         ]);
     }
 

@@ -20,6 +20,7 @@ p {
   margin: 0;
   @import url("https://fonts.googleapis.com/css2?family=Text+Me+One&display=swap");
   font-family: "text me One";
+  font-weight: 600;
 }
 h1 {
   font: inherit;

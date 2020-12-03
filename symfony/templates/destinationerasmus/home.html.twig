@@ -51,9 +51,9 @@
 				</select>
 				<select class="custom-select">
 					<option>Majeures</option>
-					<option>1</option>
-					<option>1</option>
-					<option>1</option>
+					{% for filieres in modelFiliere %}
+						<option> {{ filieres.name }} </option>
+					{% endfor %}
 				</select>
 				<button class="submitButton">
 					Rechercher
