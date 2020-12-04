@@ -8,6 +8,9 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class UniversityService extends CrudService implements IUniversityService
 {
+    /**
+     * @inheritDoc
+     */
     public function getRepo(): EntityRepository
     {
         return $this->em->getRepository(Universities::class);
