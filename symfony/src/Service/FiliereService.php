@@ -39,11 +39,11 @@ class FiliereService extends CrudService implements IFiliereService
      */
     public function getFiliereById(int $id): Filiere
     {
-        /**
-         * @var Filiere|null $oneBranch
+        /** 
+         * @var Filiere|null $oneUser 
          */
-        $oneBranch = $this->getRepo()->find($id);
-        if ($oneBranch == null) throw new NotFoundHttpException("No filière found");
-        return $oneBranch;
+        $oneFiliere = $this->getRepo()->find($id);
+        if ($oneFiliere == null) throw new NotFoundHttpException("No filière found");
+        return $oneFiliere;
     }
 }

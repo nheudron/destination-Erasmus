@@ -2,52 +2,40 @@
 
 namespace App\Entity;
 
+use App\Repository\FiliereRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class Filiere
- * @package App\Entity
- *
- * @ORM\Entity
- * @ORM\Table(name="Filiere")
+ * @ORM\Entity(repositoryClass=FiliereRepository::class)
  */
 class Filiere
 {
     /**
      * @var int
+     * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @ORM\Id()
      * @ORM\Column(type="integer", name="filiere_id")
      */
-    private $id = 0;
-
+    private $id;
     /**
-     * @var string
-     * @ORM\Column(type="string", name="filiere_name", length=255, nullable=false)
+     * @ORM\Column(type="string", length=255)
      */
-    private $name = "";
+    private $name;
 
-    /**
-     * @return int
-     */
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    /**
-     * @return string
-     */
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
 
-    /**
-     * @param string $name
-     */
-    public function setName(string $name): void
+    public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
     }
 }

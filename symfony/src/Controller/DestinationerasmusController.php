@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Filiere;
 use App\Entity\Universities;
 use App\Model\UnivListModel;
+use App\Model\FiliereListModel;
 use App\Service\IFiliereService;
 use App\Service\IUserService;
 use App\Service\IUniversityService;
@@ -23,45 +24,44 @@ class DestinationerasmusController extends AbstractController
     /** @var IUniversityService */
     private $universityService;
     /** @var IFiliereService */
-    private $branchService;
+    private $filiereService;
 
     public function __construct
     (
         IUserService $userService,
         IUniversityService $universityService,
-        IFiliereService $branchService
+        IFiliereService $filiereService
     )
     {
         $this->userService = $userService;
         $this->universityService = $universityService;
-        $this->branchService = $branchService;
+        $this->filiereService = $filiereService;
     }
-
     /**
-     * @param Request $request
-     * @param PaginatorInterface $paginator
      * @return Response
      * @Route(path="/", name="home")
      */
     public function home(Request $request, PaginatorInterface $paginator)
     {
-        /** @var Filiere[] $branchList */
-        $branchList = $this->branchService->getAllFilieres();
+        /** @var Universities[] $gameList */
+        $gameList = $this->universityService->getAllUniv();
+        $model = new UnivListModel();
+        $model->setUnivList($gameList);
 
-        /** @var Universities[] $univList */
-        $univList = $this->universityService->getAllUniv();
-        $univModel = new UnivListModel();
-        $univModel->setUnivList($univList);
-
-        $univPage = $paginator->paginate(
-            $univModel,  // Requête contenant les données à paginer (ici nos universités)
+        $model = $paginator->paginate(
+            $gameList, // Requête contenant les données à paginer (ici nos universités)
             $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
-            5   // Nombre de résultats par page
+            5 // Nombre de résultats par page
         );
 
+        /** @var Filiere[] $gameListFilieres */
+        $gameListFilieres = $this->filiereService->getAllFilieres();
+        $modelFiliere = new FiliereListModel();
+        $modelFiliere->setFiliereList($gameListFilieres);
+
         return $this->render('destinationerasmus/home.html.twig', [
-            'branchList' => $branchList,
-            'univPage' => $univPage
+            'model' => $model,
+            'modelFiliere' => $modelFiliere
         ]);
     }
 

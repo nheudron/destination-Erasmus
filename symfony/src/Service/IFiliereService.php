@@ -21,5 +21,5 @@ interface IFiliereService
      * @param int $filiereId
      * @return Filiere
      */
-    public function getFiliereById(int $filiereId): Filiere;
+    public function getFiliereById(int $id): Filiere;
 }

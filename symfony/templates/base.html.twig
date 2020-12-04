@@ -48,33 +48,33 @@
 				</a>
 			{% endif %}
 		</div>
-		<main id="main" class="main">
-			{% block main %}{% endblock %}
-		</main>
+		<main id="main" class="main"> {% block main %}{% endblock %}
+			</main>
 
-		<footer id="footer">
-			<h3>Mentions légales</h3>
-			<br/>
-			<h3>Plateforme développée dans le cadre
-				<br/>d'un Projet Application IR4 en 2020</h3>
-		</footer>
+			<footer id="footer">
+				<h3>Mentions légales</h3>
+				<br/>
+				<h3>Plateforme développée dans le cadre
+					<br/>d'un Projet Application IR4 en 2020</h3>
+			</footer>
 
 
-		{% block javascripts %}{% endblock %}
-		<script>
-			const deroulant = document.getElementById('deroulant'),
-			accountButton = document.getElementById('accountButton'),
-			header = document.getElementById('header'),
-			main = document.getElementById('main');
+			{% block javascripts %}{% endblock %}
+			<script>
+				const deroulant = document.getElementById('deroulant'),
+accountButton = document.getElementById('accountButton'),
+header = document.getElementById('header'),
+main = document.getElementById('main');
 
-			accountButton.addEventListener('click', function (e) {
-			e.preventDefault;
-			deroulant.classList.toggle('deroulantHidden');
-			});
-			main.addEventListener('click', function (e) {
-			e.preventDefault;
-			deroulant.classList.add('deroulantHidden');
-			});
-		</script>
-	</body>
-</html>
+accountButton.addEventListener('click', function (e) {
+e.preventDefault;
+deroulant.classList.toggle('deroulantHidden');
+});
+main.addEventListener('click', function (e) {
+e.preventDefault;
+deroulant.classList.add('deroulantHidden');
+});
+			</script>
+		</body>
+	</html>
+</body></html></body></html>
