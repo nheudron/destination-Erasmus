@@ -76,6 +76,12 @@ class AppFixtures extends Fixture implements ContainerAwareInterface
         $user->setName("Big-Data");
         $this->em->persist($user);
 
+        // Filière
+
+        $user = new Filiere();
+        $user->setName("Big-Data");
+        $this->em->persist($user);
+
 
         $this->em->flush();
 
