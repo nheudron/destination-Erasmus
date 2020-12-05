@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Filiere;
 use App\Entity\Universities;
 use App\Entity\Users;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -68,6 +69,12 @@ class AppFixtures extends Fixture implements ContainerAwareInterface
             $univ -> setLanguage("LV2");
             $this->em->persist($univ);
         }
+
+        // Filière
+
+        $user = new Filiere();
+        $user->setName("Big-Data");
+        $this->em->persist($user);
 
 
         $this->em->flush();

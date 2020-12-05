@@ -4,10 +4,14 @@ namespace App\Service;
 
 use App\Entity\Universities;
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Query;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class UniversityService extends CrudService implements IUniversityService
 {
+    /**
+     * @inheritDoc
+     */
     public function getRepo(): EntityRepository
     {
         return $this->em->getRepository(Universities::class);
@@ -19,6 +23,16 @@ class UniversityService extends CrudService implements IUniversityService
     public function getAllUniv(): iterable
     {
         return $this->getRepo()->findAll();
+    }
+
+    public function getAllUnivByQuery(): Query
+    {
+        return $this
+            ->em
+            ->createQueryBuilder()
+            ->select("universities")
+            ->from(Universities::class, "universities")
+            ->getQuery();
     }
 
     /**
