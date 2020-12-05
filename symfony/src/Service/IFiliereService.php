@@ -9,17 +9,17 @@ interface IFiliereService
     /**
      * @return Filiere[]|iterable
      */
-    public function getAllFilieres() : iterable;
+    public function getAllBranches() : iterable;
 
     /**
      * @param string $name
      * @return Filiere
      */
-    public function getFiliereByName(string $name): Filiere;
+    public function getBranchByName(string $name): Filiere;
 
     /**
-     * @param int $filiereId
+     * @param int $branchId
      * @return Filiere
      */
-    public function getFiliereById(int $id): Filiere;
+    public function getBranchById(int $branchId): Filiere;
 }

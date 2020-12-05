@@ -19,7 +19,7 @@ class FiliereService extends CrudService implements IFiliereService
     /**
      * @inheritDoc
      */
-    public function getAllFilieres(): iterable
+    public function getAllBranches(): iterable
     {
         return $this->getRepo()->findAll();
     }
@@ -27,23 +27,21 @@ class FiliereService extends CrudService implements IFiliereService
     /**
      * @inheritDoc
      */
-    public function getFiliereByName(string $name): Filiere
+    public function getBranchByName(string $name): Filiere
     {
-        /** @var Filiere|null $oneFiliere */
-        $oneFiliere = $this->getRepo()->findOneBy(["name"=>$name]);
-        if ($oneFiliere == null) throw new NotFoundHttpException("No filière found");
-        return $oneFiliere;
+        /** @var Filiere|null $oneBranch */
+        $oneBranch = $this->getRepo()->findOneBy(["name"=>$name]);
+        if ($oneBranch == null) throw new NotFoundHttpException("No branch found");
+        return $oneBranch;
     }
     /**
      * @inheritDoc
      */
-    public function getFiliereById(int $id): Filiere
+    public function getBranchById(int $branchId): Filiere
     {
-        /** 
-         * @var Filiere|null $oneUser 
-         */
-        $oneFiliere = $this->getRepo()->find($id);
-        if ($oneFiliere == null) throw new NotFoundHttpException("No filière found");
-        return $oneFiliere;
+        /** @var Filiere|null $oneBranch */
+        $oneBranch = $this->getRepo()->find($branchId);
+        if ($oneBranch == null) throw new NotFoundHttpException("No branch found");
+        return $oneBranch;
     }
 }

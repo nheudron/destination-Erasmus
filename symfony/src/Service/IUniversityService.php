@@ -3,13 +3,19 @@
 namespace App\Service;
 
 use App\Entity\Universities;
+use Doctrine\ORM\Query;
 
 interface IUniversityService
 {
     /**
-     * @return Universities[]|iterable
+     * @return iterable
      */
     public function getAllUniv() : iterable;
+
+    /**
+     * @return Query
+     */
+    public function getAllUnivByQuery(): Query;
 
     /**
      * @param string $name
