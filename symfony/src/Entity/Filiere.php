@@ -23,7 +23,7 @@ class Filiere
 
     /**
      * @var string
-     * @ORM\Column(type="string", name="filiere_name", length=255, nullable=false)
+     * @ORM\Column(type="string", name="name", length=255, nullable=false)
      */
     private $name = "";
 

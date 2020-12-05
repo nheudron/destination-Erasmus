@@ -70,18 +70,12 @@ class AppFixtures extends Fixture implements ContainerAwareInterface
         $user->setRoles(["ROLE_ADMIN"]);
         $user->addFavorite($univ1);
         $user->addFavorite($univ2);
+        $this->em->persist($user);
         // Filière
 
-        $user = new Filiere();
-        $user->setName("Big-Data");
-        $this->em->persist($user);
-
-        // Filière
-
-        $user = new Filiere();
-        $user->setName("Big-Data");
-        $this->em->persist($user);
-
+        $filiere = new Filiere();
+        $filiere->setName("Big-Data");
+        $this->em->persist($filiere);
 
         $this->em->flush();
 
