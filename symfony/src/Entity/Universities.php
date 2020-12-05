@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -44,6 +46,16 @@ class Universities
      * @ORM\Column(type="string", name="univ_language")
      */
     private $language = "";
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Users::class, mappedBy="favorites")
+     */
+    private $favUsersList;
+
+    public function __construct()
+    {
+        $this->favUsersList = new ArrayCollection();
+    }
 
     /**
      * @return int
@@ -115,5 +127,41 @@ class Universities
     public function setLanguage(string $language): void
     {
         $this->language = $language;
+    }
+
+    /**
+     * @return Collection|Users[]
+     */
+    public function getFavUsersList(): Collection
+    {
+        return $this->favUsersList;
+    }
+
+    /**
+     * @return int
+     */
+    public function getFavNb(): int
+    {
+        $nb = count($this->getFavUsersList());
+        return $nb;
+    }
+
+    public function addFavUsersList(Users $favUsersList): self
+    {
+        if (!$this->favUsersList->contains($favUsersList)) {
+            $this->favUsersList[] = $favUsersList;
+            $favUsersList->addFavorite($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFavUsersList(Users $favUsersList): self
+    {
+        if ($this->favUsersList->removeElement($favUsersList)) {
+            $favUsersList->removeFavorite($this);
+        }
+
+        return $this;
     }
 }

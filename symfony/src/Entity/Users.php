@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -51,6 +53,20 @@ class Users implements UserInterface
      * @ORM\Column(type="json")
      */
     private $roles = array();
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Universities::class, inversedBy="favUsersList")
+     * @ORM\JoinTable(name="favorites",
+     *      joinColumns={@ORM\JoinColumn(name="users_id", referencedColumnName="user_id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="universities_id", referencedColumnName="univ_id", unique=true)}
+     * )
+     */
+    private $favorites;
+
+    public function __construct()
+    {
+        $this->favorites = new ArrayCollection();
+    }
 
     public function __toString()
     {
@@ -158,5 +174,29 @@ class Users implements UserInterface
      */
     public function eraseCredentials()
     {
+    }
+
+    /**
+     * @return Collection|Universities[]
+     */
+    public function getFavorites(): Collection
+    {
+        return $this->favorites;
+    }
+
+    public function addFavorite(Universities $favorite): self
+    {
+        if (!$this->favorites->contains($favorite)) {
+            $this->favorites[] = $favorite;
+        }
+
+        return $this;
+    }
+
+    public function removeFavorite(Universities $favorite): self
+    {
+        $this->favorites->removeElement($favorite);
+
+        return $this;
     }
 }

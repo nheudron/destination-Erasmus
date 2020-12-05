@@ -98,6 +98,10 @@ class DestinationerasmusController extends AbstractController
      */
     public function fav(): Response
     {
-        return $this->render('destinationerasmus/fav.html.twig');
+        $user = $this->userService->getUserByMail($this->getUser()->getUsername());
+        $favorites = $user->getFavorites();
+        return $this->render('destinationerasmus/fav.html.twig', [
+            'favorites'=>$favorites
+        ]);
     }
 }

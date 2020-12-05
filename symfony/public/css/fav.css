@@ -1,0 +1,63 @@
+.title{
+  display: inline-block;
+  width: calc(100vw - 20px);
+  margin: 20px 0;
+}
+
+.title h2{
+  color: white;
+  background: #a4bcd2;
+  width: 70vw;
+  padding: 10px 0;
+  margin: 0 auto;
+  border: yellow;
+  text-align: center;
+  border-radius: 10px;
+}
+
+.destList {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+.destination {
+  border-radius: 12px;
+  margin: 5px 0;
+  box-shadow: 0px 2px 5px 1px rgba(131, 131, 131, 0.15);
+  overflow: hidden;
+  width: 800px;
+  background-color: white;
+}
+.destination header {
+  background-color: #677b8d;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+}
+
+.destination h4 {
+  margin: 0 0 0 20px;
+  padding: 2px 0;
+}
+
+.destination main {
+  margin: 0 20px 0px 20px;
+  width: 100% - 20px;
+  font-size: 18px;
+}
+.destination main p {
+  width: 100% - 20px;
+}
+.destination .right {
+  float: right;
+}
+
+.destination footer {
+  text-align: center;
+  font-size: 15px;
+  color: grey;
+}
+.addFavs {
+  margin: 2px 20px 0 0;
+  font-size: 24px;
+}

@@ -34,16 +34,6 @@ class AppFixtures extends Fixture implements ContainerAwareInterface
         $stackLogger = new DebugStack();
         $this->em->getConnection()->getConfiguration()->setSQLLogger($stackLogger);
 
-        //  USER
-
-        $user = new Users();
-        $user->setEmail("test@esaip.org");
-        $user->setPassword(password_hash("c",PASSWORD_DEFAULT));
-        $user->setLastName("Poisson");
-        $user->setFirstName("Nicolas");
-        $user->setRoles(["ROLE_ADMIN"]);
-        $this->em->persist($user);
-
         //  UNIVERSITY
 
         $univ1 = new Universities();
@@ -68,6 +58,18 @@ class AppFixtures extends Fixture implements ContainerAwareInterface
             $univ -> setLanguage("LV2");
             $this->em->persist($univ);
         }
+
+        //  USER
+
+        $user = new Users();
+        $user->setEmail("test@esaip.org");
+        $user->setPassword(password_hash("c",PASSWORD_DEFAULT));
+        $user->setLastName("Poisson");
+        $user->setFirstName("Nicolas");
+        $user->setRoles(["ROLE_ADMIN"]);
+        $user->addFavorite($univ1);
+        $user->addFavorite($univ2);
+        $this->em->persist($user);
 
 
         $this->em->flush();

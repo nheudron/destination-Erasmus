@@ -56,4 +56,12 @@ class UserService extends CrudService implements IUserService
         if ($oneUser == null) throw new NotFoundHttpException("No user found");
         return $oneUser;
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function getFavorites(): iterable
+    {
+        return $this->getRepo()->getFavorites();
+    }
 }

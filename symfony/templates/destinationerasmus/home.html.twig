@@ -25,7 +25,9 @@
 				<a href="/">Indiquer mon dernier séjour</a>
 			</div>
 
-			<p>Voir la liste des destinations si dessous<br><a href="#searchDest"><i class="fas fa-arrow-down"></i></a>
+			<p>Voir la liste des destinations si dessous<br><a href="#searchDest">
+					<i class="fas fa-arrow-down"></i>
+				</a>
 			</p>
 		</div>
 
@@ -52,7 +54,9 @@
 				<select class="custom-select">
 					<option>Majeures</option>
 					{% for filieres in modelFiliere %}
-						<option> {{ filieres.name }} </option>
+						<option>
+							{{ filieres.name }}
+						</option>
 					{% endfor %}
 				</select>
 				<button class="submitButton">
@@ -76,14 +80,26 @@
 					</a>
 				</header>
 				<main>
-					<p>Country:<span class="right">Language: {{ univ.language }}</span></p>
-					<p>City:<span class="right">Available places: {{ univ.availablePlaces }}</span></p>
+					<p>Country:<span class="right">Language:
+							{{ univ.language }}</span>
+					</p>
+					<p>City:<span class="right">Available places:
+							{{ univ.availablePlaces }}</span>
+					</p>
 					<p>Formation:</p>
 					<p>Maujeure:</p>
 					<p>Lessons:</p>
 				</main>
 				<footer>
-					<p>{{ univ.favorites }} personnes ont ajoutées cette destination aux favoris</p>
+					<p>
+						{{ univ.FavNb }}
+						{% if univ.FavNb > 1 %}
+							personnes ont ajoutées
+						{% else %}
+							personne a ajoutée
+						{% endif %}
+						cette destination aux favoris
+					</p>
 				</footer>
 
 			</div>

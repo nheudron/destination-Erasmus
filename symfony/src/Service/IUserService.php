@@ -28,4 +28,9 @@ interface IUserService
      * @return Users
      */
     public function getUserByMail(string $mail): Users;
+
+    /**
+     * @return Universities[]|iterable
+     */
+    public function getFavorites() : iterable;
 }

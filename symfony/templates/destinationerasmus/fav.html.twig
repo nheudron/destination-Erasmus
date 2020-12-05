@@ -1,7 +1,55 @@
 {% extends "base.html.twig" %}
 
+{% block stylesheets %}
+	<link rel="stylesheet" href="/css/fav.css">
+{% endblock %}
+
 {% block title %}
 	Mes favoris
 {% endblock %}
 
-{% block main %}{% endblock %}
+{% block main %}
+	<div class="title">
+		<h2>Mes Favoris</h2>
+	</div>
+
+	{% for favorite in favorites %}
+		<section class="destList">
+			<div class="destination">
+				<header>
+					<a href="{{ path('dest', { 'univId': favorite.id }) }}">
+						<h4>
+							<i class="fas fa-globe-europe"></i>
+							{{ favorite.name }}</h4>
+					</a>
+					<a href="" class="addFavs">
+						<i class="far fa-heart"></i>
+					</a>
+				</header>
+				<main>
+					<p>Country:<span class="right">Language:
+							{{ favorite.language }}</span>
+					</p>
+					<p>City:<span class="right">Available places:
+							{{ favorite.availablePlaces }}</span>
+					</p>
+					<p>Formation:</p>
+					<p>Maujeure:</p>
+					<p>Lessons:</p>
+				</main>
+				<footer>
+					<p>
+						{{ favorite.FavNb }}
+						{% if favorite.FavNb > 1 %}
+							personnes ont ajoutées
+						{% else %}
+							personne a ajoutée
+						{% endif %}
+						cette destination aux favoris
+					</p>
+				</footer>
+			</div>
+		</section>
+	{% endfor %}
+
+{% endblock %}
