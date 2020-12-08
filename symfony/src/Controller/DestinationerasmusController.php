@@ -33,6 +33,7 @@ class DestinationerasmusController extends AbstractController
         $this->userService = $userService;
         $this->universityService = $universityService;
         $this->branchService = $branchService;
+
     }
 
     /**
@@ -91,10 +92,35 @@ class DestinationerasmusController extends AbstractController
      */
     public function fav(): Response
     {
-        $user = $this->userService->getUserByMail($this->getUser()->getUsername());
-        $favorites = $user->getFavorites();
-        return $this->render('destinationerasmus/fav.html.twig', [
-            'favorites'=>$favorites
-        ]);
+        if (null !== $this->getUser()) {
+            $user = $this->userService->getUserByMail($this->getUser()->getUsername());
+            $favorites = $user->getFavorites();
+
+            $returnvar = $this->render('destinationerasmus/fav.html.twig', [
+                'favorites'=>$favorites
+            ]);
+        }else {
+            $returnvar = $this->redirectToRoute("app_login");
+        }
+        return $returnvar;
+    }
+
+    /**
+     * @param int $univId
+     * @return Response
+     * @Route(path="/togglefav/{univId}", name="togglefav", requirements={ "univId": "\d+" })
+     */
+    public function togglefav(int $univId): Response
+    {
+        if (null !== $this->getUser()) {
+            $user = $this->userService->getUserByMail($this->getUser()->getUsername());
+            $univ = $this->universityService->getUnivById($univId);
+            $present = $user->toggleFav($univ);
+            $returnvar = new JsonResponse(['present?' => $present]);
+        }else {
+            $returnvar = $this->redirectToRoute("app_login");
+        }
+        $this->getDoctrine()->getManager()->flush();
+        return $returnvar;
     }
 }

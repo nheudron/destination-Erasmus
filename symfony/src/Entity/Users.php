@@ -184,19 +184,19 @@ class Users implements UserInterface
         return $this->favorites;
     }
 
-    public function addFavorite(Universities $favorite): self
+    /**
+     * @param Universities $favorite
+     * @return bool
+     */
+    public function toggleFav(Universities $favorite): bool
     {
-        if (!$this->favorites->contains($favorite)) {
+        if ($this->favorites->contains($favorite)) {
+            $this->favorites->removeElement($favorite);
+            $present = FALSE;
+        }else {
             $this->favorites[] = $favorite;
+            $present = TRUE;
         }
-
-        return $this;
-    }
-
-    public function removeFavorite(Universities $favorite): self
-    {
-        $this->favorites->removeElement($favorite);
-
-        return $this;
+        return $present;
     }
 }
