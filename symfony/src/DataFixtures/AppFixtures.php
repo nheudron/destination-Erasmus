@@ -68,8 +68,8 @@ class AppFixtures extends Fixture implements ContainerAwareInterface
         $user->setLastName("Poisson");
         $user->setFirstName("Nicolas");
         $user->setRoles(["ROLE_ADMIN"]);
-        $user->addFavorite($univ1);
-        $user->addFavorite($univ2);
+        $user->toggleFav($univ1);
+        $user->toggleFav($univ2);
         $this->em->persist($user);
         // Filière
 
