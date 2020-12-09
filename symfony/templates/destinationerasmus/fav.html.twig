@@ -12,45 +12,50 @@
 	<div class="title">
 		<h2>Mes Favoris</h2>
 	</div>
-
-	{% for favorite in favorites %}
-		<section class="destList">
-			<div class="destination">
-				<header>
-					<a href="{{ path('dest', { 'univId': favorite.id }) }}">
-						<h4>
-							<i class="fas fa-globe-europe"></i>
-							{{ favorite.name }}</h4>
-					</a>
-					<a class="addFavs" id="univ{{favorite.id}}" onclick="toggleFav(this,{{favorite.id}})">
-						<i class="fas fa-heart"></i>
-					</a>
-				</header>
-				<main>
-					<p>Country:<span class="right">Language:
-							{{ favorite.language }}</span>
-					</p>
-					<p>City:<span class="right">Available places:
-							{{ favorite.availablePlaces }}</span>
-					</p>
-					<p>Formation:</p>
-					<p>Maujeure:</p>
-					<p>Lessons:</p>
-				</main>
-				<footer>
-					<p>
-						{{ favorite.FavNb }}
-						{% if favorite.FavNb > 1 %}
-							personnes ont ajoutées
-						{% else %}
-							personne a ajoutée
-						{% endif %}
-						cette destination aux favoris
-					</p>
-				</footer>
-			</div>
-		</section>
-	{% endfor %}
+	{% if favorites|length == 0 %}
+		<div class="nofav">
+			<p>Il n'y a pas d'université favoris pour l'instant. Cliquer sur le coeur d'une université pour l'ajouter à vos favoris.</p>
+		</div>
+	{% else %}
+		{% for univ in favorites %}
+			<section class="destList">
+				<div class="destination">
+					<header>
+						<a href="{{ path('dest', { 'univId': univ.id }) }}">
+							<h4>
+								<i class="fas fa-globe-europe"></i>
+								{{ univ.name }}</h4>
+						</a>
+						<a class="addFavs" id="univ{{univ.id}}" onclick="toggleFav(this,{{univ.id}})">
+							<i class="fas fa-heart"></i>
+						</a>
+					</header>
+					<main>
+						<p>Country:<span class="right">Language:
+								{{ univ.language }}</span>
+						</p>
+						<p>City:<span class="right">Available places:
+								{{ univ.availablePlaces }}</span>
+						</p>
+						<p>Formation:</p>
+						<p>Maujeure:</p>
+						<p>Lessons:</p>
+					</main>
+					<footer>
+						<p>
+							{{ univ.FavNb }}
+							{% if univ.FavNb > 1 %}
+								personnes ont ajoutées
+							{% else %}
+								personne a ajoutée
+							{% endif %}
+							cette destination aux favoris
+						</p>
+					</footer>
+				</div>
+			</section>
+		{% endfor %}
+	{% endif %}
 
 {% endblock %}
 {% block javascripts %}

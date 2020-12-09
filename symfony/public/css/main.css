@@ -169,6 +169,7 @@ button {
   margin-top: 60px;
   background-color: #f3f2ef;
   padding-bottom: 20px;
+  min-height: calc(100vh - 80px);
 }
 
 /* Favoris ------------------------------------------------------------*/
