@@ -107,18 +107,42 @@ class DestinationerasmusController extends AbstractController
 
     /**
      * @param int $univId
-     * @return Response
+     * @return JSONResponse
      * @Route(path="/togglefav/{univId}", name="togglefav", requirements={ "univId": "\d+" })
      */
     public function togglefav(int $univId): Response
     {
+        $returnvar = new JsonResponse();
         if (null !== $this->getUser()) {
             $user = $this->userService->getUserByMail($this->getUser()->getUsername());
             $univ = $this->universityService->getUnivById($univId);
             $present = $user->toggleFav($univ);
-            $returnvar = new JsonResponse(['present?' => $present]);
+            $returnvar->setData(['redirect' => false,'present?' => $present]);
         }else {
-            $returnvar = $this->redirectToRoute("app_login");
+            $returnvar->setData(['redirect' => true]);
+        }
+        $this->getDoctrine()->getManager()->flush();
+        return $returnvar;
+    }
+
+    /**
+     * @return JSONResponse
+     * @Route(path="/getallfav", name="getallfav")
+     */
+    public function getallfav(): Response
+    {
+        $returnvar = new JsonResponse();
+        if (null !== $this->getUser()) {
+            $user = $this->userService->getUserByMail($this->getUser()->getUsername());
+            $univs = $user->getFavorites();
+            $univsJSON = array();
+            for ($i=0; $i < count($univs); $i++) { 
+                $tempvar = array($i => "univ".$univs[$i]->getId());
+                $univsJSON += $tempvar;
+            }
+            $returnvar->setData(['connected' => true,'univs' => $univsJSON]);
+        }else {
+            $returnvar->setData(['connected' => false]);
         }
         $this->getDoctrine()->getManager()->flush();
         return $returnvar;

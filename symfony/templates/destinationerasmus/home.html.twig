@@ -70,7 +70,7 @@
 							<i class="fas fa-globe-europe"></i>
 							{{ univ.name }}</h4>
 					</a>
-					<a class="addFavs" onclick="toggleFav(this,{{univ.id}})">
+					<a class="addFavs" id="univ{{univ.id}}" onclick="toggleFav(this,{{univ.id}})">
 						<i class="far fa-heart"></i>
 					</a>
 				</header>
@@ -107,4 +107,13 @@
 
 	<script src="/js/map.js"></script>
 	<script src="/js/fav.js"></script>
+	<script>
+		window.onload = function () {
+    		// map
+    		initMap();
+    		checkTicked();
+			// Fav
+			checkFav();
+		};
+	</script>
 {% endblock %}

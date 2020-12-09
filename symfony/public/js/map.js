@@ -180,8 +180,9 @@ function checkTicked(){
     sep.on("remove",function(ev){console.log("sep removed")});
 }
 
-window.onload = function () {
-    // Fonction d'initialisation qui s'exécute lorsque le DOM est chargé
-    initMap();
-    checkTicked();
-};
+//utilisé un script comme dans home.html.twig pour lancé toute les fonction au démarrage
+// window.onload = function () {
+//     // Fonction d'initialisation qui s'exécute lorsque le DOM est chargé
+//     initMap();
+//     checkTicked();
+// };
