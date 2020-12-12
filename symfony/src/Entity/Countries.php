@@ -40,9 +40,9 @@ class Countries
     private $currency = "";
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", name="country_flag", length=255, nullable=false)
      */
-    private $flag;
+    private $flag = "";
 
     /**
      * @var Cities|null
@@ -121,5 +121,21 @@ class Countries
     public function setFlag($flag): void
     {
         $this->flag = $flag;
+    }
+
+    /**
+     * @return Cities|null
+     */
+    public function getCountryCity(): ?Cities
+    {
+        return $this->country_city;
+    }
+
+    /**
+     * @param Cities|null $country_city
+     */
+    public function setCountryCity(?Cities $country_city): void
+    {
+        $this->country_city = $country_city;
     }
 }

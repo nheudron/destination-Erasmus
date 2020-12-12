@@ -108,4 +108,36 @@ class Cities
     {
         $this->presentation = $presentation;
     }
+
+    /**
+     * @return Countries
+     */
+    public function getCityCountry(): Countries
+    {
+        return $this->city_country;
+    }
+
+    /**
+     * @param Countries $city_country
+     */
+    public function setCityCountry(Countries $city_country): void
+    {
+        $this->city_country = $city_country;
+    }
+
+    /**
+     * @return Universities|null
+     */
+    public function getCityUniversity(): ?Universities
+    {
+        return $this->city_university;
+    }
+
+    /**
+     * @param Universities|null $city_university
+     */
+    public function setCityUniversity(?Universities $city_university): void
+    {
+        $this->city_university = $city_university;
+    }
 }
