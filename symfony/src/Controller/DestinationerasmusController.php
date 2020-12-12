@@ -33,7 +33,7 @@ class DestinationerasmusController extends AbstractController
         $this->userService = $userService;
         $this->universityService = $universityService;
         $this->branchService = $branchService;
-
+        
     }
 
     /**
@@ -145,6 +145,33 @@ class DestinationerasmusController extends AbstractController
             $returnvar->setData(['connected' => false]);
         }
         $this->getDoctrine()->getManager()->flush();
+        return $returnvar;
+    }
+
+    /**
+     * @return Response
+     * @Route(path="/admin", name="adminPage")
+     */
+    public function admin(): Response
+    {
+        if (null !== $this->getUser()) {
+            $user = $this->userService->getUserByMail($this->getUser()->getUsername());
+            $role = $user->getRoles();
+            if (in_array("ROLE_ADMIN", $role)) {
+
+                $univs = $this->universityService->getAllUniv();
+                $branchList = $this->branchService->getAllBranches();
+
+                $returnvar = $this->render('destinationerasmus/admin.html.twig', [
+                    'univs'=>$univs,
+                    'branchList'=>$branchList
+                ]);
+            }else{
+                $returnvar = new Response(null,403);
+            }
+        }else {
+            $returnvar = $this->redirectToRoute("app_login");
+        }
         return $returnvar;
     }
 }

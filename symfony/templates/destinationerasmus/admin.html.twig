@@ -1,0 +1,71 @@
+{% extends "base.html.twig" %}
+
+{% block stylesheets %}
+	<link rel="stylesheet" href="/css/admin.css">
+{% endblock %}
+
+{% block title %}
+	Administration des destinations
+{% endblock %}
+
+{% block main %}
+	<div class="title">
+		<h2>Administration des destinations</h2>
+	</div>
+
+	<div class="createUnivWrapper">
+		<div class="createUniv">
+			<h3 onclick="expendForm()"><i class="fas fa-plus-circle"></i> Ajouter une université</h3>
+			<div id="formCreationUniv">
+				<form onsubmit="addUniv();return false">
+					<input type="text" name="name">
+					<input type="number" name="nbPlaces">
+					<input type="text" name="city">
+					<input type="text" name="country">
+					<select name="filiereList" id="filiere">
+						<option value="IR">IR</option>
+						<option value="SEP">SEP</option>
+					</select>
+					<select name="majeureList" id="majeure">
+						{% for branch in branchList %}
+							<option>{{ branch.name }}</option>
+						{% endfor %}
+					</select>
+					<input type="submit" value="Ajouter">
+				</form>
+                {# utilisation de formdata #}
+			</div>
+		</div>
+	</div>
+
+	{% for univ in univs %}
+		<section class="destList">
+			<div class="destination">
+				<header>
+					<a href="{{ path('dest', { 'univId': univ.id }) }}">
+						<h4>
+							<i class="fas fa-globe-europe"></i>
+							{{ univ.name }}</h4>
+					</a>
+					<a class="changeuniv" id="univ{{univ.id}}">
+						<i class="fas fa-pen"></i>
+					</a>
+				</header>
+				<main>
+					<p>Country:<span class="right">Language:
+							{{ univ.language }}</span>
+					</p>
+					<p>City:<span class="right">Available places:
+							{{ univ.availablePlaces }}</span>
+					</p>
+					<p>Formation:</p>
+					<p>Maujeure:</p>
+					<p>Lessons:</p>
+				</main>
+			</div>
+		</section>
+	{% endfor %}
+{% endblock %}
+{% block javascripts %}
+	<script src="/js/admin.js"></script>
+{% endblock %}
