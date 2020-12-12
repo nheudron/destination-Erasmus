@@ -5,27 +5,27 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class Filiere
+ * Class Comments
  * @package App\Entity
  *
  * @ORM\Entity
- * @ORM\Table(name="Filiere")
+ * @ORM\Table(name="Comments")
  */
-class Filiere
+class Comments
 {
     /**
      * @var int
      * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Id()
-     * @ORM\Column(type="integer", name="filiere_id")
+     * @ORM\Column(type="integer", name="comm_id")
      */
     private $id = 0;
 
     /**
      * @var string
-     * @ORM\Column(type="string", name="filiere_name", length=255, nullable=false)
+     * @ORM\Column(type="string", name="comm_comm", length=2047, nullable=false)
      */
-    private $name = "";
+    private $comment = "";
 
     /**
      * @return int
@@ -38,16 +38,16 @@ class Filiere
     /**
      * @return string
      */
-    public function getName(): string
+    public function getComment(): string
     {
-        return $this->name;
+        return $this->comment;
     }
 
     /**
-     * @param string $name
+     * @param string $comment
      */
-    public function setName(string $name): void
+    public function setComment(string $comment): void
     {
-        $this->name = $name;
+        $this->comment = $comment;
     }
 }

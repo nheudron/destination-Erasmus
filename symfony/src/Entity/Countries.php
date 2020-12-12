@@ -2,91 +2,117 @@
 
 namespace App\Entity;
 
-use App\Repository\CountriesRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=CountriesRepository::class)
+ * Class Countries
+ * @package App\Entity
+ *
+ * @ORM\Entity
+ * @ORM\Table(name="Countries")
  */
 class Countries
 {
     /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
+     * @var int
+     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\Id()
+     * @ORM\Column(type="integer", name="univ_id")
      */
-    private $id;
+    private $id = 0;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @var string
+     * @ORM\Column(type="string", name="country_name", length=255, nullable=false)
      */
-    private $name;
+    private $name = "";
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @var string
+     * @ORM\Column(type="string", name="country_lang", length=255, nullable=false)
      */
-    private $language;
+    private $language = "";
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @var string
+     * @ORM\Column(type="string", name="country_currency", length=255, nullable=false)
      */
-    private $currency;
+    private $currency = "";
 
     /**
      * @ORM\Column(type="string", length=255)
      */
     private $flag;
 
-    public function getId(): ?int
+    /**
+     * @return int
+     */
+    public function getId(): int
     {
         return $this->id;
     }
 
-    public function getName(): ?string
+    /**
+     * @return string
+     */
+    public function getName(): string
     {
         return $this->name;
     }
 
-    public function setName(string $name): self
+    /**
+     * @param string $name
+     */
+    public function setName(string $name): void
     {
         $this->name = $name;
-
-        return $this;
     }
 
-    public function getLanguage(): ?string
+    /**
+     * @return string
+     */
+    public function getLanguage(): string
     {
         return $this->language;
     }
 
-    public function setLanguage(string $language): self
+    /**
+     * @param string $language
+     */
+    public function setLanguage(string $language): void
     {
         $this->language = $language;
-
-        return $this;
     }
 
-    public function getCurrency(): ?string
+    /**
+     * @return string
+     */
+    public function getCurrency(): string
     {
         return $this->currency;
     }
 
-    public function setCurrency(string $currency): self
+    /**
+     * @param string $currency
+     */
+    public function setCurrency(string $currency): void
     {
         $this->currency = $currency;
-
-        return $this;
     }
 
-    public function getFlag(): ?string
+    /**
+     * @return mixed
+     */
+    public function getFlag()
     {
         return $this->flag;
     }
 
-    public function setFlag(string $flag): self
+    /**
+     * @param mixed $flag
+     */
+    public function setFlag($flag): void
     {
         $this->flag = $flag;
-
-        return $this;
     }
 }
