@@ -40,6 +40,20 @@ class Cities
     private $presentation = "";
 
     /**
+     * @var Countries
+     * @ORM\JoinColumn(name="city_country", referencedColumnName="country_id")
+     * @ORM\ManyToOne(targetEntity="Countries", inversedBy="country_city")
+     */
+    private $city_country;
+
+    /**
+     * @var Universities|null
+     * @ORM\JoinColumn(name="city_university", referencedColumnName="university_id")
+     * @ORM\OneToMany(targetEntity="Universities", mappedBy="univ_city")
+     */
+    private $city_university;
+
+    /**
      * @return int
      */
     public function getId(): int

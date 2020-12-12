@@ -17,7 +17,7 @@ class Countries
      * @var int
      * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Id()
-     * @ORM\Column(type="integer", name="univ_id")
+     * @ORM\Column(type="integer", name="country_id")
      */
     private $id = 0;
 
@@ -43,6 +43,13 @@ class Countries
      * @ORM\Column(type="string", length=255)
      */
     private $flag;
+
+    /**
+     * @var Cities|null
+     * @ORM\JoinColumn(name="country_city", referencedColumnName="city_id")
+     * @ORM\OneToMany(targetEntity="Cities", mappedBy="city_country")
+     */
+    private $country_city;
 
     /**
      * @return int
