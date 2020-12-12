@@ -58,7 +58,7 @@ class Users implements UserInterface
      * @ORM\ManyToMany(targetEntity=Universities::class, inversedBy="favUsersList")
      * @ORM\JoinTable(name="favorites",
      *      joinColumns={@ORM\JoinColumn(name="users_id", referencedColumnName="user_id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="universities_id", referencedColumnName="univ_id", unique=true)}
+     *      inverseJoinColumns={@ORM\JoinColumn(name="universities_id", referencedColumnName="univ_id")}
      * )
      */
     private $favorites;
