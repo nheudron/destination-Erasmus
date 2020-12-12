@@ -171,4 +171,20 @@ class Universities
 
         return $this;
     }
+
+    /**
+     * @return Cities
+     */
+    public function getUnivCity(): Cities
+    {
+        return $this->univ_city;
+    }
+
+    /**
+     * @param Cities $univ_city
+     */
+    public function setUnivCity(Cities $univ_city): void
+    {
+        $this->univ_city = $univ_city;
+    }
 }

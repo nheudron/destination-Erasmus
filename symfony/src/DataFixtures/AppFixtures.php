@@ -2,6 +2,8 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Cities;
+use App\Entity\Countries;
 use App\Entity\Filiere;
 use App\Entity\Universities;
 use App\Entity\Users;
@@ -35,6 +37,49 @@ class AppFixtures extends Fixture implements ContainerAwareInterface
         $stackLogger = new DebugStack();
         $this->em->getConnection()->getConfiguration()->setSQLLogger($stackLogger);
 
+        //  COUNTRY
+
+        $country1 = new Countries();
+        $country1->setName("Hungary");
+        $country1->setCurrency("Forint");
+        $country1->setLanguage("Magyar");
+        $this->em->persist($country1);
+
+        $country2 = new Countries();
+        $country2->setName("Super Country");
+        $country2->setCurrency("SuperDollar");
+        $country2->setLanguage("Super tongue");
+        $this->em->persist($country2);
+
+        $country = new Countries();
+        $country->setName("Lambda");
+        $country->setCurrency("Lambda Dollar");
+        $country->setLanguage("Lambdalala");
+        $this->em->persist($country);
+
+        //  CITY
+
+        $city1 = new Cities();
+        $city1->setName("Budapest");
+        $city1->setCityCountry($country1);
+        $city1->setInhabitants("1700000");
+        $city1->setPresentation("Charmante ville wsh");
+        $this->em->persist($city1);
+
+        $city2 = new Cities();
+        $city2->setName("Super City");
+        $city2->setCityCountry($country2);
+        $city2->setInhabitants("10000000");
+        $city2->setPresentation("Super ville wsh");
+        $this->em->persist($city2);
+
+        $city = new Cities();
+        $city->setName("lambdaTown");
+        $city->setCityCountry($country);
+        $city->setInhabitants("1");
+        $city->setPresentation("ville lambda");
+        $this->em->persist($city);
+
         //  UNIVERSITY
 
         $univ1 = new Universities();
@@ -42,6 +87,7 @@ class AppFixtures extends Fixture implements ContainerAwareInterface
         $univ1->setAvailablePlaces(12);
         $univ1->setFavorites(5);
         $univ1->setLanguage("LV1");
+        $univ1->setUnivCity($city1);
         $this->em->persist($univ1);
 
         $univ2 = new Universities();
@@ -49,14 +95,16 @@ class AppFixtures extends Fixture implements ContainerAwareInterface
         $univ2->setAvailablePlaces(3);
         $univ2->setFavorites(162);
         $univ2->setLanguage("LV1");
+        $univ2->setUnivCity($city2);
         $this->em->persist($univ2);
 
         for($i = 1; $i <= 5; $i++){
             $univ = new Universities();
-            $univ -> setName("université $i");
-            $univ -> setAvailablePlaces("$i");
-            $univ -> setFavorites("$i");
-            $univ -> setLanguage("LV2");
+            $univ->setName("université $i");
+            $univ->setAvailablePlaces("$i");
+            $univ->setFavorites("$i");
+            $univ->setLanguage("LV2");
+            $univ->setUnivCity($city);
             $this->em->persist($univ);
         }
         
@@ -71,7 +119,8 @@ class AppFixtures extends Fixture implements ContainerAwareInterface
         $user->toggleFav($univ1);
         $user->toggleFav($univ2);
         $this->em->persist($user);
-        // Filière
+
+        //  FILIERE
 
         $filiere = new Filiere();
         $filiere1 = new Filiere();
