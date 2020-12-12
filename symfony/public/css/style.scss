@@ -6,6 +6,17 @@ $base-color-dark: #677b8d;
   text-align: center;
   color: $base-color;
 }
+.flag {
+  height: 30px;
+  width: 30px;
+  object-fit: cover;
+  -moz-border-radius: 120px;
+  -webkit-border-radius: 120px;
+  border-radius: 120px;
+  position: relative;
+  top: 4px;
+  right: 2px;
+}
 .pagination {
   text-align: center;
   margin-top: 20px;
@@ -31,24 +42,23 @@ $base-color-dark: #677b8d;
       left: 3px;
     }
   }
-  .next{
+  .next {
     margin-left: 10px;
     color: $base-color;
   }
-  .last{
+  .last {
     margin-left: 10px;
     color: $base-color;
   }
-  .first{
+  .first {
     margin-right: 10px;
     color: $base-color;
   }
-  .previous{
+  .previous {
     margin-right: 10px;
     color: $base-color;
   }
 }
-
 /*PAGE DESTINATION ----------------------------------------------------------*/
 .headimage {
   width: 100%;
@@ -66,6 +76,17 @@ $base-color-dark: #677b8d;
   text-align: center;
   position: relative;
   bottom: 50px;
+
+  .country {
+    height: 40px;
+    width: 40px;
+    object-fit: cover;
+    -moz-border-radius: 120px;
+    -webkit-border-radius: 120px;
+    border-radius: 120px;
+    position: relative;
+    top: 8px;
+  }
   h1 {
     background-color: white;
     box-shadow: 2px 2px 5px 1px rgba(131, 131, 131, 0.5);
@@ -116,11 +137,94 @@ $base-color-dark: #677b8d;
         text-align: justify;
       }
     }
+    .addQuestion{
+      display: flex;
+      color: $base-color;
+      width: 100%;
+      justify-content: center;
+    }
+    .addQuestion:hover{
+      background-color: white;
+      border-radius: 12px;
+    }
+    .addQuestionButton {
+      color: white;
+      background-color: $base-color;
+      border-radius: 100px;
+      width: 25px;
+      height: 25px;
+      line-height: 25px;
+      margin: 5px;
+      p{
+        text-align: center;
+      }
+    }
+    .destBoxStyle2 {
+      margin-top: 20px;
+      h2 {
+        text-align: center;
+        margin: 0;
+        background-color: $base-color;
+        border-top-left-radius: 12px;
+        border-top-right-radius: 12px;
+        padding: 10px;
+        color: white;
+      }
+      section {
+        background-color: white;
+        margin: 0;
+        border-bottom-left-radius: 12px;
+        border-bottom-right-radius: 12px;
+        padding: 12px;
+        h3 {
+          margin: 0;
+        }
+      }
+      table {
+        width: 100%;
+
+        h3 {
+          color: $base-color;
+          text-align: center;
+        }
+      }
+      td {
+        border-radius: 12px;
+        border: 2px solid #677b8d;
+        padding: 3px 8px;
+        color: #677b8d;
+        background-color: white;
+      }
+      td:first-child {
+        width: 50%;
+      }
+      td:first-child {
+        width: 50%;
+      }
+      p {
+        text-align: justify;
+      }
+    }
   }
   .destColumn {
     width: 300px;
     margin: 10px;
-
+    div {
+      margin: 10px 0;
+    }
+    .date {
+      color: #859bae;
+      display: flex;
+      p {
+        background-color: white;
+        border-radius: 12px;
+        padding-right: 12px;
+        padding-left: 12px;
+      }
+      select {
+        margin: 0 5px;
+      }
+    }
     .destBoxStyle {
       h4 {
         color: white;
@@ -137,6 +241,8 @@ $base-color-dark: #677b8d;
         border-bottom-left-radius: 12px;
         border-bottom-right-radius: 12px;
         overflow: hidden;
+        margin: 0;
+        overflow-y: scroll;
       }
     }
   }

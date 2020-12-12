@@ -4,6 +4,17 @@
   color: #859bae;
 }
 
+.flag {
+  height: 30px;
+  width: 30px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 120px;
+  position: relative;
+  top: 4px;
+  right: 2px;
+}
+
 .pagination {
   text-align: center;
   margin-top: 20px;
@@ -79,6 +90,16 @@
   bottom: 50px;
 }
 
+.univHead .country {
+  height: 40px;
+  width: 40px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 120px;
+  position: relative;
+  top: 8px;
+}
+
 .univHead h1 {
   background-color: white;
   -webkit-box-shadow: 2px 2px 5px 1px rgba(131, 131, 131, 0.5);
@@ -144,9 +165,116 @@
   text-align: justify;
 }
 
+.destBody .destMain .addQuestion {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  color: #859bae;
+  width: 100%;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.destBody .destMain .addQuestion:hover {
+  background-color: white;
+  border-radius: 12px;
+}
+
+.destBody .destMain .addQuestionButton {
+  color: white;
+  background-color: #859bae;
+  border-radius: 100px;
+  width: 25px;
+  height: 25px;
+  line-height: 25px;
+  margin: 5px;
+}
+
+.destBody .destMain .addQuestionButton p {
+  text-align: center;
+}
+
+.destBody .destMain .destBoxStyle2 {
+  margin-top: 20px;
+}
+
+.destBody .destMain .destBoxStyle2 h2 {
+  text-align: center;
+  margin: 0;
+  background-color: #859bae;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  padding: 10px;
+  color: white;
+}
+
+.destBody .destMain .destBoxStyle2 section {
+  background-color: white;
+  margin: 0;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+  padding: 12px;
+}
+
+.destBody .destMain .destBoxStyle2 section h3 {
+  margin: 0;
+}
+
+.destBody .destMain .destBoxStyle2 table {
+  width: 100%;
+}
+
+.destBody .destMain .destBoxStyle2 table h3 {
+  color: #859bae;
+  text-align: center;
+}
+
+.destBody .destMain .destBoxStyle2 td {
+  border-radius: 12px;
+  border: 2px solid #677b8d;
+  padding: 3px 8px;
+  color: #677b8d;
+  background-color: white;
+}
+
+.destBody .destMain .destBoxStyle2 td:first-child {
+  width: 50%;
+}
+
+.destBody .destMain .destBoxStyle2 td:first-child {
+  width: 50%;
+}
+
+.destBody .destMain .destBoxStyle2 p {
+  text-align: justify;
+}
+
 .destBody .destColumn {
   width: 300px;
   margin: 10px;
+}
+
+.destBody .destColumn div {
+  margin: 10px 0;
+}
+
+.destBody .destColumn .date {
+  color: #859bae;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.destBody .destColumn .date p {
+  background-color: white;
+  border-radius: 12px;
+  padding-right: 12px;
+  padding-left: 12px;
+}
+
+.destBody .destColumn .date select {
+  margin: 0 5px;
 }
 
 .destBody .destColumn .destBoxStyle h4 {
@@ -165,5 +293,7 @@
   border-bottom-left-radius: 12px;
   border-bottom-right-radius: 12px;
   overflow: hidden;
+  margin: 0;
+  overflow-y: scroll;
 }
 /*# sourceMappingURL=style.css.map */

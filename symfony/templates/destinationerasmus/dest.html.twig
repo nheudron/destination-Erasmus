@@ -5,35 +5,78 @@
 {% endblock %}
 
 {% block main %}
-	<img id="headimage" class="headimage" src="https://via.placeholder.com/2000x400" alt="Head image">
+	<img id="headimage" class="headimage" src="{{ asset('images/test.jpg') }}" alt="Head image">
 	<div class="univHead">
 		<div>
-			<img src="https://via.placeholder.com/53" alt="pays">
+			<img src="https://upload.wikimedia.org/wikipedia/en/a/ae/Flag_of_the_United_Kingdom.svg" class="country" alt="pays">
 			<h1 class="UnivName">{{ univ.name }}</h1>
-			<i class="far fa-heart"></i>
+			<i class=" far fa-heart"></i>
 		</div>
-		
+
 		<div>
-			<p>Erasmus {{ univ.language }}</p>
-			<p>Places disponibles : {{ univ.availablePlaces }}</p>
-			<p>{{ univ.favorites }} favs</p>
+			<p>Erasmus
+				{{ univ.language }}</p>
+			<p>Places disponibles :
+				{{ univ.availablePlaces }}</p>
+			<p>{{ univ.favorites }}
+				favs</p>
 		</div>
 	</div>
 
-	<div class="destBody" >
+	<div class="destBody">
 		<section class="destMain">
+			<div class="destBoxStyle2">
+				<h2>L'université</h2>
+				<body>
+					<section>
+						<h3>Prérequis</h3>
+						<p>Aucun Prérequis pour cette destination</p>
+					</section>
+					<table>
+						<h3>Matières</h3>
+						<tr>
+							<td>Web</td>
+							<td>6 heures</td>
+							<td>6 ECTS</td>
+						</tr>
+						<tr>
+							<td>BDD</td>
+							<td>8 heures</td>
+							<td>6 ECTS</td>
+						</tr>
+					</table>
+				</body>
+			</div>
+			<br />
 			<div class="destBoxStyle">
 				<h2>Commentaires sur la destination</h2>
 				<p>les commentaires</p>
 			</div>
+			<br />
+			<div class="destBoxStyle">
+				<h2>Les questions</h2>
+				<p></p>
+			</div>
+			<a href="#" class="addQuestion"><div class="addQuestionButton"><p>+</p></div>Ajouter une question</a>
 		</section>
 		<section class="destColumn">
+			<div class="date">
+				<p>Période</p>
+				<form>
+					<select class="custom-select">
+						<option>2021</option>
+					</select>
+				</form>
+			</div>
 			<div class="destBoxStyle">
-				<h4 >Les étudiants déjà partis</h4>
+				<h4>Les étudiants déjà partis</h4>
+				<div>
+				</div>
+			</div>
+			<div class="destBoxStyle">
+				<h4>Destination ajoutées aux favoris par</h4>
 				<div></div>
 			</div>
 		</section>
 	</div>
-
-
 {% endblock %}
