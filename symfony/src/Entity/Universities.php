@@ -48,6 +48,13 @@ class Universities
     private $language = "";
 
     /**
+     * @var Cities
+     * @ORM\JoinColumn(name="univ_city", referencedColumnName="city_id")
+     * @ORM\ManyToOne(targetEntity="Cities", inversedBy="city_university")
+     */
+    private $univ_city;
+
+    /**
      * @ORM\ManyToMany(targetEntity=Users::class, mappedBy="favorites")
      */
     private $favUsersList;

@@ -82,8 +82,29 @@ class AppFixtures extends Fixture implements ContainerAwareInterface
         // Filière
 
         $filiere = new Filiere();
+        $filiere1 = new Filiere();
+        $filiere2 = new Filiere();
+        $filiere3 = new Filiere();
+        $filiere4 = new Filiere();
+        $filiere5 = new Filiere();
+        $filiere6 = new Filiere();
+        $filiere7 = new Filiere();
         $filiere->setName("Big-Data");
+        $filiere1->setName("Transition du numérique");
+        $filiere2->setName("Cybersécurité");
+        $filiere3->setName("IOT");
+        $filiere4->setName("Environnement");
+        $filiere5->setName("Energie");
+        $filiere6->setName("QHSE");
+        $filiere7->setName("Gestion des risques");
         $this->em->persist($filiere);
+        $this->em->persist($filiere1);
+        $this->em->persist($filiere2);
+        $this->em->persist($filiere3);
+        $this->em->persist($filiere4);
+        $this->em->persist($filiere5);
+        $this->em->persist($filiere6);
+        $this->em->persist($filiere7);
 
         $this->em->flush();
 
