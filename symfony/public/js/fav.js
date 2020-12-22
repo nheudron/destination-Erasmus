@@ -33,7 +33,6 @@ function checkFav() {
         favs = getCookie("listFavorites");
         if (favs != "") {
             favList = favs.split(',');
-            console.log(favList);
             for (const univ in favList) {
                 button = document.getElementById(favList[univ]);
                 if (button != null) {
