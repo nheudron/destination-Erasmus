@@ -48,16 +48,15 @@ class Universities
     private $language = "";
 
     /**
-     * @var Cities
-     * @ORM\JoinColumn(name="univ_city", referencedColumnName="city_id")
-     * @ORM\ManyToOne(targetEntity="Cities", inversedBy="city_university")
-     */
-    private $univ_city;
-
-    /**
      * @ORM\ManyToMany(targetEntity=Users::class, mappedBy="favorites")
      */
     private $favUsersList;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Cities::class, inversedBy="city_universities")
+     * @ORM\JoinColumn(name="univ_city", referencedColumnName="city_id",nullable=false)
+     */
+    private $univ_city;
 
     public function __construct()
     {
@@ -172,19 +171,15 @@ class Universities
         return $this;
     }
 
-    /**
-     * @return Cities
-     */
-    public function getUnivCity(): Cities
+    public function getUnivCity(): ?Cities
     {
         return $this->univ_city;
     }
 
-    /**
-     * @param Cities $univ_city
-     */
-    public function setUnivCity(Cities $univ_city): void
+    public function setUnivCity(?Cities $univ_city): self
     {
         $this->univ_city = $univ_city;
+
+        return $this;
     }
 }

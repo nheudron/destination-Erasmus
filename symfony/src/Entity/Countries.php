@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -45,11 +47,14 @@ class Countries
     private $flag = "";
 
     /**
-     * @var Cities|null
-     * @ORM\JoinColumn(name="country_city", referencedColumnName="city_id")
-     * @ORM\OneToMany(targetEntity="Cities", mappedBy="city_country")
+     * @ORM\OneToMany(targetEntity=Cities::class, mappedBy="city_country")
      */
-    private $country_city;
+    private $country_cities;
+
+    public function __construct()
+    {
+        $this->country_cities = new ArrayCollection();
+    }
 
     /**
      * @return int
@@ -124,18 +129,32 @@ class Countries
     }
 
     /**
-     * @return Cities|null
+     * @return Collection|Cities[]
      */
-    public function getCountryCity(): ?Cities
+    public function getCountryCities(): Collection
     {
-        return $this->country_city;
+        return $this->country_cities;
     }
 
-    /**
-     * @param Cities|null $country_city
-     */
-    public function setCountryCity(?Cities $country_city): void
+    public function addCountryCity(Cities $countryCity): self
     {
-        $this->country_city = $country_city;
+        if (!$this->country_cities->contains($countryCity)) {
+            $this->country_cities[] = $countryCity;
+            $countryCity->setCityCountry($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCountryCity(Cities $countryCity): self
+    {
+        if ($this->country_cities->removeElement($countryCity)) {
+            // set the owning side to null (unless already changed)
+            if ($countryCity->getCityCountry() === $this) {
+                $countryCity->setCityCountry(null);
+            }
+        }
+
+        return $this;
     }
 }

@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -40,18 +42,20 @@ class Cities
     private $presentation = "";
 
     /**
-     * @var Countries
-     * @ORM\JoinColumn(name="city_country", referencedColumnName="country_id")
-     * @ORM\ManyToOne(targetEntity="Countries", inversedBy="country_city")
+     * @ORM\OneToMany(targetEntity=Universities::class, mappedBy="univ_city")
+     */
+    private $city_universities;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Countries::class, inversedBy="country_cities")
+     * @ORM\JoinColumn(name="city_country", referencedColumnName="country_id",nullable=false)
      */
     private $city_country;
 
-    /**
-     * @var Universities|null
-     * @ORM\JoinColumn(name="city_university", referencedColumnName="university_id")
-     * @ORM\OneToMany(targetEntity="Universities", mappedBy="univ_city")
-     */
-    private $city_university;
+    public function __construct()
+    {
+        $this->city_universities = new ArrayCollection();
+    }
 
     /**
      * @return int
@@ -110,34 +114,44 @@ class Cities
     }
 
     /**
-     * @return Countries
+     * @return Collection|Universities[]
      */
-    public function getCityCountry(): Countries
+    public function getCityUniversities(): Collection
+    {
+        return $this->city_universities;
+    }
+
+    public function addCityUniversity(Universities $cityUniversity): self
+    {
+        if (!$this->city_universities->contains($cityUniversity)) {
+            $this->city_universities[] = $cityUniversity;
+            $cityUniversity->setUnivCity($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCityUniversity(Universities $cityUniversity): self
+    {
+        if ($this->city_universities->removeElement($cityUniversity)) {
+            // set the owning side to null (unless already changed)
+            if ($cityUniversity->getUnivCity() === $this) {
+                $cityUniversity->setUnivCity(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getCityCountry(): ?Countries
     {
         return $this->city_country;
     }
 
-    /**
-     * @param Countries $city_country
-     */
-    public function setCityCountry(Countries $city_country): void
+    public function setCityCountry(?Countries $city_country): self
     {
         $this->city_country = $city_country;
-    }
 
-    /**
-     * @return Universities|null
-     */
-    public function getCityUniversity(): ?Universities
-    {
-        return $this->city_university;
-    }
-
-    /**
-     * @param Universities|null $city_university
-     */
-    public function setCityUniversity(?Universities $city_university): void
-    {
-        $this->city_university = $city_university;
+        return $this;
     }
 }
