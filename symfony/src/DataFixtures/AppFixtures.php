@@ -85,7 +85,6 @@ class AppFixtures extends Fixture implements ContainerAwareInterface
         $univ1 = new Universities();
         $univ1->setName("Obuda University");
         $univ1->setAvailablePlaces(12);
-        $univ1->setFavorites(5);
         $univ1->setLanguage("LV1");
         $univ1->setUnivCity($city1);
         $this->em->persist($univ1);
@@ -93,7 +92,6 @@ class AppFixtures extends Fixture implements ContainerAwareInterface
         $univ2 = new Universities();
         $univ2->setName("Super university");
         $univ2->setAvailablePlaces(3);
-        $univ2->setFavorites(162);
         $univ2->setLanguage("LV1");
         $univ2->setUnivCity($city2);
         $this->em->persist($univ2);
@@ -102,7 +100,6 @@ class AppFixtures extends Fixture implements ContainerAwareInterface
             $univ = new Universities();
             $univ->setName("université $i");
             $univ->setAvailablePlaces("$i");
-            $univ->setFavorites("$i");
             $univ->setLanguage("LV2");
             $univ->setUnivCity($city);
             $this->em->persist($univ);

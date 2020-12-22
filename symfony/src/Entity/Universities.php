@@ -36,12 +36,6 @@ class Universities
     private $availablePlaces = 0;
 
     /**
-     * @var int
-     * @ORM\Column(type="integer", name="univ_favorites")
-     */
-    private $favorites = 0;
-
-    /**
      * @var string
      * @ORM\Column(type="string", name="univ_language")
      */
@@ -101,22 +95,6 @@ class Universities
     public function setAvailablePlaces(int $availablePlaces): void
     {
         $this->availablePlaces = $availablePlaces;
-    }
-
-    /**
-     * @return int
-     */
-    public function getFavorites(): int
-    {
-        return $this->favorites;
-    }
-
-    /**
-     * @param int $favorites
-     */
-    public function setFavorites(int $favorites): void
-    {
-        $this->favorites = $favorites;
     }
 
     /**
