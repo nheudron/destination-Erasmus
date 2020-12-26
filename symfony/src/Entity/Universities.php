@@ -52,6 +52,11 @@ class Universities
      */
     private $univ_city;
 
+    /**
+     * @ORM\Column(type="boolean", name="univ_dormitories")
+     */
+    private $dormitories = false;
+
     public function __construct()
     {
         $this->favUsersList = new ArrayCollection();
@@ -157,6 +162,18 @@ class Universities
     public function setUnivCity(?Cities $univ_city): self
     {
         $this->univ_city = $univ_city;
+
+        return $this;
+    }
+
+    public function getDormitories(): ?bool
+    {
+        return $this->dormitories;
+    }
+
+    public function setDormitories(bool $dormitories): self
+    {
+        $this->dormitories = $dormitories;
 
         return $this;
     }
