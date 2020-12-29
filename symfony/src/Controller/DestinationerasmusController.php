@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Search;
 use App\Entity\Filiere;
 use App\Service\IFiliereService;
 use App\Service\IUserService;
@@ -44,6 +45,12 @@ class DestinationerasmusController extends AbstractController
      */
     public function home(Request $request, PaginatorInterface $paginator): Response
     {
+
+        /*$search = new Search();
+        $form = $this->createForm(SearchType::class, $search);
+        $form = handleRequest($request);*/
+
+
         /** @var Filiere[] $branchList */
         $branchList = $this->branchService->getAllBranches();
 
@@ -55,7 +62,8 @@ class DestinationerasmusController extends AbstractController
 
         return $this->render('destinationerasmus/home.html.twig', [
             'branchList' => $branchList,
-            'univPage' => $univPage
+            'univPage' => $univPage,
+            /*'form' => $form->createView(),*/
         ]);
     }
 

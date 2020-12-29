@@ -36,6 +36,9 @@
 
 	<a class="anchor" id="searchDest"></a>
 	<h2 class="filtersSection">Trouver une destination</h2>
+
+	<div class="jumbotron"></div>
+
 	<div class="filtresLines">
 		<div class="filters">
 			<form>
@@ -72,14 +75,18 @@
 							{{ univ.name }}</h4>
 					</a>
 					<a class="addFavs" id="univ{{univ.id}}" onclick="toggleFav(this,{{univ.id}})">
+
+
 						<i class="far fa-heart"></i>
 					</a>
 				</header>
 				<main>
-					<p>Country: {{ univ.univCity.cityCountry.name }}<span class="right">Language:
+					<p>Country:
+						{{ univ.univCity.cityCountry.name }}<span class="right">Language:
 							{{ univ.language }}</span>
 					</p>
-					<p>City: {{ univ.univCity.name }}<span class="right">Available places:
+					<p>City:
+						{{ univ.univCity.name }}<span class="right">Available places:
 							{{ univ.availablePlaces }}</span>
 					</p>
 					<p>Formation:</p>
@@ -116,4 +123,24 @@ checkTicked();
 checkFav();
 };
 	</script>
+	<script>
+		$(document).ready(function () {
+
+$("#submit").click(function {
+
+$.post('connexion.php', { // Un script PHP que l'on va créer juste après
+username: $("#username").val(), // Nous récupérons la valeur de nos inputs que l'on fait passer à connexion.php
+password: $("#password").val()
+}, function (data) { // Cette fonction ne fait rien encore, nous la mettrons à jour plus tard
+}, 'text' // Nous souhaitons recevoir "Success" ou "Failed", donc on indique text !
+);
+});
+});
+	</script>
+
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+	<script>
+		
+	</script>
+
 {% endblock %}

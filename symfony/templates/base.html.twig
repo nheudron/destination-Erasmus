@@ -11,6 +11,9 @@
 			{% block title %}{% endblock %}
 		</title>
 		{% block stylesheets %}{% endblock %}
+
+		<?php use_javascript('https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js') ?>
+		<?php include_javascripts() ?>
 	</head>
 	<body>
 		<header id="header" class="header colord3">
