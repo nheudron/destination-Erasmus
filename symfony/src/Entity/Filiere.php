@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -28,6 +30,16 @@ class Filiere
     private $name = "";
 
     /**
+     * @ORM\ManyToMany(targetEntity=Universities::class, mappedBy="filieres")
+     */
+    private $universities;
+
+    public function __construct()
+    {
+        $this->universities = new ArrayCollection();
+    }
+
+    /**
      * @return int
      */
     public function getId(): int
@@ -49,5 +61,32 @@ class Filiere
     public function setName(string $name): void
     {
         $this->name = $name;
+    }
+
+    /**
+     * @return Collection|Universities[]
+     */
+    public function getUniversities(): Collection
+    {
+        return $this->universities;
+    }
+
+    public function addUniversity(Universities $university): self
+    {
+        if (!$this->universities->contains($university)) {
+            $this->universities[] = $university;
+            $university->addFiliere($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUniversity(Universities $university): self
+    {
+        if ($this->universities->removeElement($university)) {
+            $university->removeFiliere($this);
+        }
+
+        return $this;
     }
 }

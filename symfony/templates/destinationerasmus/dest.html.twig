@@ -18,7 +18,7 @@
 				{{ univ.language }}</p>
 			<p>Places disponibles :
 				{{ univ.availablePlaces }}</p>
-			<p>{{ univ.FavNb }}
+			<p>{{ univ.getFavNb }}
 				favs</p>
 		</div>
 	</div>
@@ -47,17 +47,20 @@
 					</table>
 				</body>
 			</div>
-			<br />
+			<br/>
 			<div class="destBoxStyle">
 				<h2>Commentaires sur la destination</h2>
 				<p>les commentaires</p>
 			</div>
-			<br />
+			<br/>
 			<div class="destBoxStyle">
 				<h2>Les questions</h2>
 				<p></p>
 			</div>
-			<a href="#" class="addQuestion"><div class="addQuestionButton"><p>+</p></div>Ajouter une question</a>
+			<a href="#" class="addQuestion">
+				<div class="addQuestionButton">
+					<p>+</p>
+				</div>Ajouter une question</a>
 		</section>
 		<section class="destColumn">
 			<div class="date">
@@ -70,8 +73,7 @@
 			</div>
 			<div class="destBoxStyle">
 				<h4>Les étudiants déjà partis</h4>
-				<div>
-				</div>
+				<div></div>
 			</div>
 			<div class="destBoxStyle">
 				<h4>Destination ajoutées aux favoris par</h4>

@@ -52,9 +52,24 @@ class Universities
      */
     private $univ_city;
 
+    /**
+     * @ORM\Column(type="boolean", name="univ_dormitories")
+     */
+    private $dormitories = false;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Filiere::class, inversedBy="universities")
+     * @ORM\JoinTable(name="univ_filieres",
+     *      joinColumns={@ORM\JoinColumn(name="univ_id", referencedColumnName="univ_id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="filiere_id", referencedColumnName="filiere_id")}
+     * )
+     */
+    private $filieres;
+
     public function __construct()
     {
         $this->favUsersList = new ArrayCollection();
+        $this->filieres = new ArrayCollection();
     }
 
     /**
@@ -157,6 +172,42 @@ class Universities
     public function setUnivCity(?Cities $univ_city): self
     {
         $this->univ_city = $univ_city;
+
+        return $this;
+    }
+
+    public function getDormitories(): ?bool
+    {
+        return $this->dormitories;
+    }
+
+    public function setDormitories(bool $dormitories): self
+    {
+        $this->dormitories = $dormitories;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Filiere[]
+     */
+    public function getFilieres(): Collection
+    {
+        return $this->filieres;
+    }
+
+    public function addFiliere(Filiere $filiere): self
+    {
+        if (!$this->filieres->contains($filiere)) {
+            $this->filieres[] = $filiere;
+        }
+
+        return $this;
+    }
+
+    public function removeFiliere(Filiere $filiere): self
+    {
+        $this->filieres->removeElement($filiere);
 
         return $this;
     }
