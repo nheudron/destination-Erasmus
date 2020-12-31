@@ -73,11 +73,13 @@
 						<h4>
 							<img src="https://upload.wikimedia.org/wikipedia/en/a/ae/Flag_of_the_United_Kingdom.svg" class="flag">
 							{{ univ.name }}</h4>
-					</a>
-					<a class="addFavs" id="univ{{univ.id}}" onclick="toggleFav(this,{{univ.id}})">
-
+					</a> 
+					<a class="addFavs" id="univ{{univ.id}}" {# onclick="toggleFav(this,{{univ.id}})" #} href="{{ path('togglefav', { 'univId': univ.id }) }}">
 
 						<i class="far fa-heart"></i>
+						<span class="js-nbLikes">
+						{{ univ.FavNb }}
+					</span>
 					</a>
 				</header>
 				<main>
@@ -86,8 +88,7 @@
 							{{ univ.language }}</span>
 					</p>
 					<p>City:
-						{{ univ.univCity.name }}<span class="right">Available places:
-							{{ univ.availablePlaces }}</span>
+						{{ univ.univCity.name }}
 					</p>
 					<p>Formation:</p>
 					<p>Major:</p>
@@ -95,13 +96,7 @@
 				</main>
 				<footer>
 					<p>
-						{{ univ.FavNb }}
-						{% if univ.FavNb > 1 %}
-							personnes ont ajoutées
-						{% else %}
-							personne a ajoutée
-						{% endif %}
-						cette destination aux favoris
+						
 					</p>
 				</footer>
 
@@ -135,12 +130,32 @@ password: $("#password").val()
 }, 'text' // Nous souhaitons recevoir "Success" ou "Failed", donc on indique text !
 );
 });
+
 });
 	</script>
 
 	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 	<script>
-		
+		function OnclickBtnLike(event) {
+			event.preventDefault();
+
+			var id = this.id.replace('univ', '');
+			toggleFav(this, id);
+
+			const url = this.href;
+			const likeCounts = this.querySelector('span.js-nbLikes');
+
+			axios.get(url).then(function (response) {
+					console.log(response);
+					likeCounts.textContent = response.data.likes;
+			})
+		}
+
+		document.querySelectorAll('a.addFavs').forEach(function (link) {
+			link.addEventListener('click', OnclickBtnLike);
+		});
+
+
 	</script>
 
 {% endblock %}
