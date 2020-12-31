@@ -1,4 +1,5 @@
 $base-color: #859bae;
+$base-color-light: #A4BCD2;
 $base-color-dark: #677b8d;
 
 /*PAGE HOME ----------------------------------------------------------*/
@@ -59,6 +60,52 @@ $base-color-dark: #677b8d;
     color: $base-color;
   }
 }
+
+/*PAGE LOG-IN ----------------------------------------------------------*/
+.connectBox{
+  width: 400px;
+  padding: 25px;
+  background-color: $base-color-light;
+  border-radius: 12px;
+  color: white;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: auto;
+  transform: translateY(50px);
+  p{
+    text-transform: uppercase;
+    margin-bottom: 15px;
+  }
+  a{
+    margin-top: 5px;
+    font-size: 18px;
+  }
+  a:hover{
+    text-decoration:underline;
+    font-size: 18px;
+  }
+  .form-group{
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  input[type=text], input[type=password] {
+    font-size: 15px;
+    padding: 5px;
+    background: white;
+    height: 20px;
+    border: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    outline: none;
+    border-radius: 12px;
+  }
+}
+
 /*PAGE DESTINATION ----------------------------------------------------------*/
 .headimage {
   width: 100%;

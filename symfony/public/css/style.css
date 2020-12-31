@@ -66,6 +66,71 @@
   color: #859bae;
 }
 
+/*PAGE LOG-IN ----------------------------------------------------------*/
+.connectBox {
+  width: 400px;
+  padding: 25px;
+  background-color: #A4BCD2;
+  border-radius: 12px;
+  color: white;
+  text-align: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin: auto;
+  -webkit-transform: translateY(50px);
+          transform: translateY(50px);
+}
+
+.connectBox p {
+  text-transform: uppercase;
+  margin-bottom: 15px;
+}
+
+.connectBox a {
+  margin-top: 5px;
+  font-size: 18px;
+}
+
+.connectBox a:hover {
+  text-decoration: underline;
+  font-size: 18px;
+}
+
+.connectBox .form-group {
+  margin-bottom: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.connectBox input[type=text], .connectBox input[type=password] {
+  font-size: 15px;
+  padding: 5px;
+  background: white;
+  height: 20px;
+  border: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  outline: none;
+  border-radius: 12px;
+}
+
 /*PAGE DESTINATION ----------------------------------------------------------*/
 .headimage {
   width: 100%;
