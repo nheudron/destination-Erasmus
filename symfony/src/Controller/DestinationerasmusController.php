@@ -34,7 +34,6 @@ class DestinationerasmusController extends AbstractController
         $this->userService = $userService;
         $this->universityService = $universityService;
         $this->branchService = $branchService;
-        
     }
 
     /**

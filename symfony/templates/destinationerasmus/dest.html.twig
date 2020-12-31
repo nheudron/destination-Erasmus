@@ -8,7 +8,7 @@
 	<img id="headimage" class="headimage" src="{{ asset('images/test.jpg') }}" alt="Head image">
 	<div class="univHead">
 		<div>
-			<img src="https://upload.wikimedia.org/wikipedia/en/a/ae/Flag_of_the_United_Kingdom.svg" class="country" alt="pays">
+			<img src=" {{ univ.univCity.cityCountry.flag }} " class="country" alt="pays">
 			<h1 class="UnivName">{{ univ.name }}</h1>
 			<i class=" far fa-heart"></i>
 		</div>
@@ -16,8 +16,6 @@
 		<div>
 			<p>Erasmus
 				{{ univ.language }}</p>
-			<p>Places disponibles :
-				{{ univ.availablePlaces }}</p>
 			<p>{{ univ.getFavNb }}
 				favs</p>
 		</div>

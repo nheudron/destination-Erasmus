@@ -132,10 +132,13 @@ password: $("#password").val()
 });
 
 });
+
+	
 	</script>
 
-	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js">/* script axios pour ajax */</script>
 	<script>
+		/* script ajax json pour les likes*/
 		function OnclickBtnLike(event) {
 			event.preventDefault();
 
@@ -155,6 +158,26 @@ password: $("#password").val()
 			link.addEventListener('click', OnclickBtnLike);
 		});
 	</script>
+
+	<script>
+		/* script ajax json pour la pagination*/
+		function OnclickBtnPage(event) {
+			event.preventDefault();
+
+			const url = this.href;
+
+			axios.get(url).then(function (response) {
+				console.log(response);
+			})
+		}
+
+		document.querySelectorAll('span.page a').forEach(function (link) {
+			link.addEventListener('click', OnclickBtnPage);
+		});
+	</script>
+
+
+
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 	<script type="text/javascript" src="/js/scrolly.js"></script>
 
