@@ -71,7 +71,7 @@
 				<header>
 					<a href="{{ path('dest', { 'univId': univ.id }) }}">
 						<h4>
-							<img src="https://upload.wikimedia.org/wikipedia/en/a/ae/Flag_of_the_United_Kingdom.svg" class="flag">
+							<img src=" {{ univ.univCity.cityCountry.flag }} " class="flag">
 							{{ univ.name }}</h4>
 					</a> 
 					<a class="addFavs" id="univ{{univ.id}}" {# onclick="toggleFav(this,{{univ.id}})" #} href="{{ path('togglefav', { 'univId': univ.id }) }}">

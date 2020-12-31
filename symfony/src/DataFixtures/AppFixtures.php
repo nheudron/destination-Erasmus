@@ -43,18 +43,21 @@ class AppFixtures extends Fixture implements ContainerAwareInterface
         $country1->setName("Hungary");
         $country1->setCurrency("Forint");
         $country1->setLanguage("Magyar");
+        $country1->setFlag("https://upload.wikimedia.org/wikipedia/commons/c/c1/Flag_of_Hungary.svg");
         $this->em->persist($country1);
 
         $country2 = new Countries();
         $country2->setName("Super Country");
         $country2->setCurrency("SuperDollar");
         $country2->setLanguage("Super tongue");
+        $country2->setFlag("https://upload.wikimedia.org/wikipedia/en/c/c3/Flag_of_France.svg");
         $this->em->persist($country2);
 
         $country = new Countries();
         $country->setName("Lambda");
         $country->setCurrency("Lambda Dollar");
         $country->setLanguage("Lambdalala");
+        $country->setFlag("https://upload.wikimedia.org/wikipedia/commons/f/fe/Flag_of_C%C3%B4te_d%27Ivoire.svg");
         $this->em->persist($country);
 
         //  CITY
