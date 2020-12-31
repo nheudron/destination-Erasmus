@@ -124,7 +124,8 @@ class DestinationerasmusController extends AbstractController
             $user = $this->userService->getUserByMail($this->getUser()->getUsername());
             $univ = $this->universityService->getUnivById($univId);
             $present = $user->toggleFav($univ);
-            $returnvar->setData(['redirect' => false,'present?' => $present]);
+            $likes = 0;
+            $returnvar->setData(['redirect' => false,'present?' => $present,'likes' => $likes]);
         }else {
             $returnvar->setData(['redirect' => true]);
         }
