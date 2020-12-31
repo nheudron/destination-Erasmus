@@ -56,6 +56,10 @@ button {
   cursor: pointer;
   border-radius: 12px;
 }
+button:hover {
+  color: white;
+  background-color: #677b8d;
+}
 /* Header -------------------------------------------------------------*/
 .header {
   position: fixed;
