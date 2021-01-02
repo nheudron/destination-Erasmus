@@ -20,11 +20,13 @@
 			</h1>
 			<nav id="menu" class="menu">
 				<ul id="navbar" class="navbar">
-					<li>
-						<a id="adminButton" href="/admin" class="account">
-							<i class="fas fa-tools fa-2x"></i>
-						</a>
-					</li>
+					{% if isAdmin is defined and isAdmin == true %}
+						<li>
+							<a id="adminButton" href="/admin" class="account">
+								<i class="fas fa-tools fa-2x"></i>
+							</a>
+						</li>
+					{% endif %}
 					<li>
 						<a id="FavButton" href="/fav" class="account">
 							<i class="fas fa-heart fa-2x"></i>

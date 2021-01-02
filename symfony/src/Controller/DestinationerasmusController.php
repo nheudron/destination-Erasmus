@@ -12,7 +12,13 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Knp\Component\Pager\PaginatorInterface; 
+use Knp\Component\Pager\PaginatorInterface;
+
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Encoder\XmlEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 
 class DestinationerasmusController extends AbstractController
 {
@@ -22,6 +28,8 @@ class DestinationerasmusController extends AbstractController
     private $universityService;
     /** @var IFiliereService */
     private $branchService;
+    /** @var Serializer */
+    private $serializer;
 
     public function __construct
     (
@@ -34,6 +42,27 @@ class DestinationerasmusController extends AbstractController
         $this->universityService = $universityService;
         $this->branchService = $branchService;
         
+        $encoders = [new XmlEncoder(), new JsonEncoder()];
+        $defaultContext = [
+            AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object, $format, $context) {
+                return $object->getId();
+            },
+        ];
+        $normalizers = new ObjectNormalizer(null, null, null, null, null, null, $defaultContext);
+        $this->serializer = new Serializer([$normalizers], $encoders);
+    }
+
+    private function isCurrentUserAdmin(): bool
+    {
+        $isUserAdmin = false;
+        if (null !== $this->getUser()) {
+            $user = $this->userService->getUserByMail($this->getUser()->getUsername());
+            $role = $user->getRoles();
+            if (in_array("ROLE_ADMIN", $role)) {
+                $isUserAdmin = true;
+            }
+        }
+        return $isUserAdmin;
     }
 
     /**
@@ -44,6 +73,8 @@ class DestinationerasmusController extends AbstractController
      */
     public function home(Request $request, PaginatorInterface $paginator): Response
     {
+        $isAdmin = $this->isCurrentUserAdmin();
+        
         /** @var Filiere[] $branchList */
         $branchList = $this->branchService->getAllBranches();
 
@@ -55,7 +86,8 @@ class DestinationerasmusController extends AbstractController
 
         return $this->render('destinationerasmus/home.html.twig', [
             'branchList' => $branchList,
-            'univPage' => $univPage
+            'univPage' => $univPage,
+            'isAdmin' => $isAdmin
         ]);
     }
 
@@ -154,24 +186,58 @@ class DestinationerasmusController extends AbstractController
      */
     public function admin(): Response
     {
-        if (null !== $this->getUser()) {
-            $user = $this->userService->getUserByMail($this->getUser()->getUsername());
-            $role = $user->getRoles();
-            if (in_array("ROLE_ADMIN", $role)) {
+        if($this->isCurrentUserAdmin()){
+            $univs = $this->universityService->getAllUniv();
+            $branchList = $this->branchService->getAllBranches();
 
-                $univs = $this->universityService->getAllUniv();
-                $branchList = $this->branchService->getAllBranches();
-
-                $returnvar = $this->render('destinationerasmus/admin.html.twig', [
-                    'univs'=>$univs,
-                    'branchList'=>$branchList
-                ]);
-            }else{
-                $returnvar = new Response(null,403);
-            }
-        }else {
-            $returnvar = $this->redirectToRoute("app_login");
+            $returnvar = $this->render('destinationerasmus/admin.html.twig', [
+                'univs'=>$univs,
+                'branchList'=>$branchList
+            ]);
+        }else{
+            $returnvar = new Response(null,403);
         }
+        return $returnvar;
+    }
+
+    /**
+     * @param Request $request
+     * @return JSONResponse
+     * @Route(path="/updateUniv", name="updateUnivPage")
+     */
+    public function updateUniv(Request $request): Response
+    {
+        $returnvar = new JsonResponse();
+        if ($this->isCurrentUserAdmin()) {
+            $params = $request->query->all();
+            for($i=0; $i < count($params["courseName"]); $i++){
+                if (!isset($params["courseActive"][$i])) {
+                    $params["courseActive"][$i] = "off";
+                }
+            }
+            if(!isset($params["dormitories"])){
+                $params["dormitories"] = "off";
+            }
+            $returnvar->setData(['admin' => true,'content' => $params]);
+        }else{
+            $returnvar->setData(['admin' => false]);
+        }
+        return $returnvar;
+    }
+
+    /**
+     * @param int $univId
+     * @return JSONResponse
+     * @Route(path="/univModifDetails/{univId}", name="univModifDetailsPage",requirements={ "univId": "\d+" })
+     */
+    public function univModifDetails(int $univId): Response
+    {
+        $returnvar = new JsonResponse();
+        $univ = $this->universityService->getUnivById($univId);
+        $univjson = $this->serializer->serialize($univ,'json', [AbstractNormalizer::IGNORED_ATTRIBUTES => 
+                ["favUsersList","cityUniversities","countryCities","__initializer__","__cloner__","__isInitialized__"]
+            ]);
+        $returnvar->setData(json_decode($univjson));
         return $returnvar;
     }
 }
