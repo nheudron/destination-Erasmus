@@ -4,24 +4,24 @@
 {% endblock %}
 
 {% block main %}
-	<div style="width: 400px;padding: 30px">
+	<div class="connectBox">
 		{% if authError %}
-			<p style="color:red; font-weight: bold">Login error:
-				{{ authError.message }}</p>
+			<p style="color:red; font-weight: bold; font-size: 16px; background: white; border-radius: 12px;"><i class="fas fa-exclamation-triangle"></i> Login error:
+				{{ authError.message }} <i class="fas fa-exclamation-triangle"></i></p><br />
 		{% endif %}
 
 		{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
 			<p>You don't need to log in,<br>you are already logged in, as
 				{{ myUser.username }}.</p>
 		{% else %}
-			<p>Please log in.</p>
+			<p>Please log in</p>
 			{% if form is not null and form is not empty %}
 				{% form_theme form 'bootstrap_4_layout.html.twig' %}
 				{{ form_start(form) }}
 				{{ form_widget(form) }}
 				{{ form_end(form) }}
 			{% endif %}
-			<a href="{{ path('app_register') }}">Or register here.</a>
+			<a href="{{ path('app_register') }}">or register here</a>
 		{% endif %}
 	</div>
 {% endblock %}

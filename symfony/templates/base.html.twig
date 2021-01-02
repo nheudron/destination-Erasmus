@@ -11,6 +11,9 @@
 			{% block title %}{% endblock %}
 		</title>
 		{% block stylesheets %}{% endblock %}
+
+		<?php use_javascript('https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js') ?>
+		<?php include_javascripts() ?>
 	</head>
 	<body>
 		<header id="header" class="header colord3">
@@ -33,7 +36,7 @@
 						</a>
 					</li>
 					<li>
-						<a id="accountButton" href="#deroulant" class="account">
+						<a id="accountButton" href="" class="account">
 							<i class="fa fa-user-circle fa-2x"></i>
 						</a>
 					</li>
@@ -74,11 +77,10 @@ header = document.getElementById('header'),
 main = document.getElementById('main');
 
 accountButton.addEventListener('click', function (e) {
-e.preventDefault;
+e.preventDefault();
 deroulant.classList.toggle('deroulantHidden');
 });
 main.addEventListener('click', function (e) {
-e.preventDefault;
 deroulant.classList.add('deroulantHidden');
 });
 			</script>

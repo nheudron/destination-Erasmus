@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Search;
 use App\Entity\Filiere;
 use App\Service\IFiliereService;
 use App\Service\IUserService;
@@ -75,6 +76,12 @@ class DestinationerasmusController extends AbstractController
     {
         $isAdmin = $this->isCurrentUserAdmin();
         
+
+        /*$search = new Search();
+        $form = $this->createForm(SearchType::class, $search);
+        $form = handleRequest($request);*/
+
+
         /** @var Filiere[] $branchList */
         $branchList = $this->branchService->getAllBranches();
 
@@ -88,6 +95,7 @@ class DestinationerasmusController extends AbstractController
             'branchList' => $branchList,
             'univPage' => $univPage,
             'isAdmin' => $isAdmin
+            /*'form' => $form->createView(),*/
         ]);
     }
 
@@ -103,6 +111,35 @@ class DestinationerasmusController extends AbstractController
         return $this->render('destinationerasmus/dest.html.twig', [
             "univ" => $univ
         ]);
+    }
+
+        /**
+     * @return Response
+     * @Route(path="/lastTrip", name="lastTrip")
+     */
+    public function lastTrip(Request $request, PaginatorInterface $paginator): Response
+    {
+        /** @var Filiere[] $branchList */
+        $branchList = $this->branchService->getAllBranches();
+
+        $univPage = $paginator->paginate (
+            $this->universityService->getAllUnivByQuery(),  // Requête contenant les données à paginer (ici nos universités)
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            5   // Nombre de résultats par page
+        );
+
+        if (null !== $this->getUser()) {
+            $user = $this->userService->getUserByMail($this->getUser()->getUsername());
+            $favorites = $user->getFavorites();
+
+            return $this->render('destinationerasmus/lastTrip.html.twig', [
+                'branchList' => $branchList,
+                'univPage' => $univPage
+            ]);
+        }else {
+            $returnvar = $this->redirectToRoute("app_login");
+        }
+        return $returnvar;
     }
 
     /**
@@ -149,7 +186,9 @@ class DestinationerasmusController extends AbstractController
             $user = $this->userService->getUserByMail($this->getUser()->getUsername());
             $univ = $this->universityService->getUnivById($univId);
             $present = $user->toggleFav($univ);
-            $returnvar->setData(['redirect' => false,'present?' => $present]);
+            $likes = $univ->getFavNb();
+            $idUniv = $univ->getId();
+            $returnvar->setData(['redirect' => false,'present?' => $present,'likes' => $likes,'idUniv' => $idUniv]);
         }else {
             $returnvar->setData(['redirect' => true]);
         }

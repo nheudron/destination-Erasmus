@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Please Register!{% endblock %}
+{% block title %}Please Register{% endblock %}
 
 {% block main %}
-    <div style="width: 400px;padding: 30px">
+    <div class="connectBox">
     {% if form is not null and form is not empty %}
         {% form_theme form 'bootstrap_4_layout.html.twig' %}
         {{ form_start(form) }}
