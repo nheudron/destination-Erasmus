@@ -22,7 +22,7 @@
 				<script>
 					console.log("lien à ajouter");
 				</script>
-				<a href="/">Indiquer mon dernier séjour</a>
+				<a href="/lastTrip">Indiquer mon dernier séjour</a>
 			</div>
 
 			<p>Voir la liste des destinations si dessous<br><a href="#searchDest">
@@ -94,7 +94,7 @@
 				</main>
 				<footer>
 					<p>
-						<span class="js-nb-likes-{{univ.id}}">
+						<span class="js-nb-likes-{{ univ.id }}">
 						{{ univ.FavNb }}
 						</span>
 						{% if univ.FavNb > 1 %}
@@ -143,7 +143,7 @@ password: $("#password").val()
 
 	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js">/* script axios pour ajax */</script>
 	<script>
-		/* script ajax json pour les likes*/
+		/* script ajax/json pour les likes*/
 		function OnclickBtnLike(event) {
 			event.preventDefault();
 			console.log(this);
@@ -151,7 +151,7 @@ password: $("#password").val()
 			var id = this.id.replace('univ', '');
 			toggleFav(this, id);
 			const url = this.href;
-			const likeCounts = this.querySelector('span.js-nbLikes'.id);
+			const likeCounts = document.querySelector('span.js-nb-likes-'+id);
 
 			axios.get(url).then(function (response) {
 					console.log(response);

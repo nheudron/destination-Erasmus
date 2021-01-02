@@ -80,6 +80,35 @@ class DestinationerasmusController extends AbstractController
         ]);
     }
 
+        /**
+     * @return Response
+     * @Route(path="/lastTrip", name="lastTrip")
+     */
+    public function lastTrip(Request $request, PaginatorInterface $paginator): Response
+    {
+        /** @var Filiere[] $branchList */
+        $branchList = $this->branchService->getAllBranches();
+
+        $univPage = $paginator->paginate (
+            $this->universityService->getAllUnivByQuery(),  // Requête contenant les données à paginer (ici nos universités)
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            5   // Nombre de résultats par page
+        );
+
+        if (null !== $this->getUser()) {
+            $user = $this->userService->getUserByMail($this->getUser()->getUsername());
+            $favorites = $user->getFavorites();
+
+            return $this->render('destinationerasmus/lastTrip.html.twig', [
+                'branchList' => $branchList,
+                'univPage' => $univPage
+            ]);
+        }else {
+            $returnvar = $this->redirectToRoute("app_login");
+        }
+        return $returnvar;
+    }
+
     /**
      * @return Response
      * @Route(path="/user", name="userPage")
@@ -124,8 +153,9 @@ class DestinationerasmusController extends AbstractController
             $user = $this->userService->getUserByMail($this->getUser()->getUsername());
             $univ = $this->universityService->getUnivById($univId);
             $present = $user->toggleFav($univ);
-            $likes = 0;
-            $returnvar->setData(['redirect' => false,'present?' => $present,'likes' => $likes]);
+            $likes = $univ->getFavNb();
+            $idUniv = $univ->getId();
+            $returnvar->setData(['redirect' => false,'present?' => $present,'likes' => $likes,'idUniv' => $idUniv]);
         }else {
             $returnvar->setData(['redirect' => true]);
         }

@@ -1,0 +1,51 @@
+{% extends "base.html.twig" %}
+
+{% block stylesheets %}
+	<link rel="stylesheet" href="/css/fav.css">
+{% endblock %}
+
+{% block title %}
+	Mon dernier séjours
+{% endblock %}
+
+{% block main %}
+	<div class="title">
+		<h2>Selectionne ta dernière destination erasmus</h2>
+		<br />
+		<p>Les destinations affichées ci-dessous ne sont pas toutes proposées cette année</p>
+	</div>
+			{% for univ in univPage %}
+		<section class="destList">
+			<div class="destination">
+				<header>
+					<a href="{{ path('dest', { 'univId': univ.id }) }}">
+						<h4>
+							<img src=" {{ univ.univCity.cityCountry.flag }} " class="flag">
+							{{ univ.name }}</h4>
+					</a>
+				</header>
+				<main>
+					<p>Country:
+						{{ univ.univCity.cityCountry.name }}<span class="right">Language:
+							{{ univ.language }}</span>
+					</p>
+					<p>City:
+						{{ univ.univCity.name }}
+					</p>
+					<p>Filières :</p>
+					<p>Majeures :</p>
+					<p>Cours :</p>
+				</main>
+				<footer>
+					<p>
+					</p>
+				</footer>
+
+			</div>
+		</section>
+	{% endfor %}
+	{{ knp_pagination_render(univPage) }}
+{% endblock %}
+{% block javascripts %}
+	<script src="/js/fav.js"></script>
+{% endblock %}
