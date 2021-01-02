@@ -34,28 +34,200 @@
 
 .createUniv h3{
     cursor: pointer;
-}
-
-#formCreationUniv{
-    max-height: 0;
-    transform: scaleY(0);
-    transform-origin: top;
-    transition: transform 0.5s ease,max-height 0.5s ease;
-}
-
-#formCreationUniv.activeForm{
-    max-height: 84px;
-    transform: scaleY(1);
-}
-
-#formCreationUniv form{
-    padding-top: 10px;
-}
-
-.createUniv h3{
     margin: 0;
 }
-  
+
+#formWrapper{
+    position: fixed;
+    display: none;
+    opacity: 0;
+    top: 0%;
+    left: 0%;
+    backdrop-filter: blur(2px);
+
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+#formWrapper.activeForm{
+    display: flex;
+    opacity: 1;
+}
+
+#formUpdatingUniv, #changeMajeureCourses{
+    background: #677b8d;
+    color: white;
+    border-radius: 12px;
+    text-align: center;
+    padding: 10px;
+    width: 780px;
+    margin: 0;
+
+    display: none;
+}
+
+#formUpdatingUniv.active{
+    display: block;
+}
+
+#formUpdatingUniv form{
+    display: flex;
+    flex-direction: column;
+}
+
+form .leftrightwrapper{
+    display: flex;
+    flex-direction: row;
+}
+
+.formleft{
+    padding-right: 5px;
+    width: calc(60% - 5px);
+}
+
+.formright{
+    padding-left: 5px;
+    width: calc(40% - 5px);
+    text-align: left;
+}
+
+.formright #languagechoice {
+    padding: 5px;
+    border: solid
+}
+
+.formleft input{
+    display: block;
+    width: 100%;
+}
+
+
+
+
+.majeureTitle{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.majeureTitle .left {
+    width: 80%;
+}
+
+.majeureTitle .right {
+    width: 20%;
+    text-align: center;
+}
+
+.majeurescontent{
+    display: flex;
+    flex-direction: row;
+    background: white;
+    color: black;
+    padding: 5px 0;
+    margin-bottom: 5px;
+}
+
+.majeurescontent:last-child{
+    margin-bottom: 0;
+}
+
+.majeurescontent .left{
+    width: 60%;
+}
+
+.majeurescontent .right{
+    width: 40%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.majeurescontent .right button, .majeurescontent .right input{
+    width: 50%;
+    float: left;
+}
+
+#addMajeure{
+    margin-top: 5px;
+    width: 60%;
+    display: block;
+}
+
+.addcancel {
+    margin-top: 10px;
+    width: 40%;
+    display: block;
+    margin-left: auto;
+}
+
+.addcancel button {
+    width: calc(50% - 4px);
+}
+
+
+
+#changeMajeureCourses.active{
+    display: block;
+}
+
+.courseTitle{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.courseTitle .left {
+    width: 80%;
+}
+
+.courseTitle .right {
+    width: 20%;
+    text-align: center;
+}
+
+.coursescontent{
+    display: flex;
+    flex-direction: row;
+}
+
+.coursescontent .left{
+    width: 80%;
+}
+
+.coursescontent .right{
+    width: 20%;
+}
+
+.coursescontent input{
+    float: left;
+}
+
+.coursescontent .right input {
+    float: initial;
+}
+
+.courseName{
+    width: calc(60% - 4px);
+}
+
+.courseHours{
+    width: calc(20% - 4px);
+}
+
+.courseECTS{
+    width: calc(20% - 4px);
+}
+
+#addCourse{
+    margin-top: 5px;
+    width: 80%;
+    display: block;
+}
+
 .destList {
     display: flex;
     justify-content: center;
@@ -101,4 +273,5 @@
 .changeuniv {
     margin: 2px 20px 0 0;
     font-size: 24px;
+    cursor: pointer;
 }
