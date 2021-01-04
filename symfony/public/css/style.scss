@@ -348,6 +348,20 @@ $base-color-dark: #677b8d;
         display: flex;
         flex-direction: column;
       }
+
+      .image {
+        background-color: white;
+        height: 120px;
+        border-bottom-left-radius: 12px;
+        border-bottom-right-radius: 12px;
+        overflow-x: hidden;
+        margin: 0;
+        font-size: 14px;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        padding: 10px;
+      }
       .cercle{
         background-color: $base-color;
         width: 30px;
