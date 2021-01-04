@@ -7,40 +7,33 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class Comments
+ * Class Prerequisites
  * @package App\Entity
  *
  * @ORM\Entity
- * @ORM\Table(name="Comments")
+ * @ORM\Table(name="Prerequisites")
  */
-class Comments
+class Prerequisites
 {
     /**
      * @var int
      * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Id()
-     * @ORM\Column(type="integer", name="comm_id")
+     * @ORM\Column(type="integer", name="prer_id")
      */
     private $id = 0;
 
     /**
      * @var string
-     * @ORM\Column(type="string", name="comm_comm", length=2047, nullable=false)
+     * @ORM\Column(type="string", name="prer_name", length=255, nullable=false)
      */
-    private $comment = "";
+    private $name = "";
 
     /**
      * @var int
-     * @ORM\Column(type="integer", name="comm_year")
+     * @ORM\Column(type="integer", name="prer_year")
      */
     private $year = 0;
-
-    //0=simple comm; 1=question; 2=response
-    /**
-     * @var int
-     * @ORM\Column(type="integer", name="comm_value")
-     */
-    private $value = 0;
 
     /**
      * @ORM\ManyToMany(targetEntity=Universities::class, mappedBy="prerequisites")
@@ -63,17 +56,33 @@ class Comments
     /**
      * @return string
      */
-    public function getComment(): string
+    public function getName(): string
     {
-        return $this->comment;
+        return $this->name;
     }
 
     /**
-     * @param string $comment
+     * @param string $name
      */
-    public function setComment(string $comment): void
+    public function setName(string $name): void
     {
-        $this->comment = $comment;
+        $this->name = $name;
+    }
+
+    /**
+     * @return int
+     */
+    public function getYear(): int
+    {
+        return $this->year;
+    }
+
+    /**
+     * @param int $year
+     */
+    public function setYear(int $year): void
+    {
+        $this->year = $year;
     }
 
     /**
@@ -88,7 +97,7 @@ class Comments
     {
         if (!$this->universities->contains($university)) {
             $this->universities[] = $university;
-            $university->addComment($this);
+            $university->addPrerequisite($this);
         }
         return $this;
     }
@@ -96,7 +105,7 @@ class Comments
     public function removeUniversity(Universities $university): self
     {
         if ($this->universities->removeElement($university)) {
-            $university->removeComment($this);
+            $university->removePrerequisite($this);
         }
         return $this;
     }

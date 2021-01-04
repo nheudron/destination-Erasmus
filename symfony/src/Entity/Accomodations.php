@@ -7,43 +7,36 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class Comments
+ * Class Accomodations
  * @package App\Entity
  *
  * @ORM\Entity
- * @ORM\Table(name="Comments")
+ * @ORM\Table(name="Accomodations")
  */
-class Comments
+class Accomodations
 {
     /**
      * @var int
      * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Id()
-     * @ORM\Column(type="integer", name="comm_id")
+     * @ORM\Column(type="integer", name="acco_id")
      */
     private $id = 0;
 
     /**
      * @var string
-     * @ORM\Column(type="string", name="comm_comm", length=2047, nullable=false)
+     * @ORM\Column(type="string", name="acco_name", length=255, nullable=false)
      */
-    private $comment = "";
+    private $name = "";
 
     /**
      * @var int
-     * @ORM\Column(type="integer", name="comm_year")
+     * @ORM\Column(type="integer", name="acco_price")
      */
-    private $year = 0;
-
-    //0=simple comm; 1=question; 2=response
-    /**
-     * @var int
-     * @ORM\Column(type="integer", name="comm_value")
-     */
-    private $value = 0;
+    private $price = 0;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Universities::class, mappedBy="prerequisites")
+     * @ORM\ManyToMany(targetEntity=Universities::class, mappedBy="accomodations")
      */
     private $universities;
 
@@ -63,17 +56,33 @@ class Comments
     /**
      * @return string
      */
-    public function getComment(): string
+    public function getName(): string
     {
-        return $this->comment;
+        return $this->name;
     }
 
     /**
-     * @param string $comment
+     * @param string $name
      */
-    public function setComment(string $comment): void
+    public function setName(string $name): void
     {
-        $this->comment = $comment;
+        $this->name = $name;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPrice(): int
+    {
+        return $this->price;
+    }
+
+    /**
+     * @param int $price
+     */
+    public function setPrice(int $price): void
+    {
+        $this->price = $price;
     }
 
     /**
@@ -88,16 +97,18 @@ class Comments
     {
         if (!$this->universities->contains($university)) {
             $this->universities[] = $university;
-            $university->addComment($this);
+            $university->addAccomodation($this);
         }
+
         return $this;
     }
 
     public function removeUniversity(Universities $university): self
     {
         if ($this->universities->removeElement($university)) {
-            $university->removeComment($this);
+            $university->removeAccomodation($this);
         }
+
         return $this;
     }
 }
