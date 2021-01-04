@@ -230,6 +230,68 @@
   text-align: justify;
 }
 
+.destBody .destMain .authorComment {
+  font-size: 14px;
+  text-align: right;
+}
+
+.destBody .destMain .authorComment .cercle {
+  background-color: white;
+  width: 30px;
+  height: 30px;
+  border-radius: 150px;
+  margin-left: 5px;
+  margin-right: 5px;
+  text-align: center;
+  line-height: 30px;
+  color: #859bae;
+  display: inline-block;
+  font-size: 14px;
+}
+
+.destBody .destMain .authorComment .date {
+  color: #cadae9;
+}
+
+.destBody .destMain .addCommentBox {
+  width: calc(100% - 10px);
+  border-radius: 12px;
+  padding: 10px;
+}
+
+.destBody .destMain .addCommentBox form {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
+.destBody .destMain .addCommentBox form .text {
+  font-size: 15px;
+  padding: 8px 15px;
+  background: white;
+  height: 20px;
+  border: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  outline: none;
+  border-radius: 12px;
+  width: calc(100% - 200px);
+}
+
+.destBody .destMain .addCommentBox form button {
+  background-color: white !important;
+  color: #859bae;
+}
+
+.destBody .destMain .addCommentBox form button:hover {
+  color: white;
+  background-color: #677b8d !important;
+}
+
 .destBody .destMain .addQuestion {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -352,13 +414,34 @@
   margin: 0;
 }
 
-.destBody .destColumn .destBoxStyle div {
+.destBody .destColumn .destBoxStyle .scrollY {
   background-color: white;
   height: 200px;
   border-bottom-left-radius: 12px;
   border-bottom-right-radius: 12px;
-  overflow: hidden;
+  overflow-x: hidden;
   margin: 0;
   overflow-y: scroll;
+  font-size: 12px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.destBody .destColumn .destBoxStyle .cercle {
+  background-color: #859bae;
+  width: 30px;
+  height: 30px;
+  border-radius: 150px;
+  margin-left: 5px;
+  margin-right: 5px;
+  text-align: center;
+  line-height: 30px;
+  color: white;
+  display: inline-block;
 }
 /*# sourceMappingURL=style.css.map */

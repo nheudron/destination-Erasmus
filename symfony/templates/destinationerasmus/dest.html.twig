@@ -48,34 +48,62 @@
 			<br/>
 			<div class="destBoxStyle">
 				<h2>Commentaires sur la destination</h2>
-				<p>les commentaires</p>
+
+				<section>
+					<p>Ceci est un commentaire</p>
+					<div class="authorComment">
+						<div class="cercle">NH</div>
+						<span>Nicolas Heudron</span>
+						<span class="date"><i class="fas fa-calendar-week"></i> 18/04/2020</span>
+					</div>
+				</section>
+
+				<div id="addCommentBox" class="addCommentBox">
+					<form>
+						<input type="text" class="text" placeholder="Votre Commentaire"></input>
+						<button type="submit" >Commenter</button>
+					</form>
+				</div>
 			</div>
+
+			<a href="#addCommentBox" class="addQuestion">
+				<div class="addQuestionButton">
+						<p>+</p>
+				</div>Ajouter un commentaire
+			</a>
+
+			
+
 			<br/>
+
 			<div class="destBoxStyle">
 				<h2>Les questions</h2>
 				<p></p>
 			</div>
+			
 			<a href="#" class="addQuestion">
 				<div class="addQuestionButton">
 					<p>+</p>
 				</div>Ajouter une question</a>
 		</section>
 		<section class="destColumn">
-			<div class="date">
+			<!--<div class="date">
 				<p>Période</p>
 				<form>
 					<select class="custom-select">
 						<option>2021</option>
 					</select>
 				</form>
-			</div>
+			</div>-->
 			<div class="destBoxStyle">
 				<h4>Les étudiants déjà partis</h4>
-				<div></div>
+				<div class="scrollY">
+						<div><div class="cercle">NH</div><span>Nicolas Heudron</span><span>(2020)</span></div>
+				</div>
 			</div>
 			<div class="destBoxStyle">
 				<h4>Destination ajoutées aux favoris par</h4>
-				<div></div>
+				<div class="scrollY"></div>
 			</div>
 		</section>
 	</div>

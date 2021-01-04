@@ -14,7 +14,8 @@ function toggleFav(button, id) {
         if (jsonResponse["redirect"]) {
             window.location.href = baseurl + "/login";
         } else {
-			likeCounts.textContent = jsonResponse["likes"];
+            
+            
             toggleHeart(button, jsonResponse["present?"]);
             favs = getCookie("listFavorites");
             currentuniv = ",univ"+id;
@@ -26,6 +27,7 @@ function toggleFav(button, id) {
                 favs = favs.replace(currentuniv,"");
                 setCookie("listFavorites", favs, 10/60/24);//minutes
             }
+            likeCounts.textContent = jsonResponse["likes"];
         }
     };
     httpreq.send(null);
