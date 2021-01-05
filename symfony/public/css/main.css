@@ -95,6 +95,22 @@ button:hover {
   width: 40px;
   height: 34px;
 }
+@media (max-width: 544px) {
+  .titre .first {
+    display: none;
+  }
+  .titre .seconde {
+    display: contents;
+  }
+}
+@media (min-width: 545px) {
+  .titre .first {
+    display: contents;
+  }
+  .titre .seconde {
+    display: none;
+  }
+}
 /* Menu -------------------------------------------------------------*/
 .menu {
   float: right;

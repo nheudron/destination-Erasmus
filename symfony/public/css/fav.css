@@ -10,7 +10,17 @@
   width: 70vw;
   padding: 10px 0;
   margin: 0 auto;
-  border: yellow;
+  text-align: center;
+  border-radius: 10px;
+}
+
+
+.title p{
+  color: white;
+  background: #a4bcd2;
+  width: 70vw;
+  padding: 10px 0;
+  margin: 0 auto;
   text-align: center;
   border-radius: 10px;
 }
