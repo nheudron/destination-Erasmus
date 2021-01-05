@@ -2,7 +2,7 @@
 
 namespace App\Service;
 
-use App\Entity\Filiere;
+use App\Entity\Majors;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -13,7 +13,7 @@ class FiliereService extends CrudService implements IFiliereService
      */
     public function getRepo(): EntityRepository
     {
-        return $this->em->getRepository(Filiere::class);
+        return $this->em->getRepository(Majors::class);
     }
 
     /**
@@ -27,9 +27,9 @@ class FiliereService extends CrudService implements IFiliereService
     /**
      * @inheritDoc
      */
-    public function getBranchByName(string $name): Filiere
+    public function getBranchByName(string $name): Majors
     {
-        /** @var Filiere|null $oneBranch */
+        /** @var Majors|null $oneBranch */
         $oneBranch = $this->getRepo()->findOneBy(["name"=>$name]);
         if ($oneBranch == null) throw new NotFoundHttpException("No branch found");
         return $oneBranch;
@@ -37,9 +37,9 @@ class FiliereService extends CrudService implements IFiliereService
     /**
      * @inheritDoc
      */
-    public function getBranchById(int $branchId): Filiere
+    public function getBranchById(int $branchId): Majors
     {
-        /** @var Filiere|null $oneBranch */
+        /** @var Majors|null $oneBranch */
         $oneBranch = $this->getRepo()->find($branchId);
         if ($oneBranch == null) throw new NotFoundHttpException("No branch found");
         return $oneBranch;

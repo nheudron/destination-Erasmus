@@ -2,24 +2,24 @@
 
 namespace App\Service;
 
-use App\Entity\Filiere;
+use App\Entity\Majors;
 
 interface IFiliereService
 {
     /**
-     * @return Filiere[]|iterable
+     * @return Majors[]|iterable
      */
     public function getAllBranches() : iterable;
 
     /**
      * @param string $name
-     * @return Filiere
+     * @return Majors
      */
-    public function getBranchByName(string $name): Filiere;
+    public function getBranchByName(string $name): Majors;
 
     /**
      * @param int $branchId
-     * @return Filiere
+     * @return Majors
      */
-    public function getBranchById(int $branchId): Filiere;
+    public function getBranchById(int $branchId): Majors;
 }
