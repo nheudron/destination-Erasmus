@@ -19,9 +19,6 @@
 			<div class="formulaireVoyage">
 				<p>Tu es déjà partie en séjour Erasmus ?</p>
 				<p>Viens ajouter des informations sur ta destination&nbsp:</p>
-				<script>
-					console.log("lien à ajouter");
-				</script>
 				<a href="/lastTrip">Indiquer mon dernier séjour</a>
 			</div>
 
@@ -41,23 +38,23 @@
 
 	<div class="filtresLines">
 		<div class="filters">
-			<form>
+			<form id="form">
 				<i class="fas fa-sliders-h"></i>
 				<select class="custom-select">
-					<option>IR & SEP</option>
-					<option>IR</option>
-					<option>SEP</option>
+					<option value="irsep">IR & SEP</option>
+					<option value="ir">IR</option>
+					<option value="sep">SEP</option>
 				</select>
 				<select class="custom-select">
-					<option>LV1 & LV2</option>
-					<option>LV1</option>
-					<option>LV2 Espagnol</option>
-					<option>LV2 Allemand</option>
+					<option value="default">LV1 & LV2</option>
+					<option value="lv1">LV1</option>
+					<option value="lv2e">LV2 Espagnol</option>
+					<option value="lv2a">LV2 Allemand</option>
 				</select>
 				<select class="custom-select">
 					<option selected="true">Toutes les majeures</option>
 					{% for branch in branchList %}
-						<option>{{ branch.name }}</option>
+						<option value="{{ branch.id }}">{{ branch.name }}</option>
 					{% endfor %}
 				</select>
 				<button class="submitButton">Rechercher</button>
@@ -115,6 +112,7 @@
 
 	<script src="/js/map.js"></script>
 	<script src="/js/fav.js"></script>
+	<script src="/js/filters.js"></script>
 	<script>
 		window.onload = function () { // map
 initMap();

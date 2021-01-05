@@ -109,7 +109,7 @@ class DestinationerasmusController extends AbstractController
         $univ = $this->universityService->getUnivById($univId);
 
         return $this->render('destinationerasmus/dest.html.twig', [
-            "univ" => $univ
+            "univ" => $univ,
         ]);
     }
 
@@ -119,9 +119,6 @@ class DestinationerasmusController extends AbstractController
      */
     public function lastTrip(Request $request, PaginatorInterface $paginator): Response
     {
-        /** @var Filiere[] $branchList */
-        $branchList = $this->branchService->getAllBranches();
-
         $univPage = $paginator->paginate (
             $this->universityService->getAllUnivByQuery(),  // Requête contenant les données à paginer (ici nos universités)
             $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
@@ -133,7 +130,6 @@ class DestinationerasmusController extends AbstractController
             $favorites = $user->getFavorites();
 
             return $this->render('destinationerasmus/lastTrip.html.twig', [
-                'branchList' => $branchList,
                 'univPage' => $univPage
             ]);
         }else {
