@@ -35,22 +35,12 @@ class Comments
      */
     private $year = 0;
 
-    //0=simple comm; 1=question; 2=response
     /**
-     * @var int
-     * @ORM\Column(type="integer", name="comm_value")
+     * @var Universities|null
+     * @ORM\JoinColumn(name="comm_universities", referencedColumnName="univ_id")
+     * @ORM\ManyToOne(targetEntity="Universities", inversedBy="univ_comments")
      */
-    private $value = 0;
-
-    /**
-     * @ORM\ManyToMany(targetEntity=Universities::class, mappedBy="prerequisites")
-     */
-    private $universities;
-
-    public function __construct()
-    {
-        $this->universities = new ArrayCollection();
-    }
+    private $comm_universities;
 
     /**
      * @return int
@@ -77,27 +67,34 @@ class Comments
     }
 
     /**
-     * @return Collection|Universities[]
+     * @return int
      */
-    public function getUniversities(): Collection
+    public function getYear(): int
     {
-        return $this->universities;
+        return $this->year;
     }
 
-    public function addUniversity(Universities $university): self
+    /**
+     * @param int $year
+     */
+    public function setYear(int $year): void
     {
-        if (!$this->universities->contains($university)) {
-            $this->universities[] = $university;
-            $university->addComment($this);
-        }
-        return $this;
+        $this->year = $year;
     }
 
-    public function removeUniversity(Universities $university): self
+    /**
+     * @return mixed
+     */
+    public function getCommUniversities()
     {
-        if ($this->universities->removeElement($university)) {
-            $university->removeComment($this);
-        }
-        return $this;
+        return $this->comm_universities;
+    }
+
+    /**
+     * @param mixed $comm_universities
+     */
+    public function setCommUniversities($comm_universities): void
+    {
+        $this->comm_universities = $comm_universities;
     }
 }

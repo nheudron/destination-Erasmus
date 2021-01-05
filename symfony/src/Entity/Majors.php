@@ -30,6 +30,12 @@ class Majors
     private $name = "";
 
     /**
+     * @var string
+     * @ORM\Column(type="string", name="major_branch", length=255, nullable=false)
+     */
+    private $branch = "";
+
+    /**
      * @ORM\ManyToMany(targetEntity=Universities::class, mappedBy="majors")
      */
     private $universities;
@@ -61,6 +67,22 @@ class Majors
     public function setName(string $name): void
     {
         $this->name = $name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBranch(): string
+    {
+        return $this->branch;
+    }
+
+    /**
+     * @param string $branch
+     */
+    public function setBranch(string $branch): void
+    {
+        $this->branch = $branch;
     }
 
     /**

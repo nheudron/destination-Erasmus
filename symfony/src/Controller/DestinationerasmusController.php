@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Majors;
 use App\Entity\Search;
 use App\Entity\Filiere;
 use App\Service\IFiliereService;
@@ -82,8 +83,8 @@ class DestinationerasmusController extends AbstractController
         $form = handleRequest($request);*/
 
 
-        /** @var Filiere[] $branchList */
-        $branchList = $this->branchService->getAllBranches();
+        /** @var Majors[] $majorList */
+        $majorList = $this->branchService->getAllBranches();
 
         $univPage = $paginator->paginate (
             $this->universityService->getAllUnivByQuery(),  // Requête contenant les données à paginer (ici nos universités)
@@ -92,7 +93,7 @@ class DestinationerasmusController extends AbstractController
         );
 
         return $this->render('destinationerasmus/home.html.twig', [
-            'branchList' => $branchList,
+            'branchList' => $majorList,
             'univPage' => $univPage,
             'isAdmin' => $isAdmin
             /*'form' => $form->createView(),*/
