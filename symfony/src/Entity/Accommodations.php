@@ -7,13 +7,13 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class Accomodations
+ * Class Accommodations
  * @package App\Entity
  *
  * @ORM\Entity
- * @ORM\Table(name="Accomodations")
+ * @ORM\Table(name="Accommodations")
  */
-class Accomodations
+class Accommodations
 {
     /**
      * @var int
@@ -97,7 +97,7 @@ class Accomodations
     {
         if (!$this->universities->contains($university)) {
             $this->universities[] = $university;
-            $university->addAccomodation($this);
+            $university->addAccommodation($this);
         }
 
         return $this;
@@ -106,7 +106,7 @@ class Accomodations
     public function removeUniversity(Universities $university): self
     {
         if ($this->universities->removeElement($university)) {
-            $university->removeAccomodation($this);
+            $university->removeAccommodation($this);
         }
 
         return $this;

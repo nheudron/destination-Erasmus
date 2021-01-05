@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -38,6 +39,11 @@ class Subjects
      * @ORM\Column(type="integer", name="subj_hoursPerWeek", nullable=false)
      */
     private $hoursPerWeek = 0;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Universities::class, mappedBy="subjects")
+     */
+    private $universities;
 
     /**
      * @return int
@@ -93,5 +99,30 @@ class Subjects
     public function setHoursPerWeek(int $hoursPerWeek): void
     {
         $this->hoursPerWeek = $hoursPerWeek;
+    }
+
+    /**
+     * @return Collection|Universities[]
+     */
+    public function getUniversities(): Collection
+    {
+        return $this->universities;
+    }
+
+    public function addUniversity(Universities $university): self
+    {
+        if (!$this->universities->contains($university)) {
+            $this->universities[] = $university;
+            $university->addSubject($this);
+        }
+        return $this;
+    }
+
+    public function removeUniversity(Universities $university): self
+    {
+        if ($this->universities->removeElement($university)) {
+            $university->removeSubject($this);
+        }
+        return $this;
     }
 }

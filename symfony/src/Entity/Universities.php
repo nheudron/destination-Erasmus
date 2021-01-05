@@ -42,20 +42,34 @@ class Universities
     private $language = "";
 
     /**
+     * @ORM\Column(type="boolean", name="univ_dormitories")
+     */
+    private $dormitories = false;
+
+    /**
      * @ORM\ManyToMany(targetEntity=Users::class, mappedBy="favorites")
      */
     private $favUsersList;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Cities::class, inversedBy="city_universities")
-     * @ORM\JoinColumn(name="univ_city", referencedColumnName="city_id",nullable=false)
+     * @ORM\JoinColumn(name="univ_city", referencedColumnName="city_id")
+     * @ORM\ManyToOne(targetEntity="Cities", inversedBy="city_universities")
      */
     private $univ_city;
 
     /**
-     * @ORM\Column(type="boolean", name="univ_dormitories")
+     * @var ArrayCollection|null
+     * @ORM\JoinColumn(name="univ_questions", referencedColumnName="ques_id")
+     * @ORM\OneToMany(targetEntity="Questions", mappedBy="ques_universities")
      */
-    private $dormitories = false;
+    private $univ_questions;
+
+    /**
+     * @var ArrayCollection|null
+     * @ORM\JoinColumn(name="univ_comments", referencedColumnName="comm_id")
+     * @ORM\OneToMany(targetEntity="Comments", mappedBy="comm_universities")
+     */
+    private $univ_comments;
 
     /**
      * @ORM\ManyToMany(targetEntity=Majors::class, inversedBy="universities")
@@ -67,13 +81,13 @@ class Universities
     private $majors;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Accomodations::class, inversedBy="universities")
-     * @ORM\JoinTable(name="univ_accomodations",
+     * @ORM\ManyToMany(targetEntity=Accommodations::class, inversedBy="universities")
+     * @ORM\JoinTable(name="univ_accommodations",
      *      joinColumns={@ORM\JoinColumn(name="univ_id", referencedColumnName="univ_id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="acco_id", referencedColumnName="acco_id")}
      * )
      */
-    private $accomodations;
+    private $accommodations;
 
     /**
      * @ORM\ManyToMany(targetEntity=Prerequisites::class, inversedBy="universities")
@@ -85,21 +99,22 @@ class Universities
     private $prerequisites;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Comments::class, inversedBy="universities")
-     * @ORM\JoinTable(name="univ_comments",
+     * @ORM\ManyToMany(targetEntity=Subjects::class, inversedBy="universities")
+     * @ORM\JoinTable(name="univ_subjects",
      *      joinColumns={@ORM\JoinColumn(name="univ_id", referencedColumnName="univ_id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="comm_id", referencedColumnName="comm_id")}
+     *      inverseJoinColumns={@ORM\JoinColumn(name="subj_id", referencedColumnName="subj_id")}
      * )
      */
-    private $comments;
+    private $subjects;
 
     public function __construct()
     {
         $this->favUsersList = new ArrayCollection();
+        $this->univ_comments = new ArrayCollection();
         $this->majors = new ArrayCollection();
-        $this->accomodations = new ArrayCollection();
+        $this->accommodations = new ArrayCollection();
         $this->prerequisites = new ArrayCollection();
-        $this->comments = new ArrayCollection();
+        $this->subjects = new ArrayCollection();
     }
 
     /**
@@ -215,6 +230,22 @@ class Universities
     }
 
     /**
+     * @return ArrayCollection|null
+     */
+    public function getUnivQuestions(): ?ArrayCollection
+    {
+        return $this->univ_questions;
+    }
+
+    /**
+     * @param ArrayCollection|null $univ_questions
+     */
+    public function setUnivQuestions(?ArrayCollection $univ_questions): void
+    {
+        $this->univ_questions = $univ_questions;
+    }
+
+    /**
      * @return Collection|Majors[]
      */
     public function getMajors(): Collection
@@ -237,24 +268,24 @@ class Universities
     }
 
     /**
-     * @return Collection|Accomodations[]
+     * @return Collection|Accommodations[]
      */
-    public function getAccomodations(): Collection
+    public function getAccommodations(): Collection
     {
-        return $this->accomodations;
+        return $this->accommodations;
     }
 
-    public function addAccomodation(Accomodations $acco): self
+    public function addAccommodation(Accommodations $acco): self
     {
-        if (!$this->majors->contains($acco)) {
-            $this->majors[] = $acco;
+        if (!$this->accommodations->contains($acco)) {
+            $this->accommodations[] = $acco;
         }
         return $this;
     }
 
-    public function removeAccomodation(Accomodations $acco): self
+    public function removeAccommodation(Accommodations $acco): self
     {
-        $this->majors->removeElement($acco);
+        $this->accommodations->removeElement($acco);
         return $this;
     }
 
@@ -263,12 +294,12 @@ class Universities
      */
     public function getPrerequisites(): Collection
     {
-        return $this->accomodations;
+        return $this->accommodations;
     }
 
     public function addPrerequisite(Prerequisites $prer): self
     {
-        if (!$this->majors->contains($prer)) {
+        if (!$this->prerequisites->contains($prer)) {
             $this->prerequisites[] = $prer;
         }
         return $this;
@@ -276,29 +307,45 @@ class Universities
 
     public function removePrerequisite(Prerequisites $prer): self
     {
-        $this->majors->removeElement($prer);
+        $this->prerequisites->removeElement($prer);
         return $this;
     }
 
     /**
-     * @return Collection|Comments[]
+     * @return ArrayCollection|null
      */
-    public function getComments(): Collection
+    public function getUnivComments(): ?ArrayCollection
     {
-        return $this->accomodations;
+        return $this->univ_comments;
     }
 
-    public function addComment(Comments $comm): self
+    /**
+     * @param ArrayCollection|null $univ_comments
+     */
+    public function setUnivComments(?ArrayCollection $univ_comments): void
     {
-        if (!$this->majors->contains($comm)) {
-            $this->prerequisites[] = $comm;
+        $this->univ_comments = $univ_comments;
+    }
+
+    /**
+     * @return Collection|Subjects[]
+     */
+    public function getSubjects(): Collection
+    {
+        return $this->subjects;
+    }
+
+    public function addSubject(Subjects $subj): self
+    {
+        if (!$this->subjects->contains($subj)) {
+            $this->subjects[] = $subj;
         }
         return $this;
     }
 
-    public function removeComment(Comments $comm): self
+    public function removeSubject(Subjects $subj): self
     {
-        $this->majors->removeElement($comm);
+        $this->subjects->removeElement($subj);
         return $this;
     }
 }

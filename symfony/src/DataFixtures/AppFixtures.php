@@ -146,6 +146,14 @@ class AppFixtures extends Fixture implements ContainerAwareInterface
         $major5->setName("Energie");
         $major6->setName("QHSE");
         $major7->setName("Gestion des risques");
+        $major->setBranch("IR");
+        $major1->setBranch("IR");
+        $major2->setBranch("IR");
+        $major3->setBranch("IR");
+        $major4->setBranch("SEP");
+        $major5->setBranch("SEP");
+        $major6->setBranch("SEP");
+        $major7->setBranch("SEP");
         $this->em->persist($major);
         $this->em->persist($major1);
         $this->em->persist($major2);
