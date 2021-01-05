@@ -4,7 +4,9 @@ baseurl = loc.protocol + "//" + loc.hostname + ":" + loc.port;
 function toggleFav(button, id) {
     toggleUrl = baseurl + "/togglefav/" + id;
 	
-	const likeCounts = document.querySelector('span.js-nb-likes-'+id);
+    const likeCounts = document.querySelector('span.js-nb-likes-'+id);
+    var a = new Number(likeCounts.textContent);
+
     var httpreq = new XMLHttpRequest();
     httpreq.overrideMimeType("application/json");
     httpreq.open("GET", toggleUrl, true);
@@ -14,20 +16,24 @@ function toggleFav(button, id) {
         if (jsonResponse["redirect"]) {
             window.location.href = baseurl + "/login";
         } else {
-            
-            
             toggleHeart(button, jsonResponse["present?"]);
             favs = getCookie("listFavorites");
             currentuniv = ",univ"+id;
             if(jsonResponse["present?"]){
-				
+				 a += 1;
                 favs += currentuniv;
                 setCookie("listFavorites",favs, 10/60/24);//minutes
             }else{
+                if(a > 0){
+                    a -= 1;
+                }else{
+                    a = 0;
+                }
                 favs = favs.replace(currentuniv,"");
                 setCookie("listFavorites", favs, 10/60/24);//minutes
             }
-            likeCounts.textContent = jsonResponse["likes"];
+            
+            likeCounts.textContent = a;
         }
     };
     httpreq.send(null);
