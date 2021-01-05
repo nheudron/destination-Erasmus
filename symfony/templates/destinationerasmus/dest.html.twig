@@ -10,13 +10,17 @@
 		<div>
 			<img src=" {{ univ.univCity.cityCountry.flag }} " class="country" alt="pays">
 			<h1 class="UnivName">{{ univ.name }}</h1>
-			<i class=" far fa-heart"></i>
+			<a class="addFavs" id="univ{{univ.id}}" onclick="toggleFav(this,{{univ.id}})" style="margin: 0px!important">
+				<i class="far fa-heart"></i>
+			</a>
 		</div>
 
 		<div>
 			<p>Erasmus
 				{{ univ.language }}</p>
-			<p>{{ univ.getFavNb }}
+			<p><span class="js-nb-likes-{{ univ.id }}">
+							{{ univ.FavNb }}
+						</span>
 				favs</p>
 		</div>
 	</div>
@@ -132,4 +136,8 @@
 			</div>
 		</section>
 	</div>
+{% endblock %}
+
+{% block javascripts %}
+	<script src="/js/fav.js"></script>
 {% endblock %}
