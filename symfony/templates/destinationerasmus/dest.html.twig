@@ -123,7 +123,16 @@
 			<div class="destBoxStyle">
 				<h4>Destination ajoutées aux favoris par</h4>
 				<div class="scrollY">
-					<div><div class="cercle">NH</div><span>Nicolas Heudron</span><span>(2020)</span></div>
+					{% for user in usersFav %}
+						<div><div class="cercle user{{user.id}} ">
+							<script>
+								document.write("{{ user.getFirstName }}".substr(0, 1));
+								document.write("{{ user.lastName }}".substr(0, 1))
+								</script>
+						</div><span>{{ user.getFirstName }} {{ user.lastName }}</span></div>
+						
+						
+					{% endfor %}
 				</div>
 			</div>
 			<div class="destBoxStyle">
