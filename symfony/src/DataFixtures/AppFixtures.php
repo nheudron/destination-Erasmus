@@ -6,6 +6,7 @@ use App\Entity\Cities;
 use App\Entity\Countries;
 use App\Entity\Filiere;
 use App\Entity\Majors;
+use App\Entity\Subjects;
 use App\Entity\Universities;
 use App\Entity\Users;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -84,6 +85,26 @@ class AppFixtures extends Fixture implements ContainerAwareInterface
         $city->setPresentation("ville lambda");
         $this->em->persist($city);
 
+
+        //SUBJECTS
+
+        $subject1 = new Subjects();
+        $subject1->setName("Math");
+        $subject1->setCredits("6");
+        $subject1->setHoursPerWeek("4");
+        $this->em->persist($subject1);
+
+        $subject2 = new Subjects();
+        $subject2->setName("Anglais");
+        $subject2->setCredits("6");
+        $subject2->setHoursPerWeek("6");
+        $this->em->persist($subject2);
+
+        $subject3 = new Subjects();
+        $subject3->setName("Développement");
+        $subject3->setCredits("6");
+        $subject3->setHoursPerWeek("8");
+        $this->em->persist($subject3);
         //  UNIVERSITY
 
         $univ1 = new Universities();
@@ -91,6 +112,9 @@ class AppFixtures extends Fixture implements ContainerAwareInterface
         $univ1->setAvailablePlaces(12);
         $univ1->setLanguage("LV1");
         $univ1->setUnivCity($city1);
+        $univ1->addSubject($subject1);
+        $univ1->addSubject($subject2);
+        $univ1->addSubject($subject3);
         $this->em->persist($univ1);
 
         $univ2 = new Universities();
@@ -98,6 +122,8 @@ class AppFixtures extends Fixture implements ContainerAwareInterface
         $univ2->setAvailablePlaces(3);
         $univ2->setLanguage("LV1");
         $univ2->setUnivCity($city2);
+        $univ2->addSubject($subject1);
+        $univ2->addSubject($subject3);
         $this->em->persist($univ2);
 
         for($i = 1; $i <= 5; $i++){
@@ -106,6 +132,8 @@ class AppFixtures extends Fixture implements ContainerAwareInterface
             $univ->setAvailablePlaces("$i");
             $univ->setLanguage("LV2");
             $univ->setUnivCity($city);
+            $univ->addSubject($subject2);
+            $univ->addSubject($subject3);
             $this->em->persist($univ);
         }
         

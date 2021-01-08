@@ -91,7 +91,7 @@ class DestinationerasmusController extends AbstractController
             $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
             5   // Nombre de résultats par page
         );
-
+        
         return $this->render('destinationerasmus/home.html.twig', [
             'branchList' => $majorList,
             'univPage' => $univPage,
@@ -108,9 +108,10 @@ class DestinationerasmusController extends AbstractController
     public function univ(int $univId): Response
     {
         $univ = $this->universityService->getUnivById($univId);
-
+        $usersFav = $univ->getFavUsersList();
         return $this->render('destinationerasmus/dest.html.twig', [
             "univ" => $univ,
+            "usersFav" => $usersFav
         ]);
     }
 
