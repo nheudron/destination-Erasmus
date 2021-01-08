@@ -111,8 +111,32 @@ function addtoMap(button) {
 function initMap() {
     // Créer l'objet "macarte" et l'insèrer dans l'élément HTML qui a l'ID "map"
     macarte = L.map('map', { worldCopyJump: true }).setView([lat, lon], 6);
+
+    // Leaflet ne récupère pas les cartes (tiles) sur un serveur par défaut. Nous devons lui préciser où nous souhaitons les récupérer. Ici, openstreetmap.fr
+    L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
+        // Il est toujours bien de laisser le lien vers la source des données
+        attribution: 'données © <a href="//osm.org/copyright">OpenStreetMap</a>/ODbL - rendu <a href="//openstreetmap.fr">OSM France</a> - <a href="https://www.openstreetmap.org/copyright">© les contributeurs d’OpenStreetMap</a>',
+        minZoom: 3,
+        maxZoom: 20,
+    }).addTo(macarte);
+}
+
+function checkTicked(){
+    ir.on("add",function(ev){console.log("ir added")});
+    sep.on("add",function(ev){console.log("sep added")});
+    ir.on("remove",function(ev){console.log("ir removed")});
+    sep.on("remove",function(ev){console.log("sep removed")});
+}
+
+//utiliser un script comme dans home.html.twig pour lancé toute les fonction au démarrage
+// window.onload = function () {
+//     // Fonction d'initialisation qui s'exécute lorsque le DOM est chargé
+//     initMap();
+//     checkTicked();
+// };
+
+function addUnivToMap(){
     //initialisation layers
-    recherche = L.layerGroup().addTo(macarte);
     sep = L.layerGroup().addTo(macarte);
     ir = L.layerGroup().addTo(macarte);
     esaip = L.layerGroup().addTo(macarte);
@@ -131,14 +155,6 @@ function initMap() {
         return div;
     };
     legende.addTo(macarte);
-
-    // Leaflet ne récupère pas les cartes (tiles) sur un serveur par défaut. Nous devons lui préciser où nous souhaitons les récupérer. Ici, openstreetmap.fr
-    L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
-        // Il est toujours bien de laisser le lien vers la source des données
-        attribution: 'données © <a href="//osm.org/copyright">OpenStreetMap</a>/ODbL - rendu <a href="//openstreetmap.fr">OSM France</a> - <a href="https://www.openstreetmap.org/copyright">© les contributeurs d’OpenStreetMap</a>',
-        minZoom: 3,
-        maxZoom: 20,
-    }).addTo(macarte);
     for (univ in univs) {
         var marker = null;
         switch (univs[univ].langue) {
@@ -173,16 +189,5 @@ function initMap() {
     }
 }
 
-function checkTicked(){
-    ir.on("add",function(ev){console.log("ir added")});
-    sep.on("add",function(ev){console.log("sep added")});
-    ir.on("remove",function(ev){console.log("ir removed")});
-    sep.on("remove",function(ev){console.log("sep removed")});
+function rechercheUniv(){
 }
-
-//utilisé un script comme dans home.html.twig pour lancé toute les fonction au démarrage
-// window.onload = function () {
-//     // Fonction d'initialisation qui s'exécute lorsque le DOM est chargé
-//     initMap();
-//     checkTicked();
-// };

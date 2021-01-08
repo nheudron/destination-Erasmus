@@ -5,6 +5,7 @@
     border-radius: 5px;
     display: inline-flex;
     flex-direction: column;
+    color: black;
 }
 
 .legende div {

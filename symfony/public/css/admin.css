@@ -57,7 +57,7 @@
     opacity: 1;
 }
 
-#formUpdatingUniv, #changeMajeureCourses{
+#formUpdatingUniv, #checkLocations{
     background: #677b8d;
     color: white;
     border-radius: 12px;
@@ -104,59 +104,6 @@ form .leftrightwrapper{
     width: 100%;
 }
 
-
-
-
-.majeureTitle{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}
-
-.majeureTitle .left {
-    width: 80%;
-}
-
-.majeureTitle .right {
-    width: 20%;
-    text-align: center;
-}
-
-.majeurescontent{
-    display: flex;
-    flex-direction: row;
-    background: white;
-    color: black;
-    padding: 5px 0;
-    margin-bottom: 5px;
-}
-
-.majeurescontent:last-child{
-    margin-bottom: 0;
-}
-
-.majeurescontent .left{
-    width: 60%;
-}
-
-.majeurescontent .right{
-    width: 40%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}
-
-.majeurescontent .right button, .majeurescontent .right input{
-    width: 50%;
-    float: left;
-}
-
-#addMajeure{
-    margin-top: 5px;
-    width: 60%;
-    display: block;
-}
-
 .addcancel {
     margin-top: 10px;
     width: 40%;
@@ -166,12 +113,6 @@ form .leftrightwrapper{
 
 .addcancel button {
     width: calc(50% - 4px);
-}
-
-
-
-#changeMajeureCourses.active{
-    display: block;
 }
 
 .courseTitle{
@@ -228,11 +169,20 @@ form .leftrightwrapper{
     display: block;
 }
 
+#checkLocations.active{
+    display: block;
+}
+
+#map{
+    height: 600px;
+}
+
 .destList {
     display: flex;
     justify-content: center;
     width: 100%;
 }
+
 .destination {
     border-radius: 12px;
     margin: 5px 0;
@@ -241,6 +191,7 @@ form .leftrightwrapper{
     width: 800px;
     background-color: white;
 }
+
 .destination header {
     background-color: #677b8d;
     color: white;
@@ -258,6 +209,7 @@ form .leftrightwrapper{
     width: 100% - 20px;
     font-size: 18px;
 }
+
 .destination main p {
     width: 100% - 20px;
 }
