@@ -36,16 +36,17 @@
 					</section>
 					<table>
 						<h3>Matières</h3>
-						<tr>
-							<td>Web</td>
-							<td>6 heures</td>
-							<td>6 ECTS</td>
-						</tr>
-						<tr>
-							<td>BDD</td>
-							<td>8 heures</td>
-							<td>6 ECTS</td>
-						</tr>
+
+						{% for subjects in subjectsList %}
+						
+							<tr>
+								<td>{{subjects.getName}}</td>
+								<td>{{subjects.getHoursPerWeek}} heures</td>
+								<td>{{subjects.getCredits}} ECTS</td>
+							</tr>
+						
+					{% endfor %}
+						
 					</table>
 				</body>
 			</div>
