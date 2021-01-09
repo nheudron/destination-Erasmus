@@ -124,6 +124,52 @@ form .leftrightwrapper{
     width: calc(50% - 4px);
 }
 
+.buttonwrapperFM{
+    display: flex;
+    flex-direction: column;
+}
+
+.filiereMajeureSelection{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+#filiereSelect{
+    display: flex;
+    flex-direction: column;
+    width: calc(40% - 5px);
+    margin-right: 5px;
+    max-height: 140px;
+    overflow: auto;
+}
+
+#majeureSelect{
+    display: flex;
+    flex-direction: column;
+    width: calc(60% - 5px);
+    margin-left: 5px;
+    max-height: 140px;
+    overflow: auto;
+}
+
+.addButtonFM{
+    display: flex;
+    flex-direction: row;
+    margin-top: 5px;
+}
+
+#addFButton{
+    width: calc(40% - 5px);
+    margin-right: 5px;
+}
+
+#addMButton{
+    width: calc(60% - 5px);
+    margin-left: 5px;
+}
+
+
 .courseTitle{
     display: flex;
     flex-direction: row;
@@ -137,6 +183,11 @@ form .leftrightwrapper{
 .courseTitle .right {
     width: 20%;
     text-align: center;
+}
+
+#courses{
+    max-height: 200px;
+    overflow: auto;
 }
 
 .coursescontent{

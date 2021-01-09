@@ -1,6 +1,8 @@
 formToggle = 0;
 mapToggle = 0;
 coursenumber = 1;
+filiereNumber = 1;
+majeureNumber = 1;
 loc = window.location;
 baseurl = loc.protocol + "//" + loc.hostname + ":" + loc.port;
 
@@ -86,8 +88,50 @@ function clearForm() {
     document.getElementById("dormitoriescb").checked = false;
     document.getElementById("modifUnivChangeL").setAttribute("onclick", "changeLocation()");
     document.getElementById("courses").innerHTML = "";
+    coursenumber = 0;
     addCourseToList();
-    coursenumber = 1;
+    document.getElementById("filiereSelect").getElementsByClassName("content")[0].innerHTML = "";
+    filiereNumber = 0;
+    addFiliere();
+    document.getElementById("majeureSelect").getElementsByClassName("content")[0].innerHTML = "";
+    majeureNumber=0;
+    addMajeure();
+}
+
+function addFiliere(){
+    var container = document.getElementById("filiereSelect").getElementsByClassName("content")[0];
+    var rowsNB = container.getElementsByClassName("row").length;
+    if (rowsNB==2) {
+        return
+    }
+
+    var fTemplate = document.getElementById("hiddenBaseFiliereSelect");
+    var clone = fTemplate.content.cloneNode(true);
+    container.appendChild(clone);
+    var selects = document.getElementsByClassName("selectfiliere");
+    var selector = selects[selects.length - 1];
+    selector.setAttribute("name","filiere["+filiereNumber+"]");
+    filiereNumber++;
+}
+
+function addMajeure(){
+    var container = document.getElementById("majeureSelect").getElementsByClassName("content")[0];
+    var rowsNB = container.getElementsByClassName("row").length;
+    if (rowsNB==nbFiliere) {
+        return
+    }
+
+    var fTemplate = document.getElementById("hiddenBaseMajeureSelect");
+    var clone = fTemplate.content.cloneNode(true);
+    container.appendChild(clone);
+    var selects = document.getElementsByClassName("selectmajeure");
+    var selector = selects[selects.length - 1];
+    selector.setAttribute("name","majeure["+majeureNumber+"]");
+    majeureNumber++;
+}
+
+function removeLine(el){
+    el.parentNode.remove()
 }
 
 function changeLocation() {
