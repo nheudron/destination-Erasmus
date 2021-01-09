@@ -9,6 +9,7 @@ var univs = {
 var lat = 47.463972;
 var lon = -0.497227;
 var macarte = null;
+var currentUnivLocation = null;
 
 //initialisation layerGroups
 var recherche = null;
@@ -79,7 +80,6 @@ function searchOPSM() {
 }
 
 function updateSearchMarkers(jsonObjects) {
-    console.log(jsonObjects);
     for (let i = 0; i < jsonObjects.length; i++) {
         var coord = [jsonObjects[i].lat,jsonObjects[i].lon];
         var markerName = jsonObjects[i].display_name.split(",")[0];
@@ -169,6 +169,15 @@ function addUnivToMap() {
         }
         marker.bindPopup(univ + "<br>" + univs[univ].langue + "," + univs[univ].cursus);
     }
+}
+
+function addCurrentUnivLocation(univLat,univLon){
+    if (currentUnivLocation) {
+        macarte.removeLayer(currentUnivLocation);
+    }
+    currentUnivLocation = L.marker([univLat, univLon], { icon: greenIcon });
+    currentUnivLocation.bindPopup("Adresse actuelle");
+    currentUnivLocation.addTo(macarte);
 }
 
 function rechercheUniv() {

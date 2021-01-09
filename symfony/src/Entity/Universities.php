@@ -47,6 +47,16 @@ class Universities
     private $dormitories = false;
 
     /**
+     * @ORM\Column(type="float", name="univ_lat", nullable=true)
+     */
+    private $lat;
+
+    /**
+     * @ORM\Column(type="float", name="univ_lon", nullable=true)
+     */
+    private $lon;
+
+    /**
      * @ORM\ManyToMany(targetEntity=Users::class, mappedBy="favorites")
      */
     private $favUsersList;
@@ -346,6 +356,30 @@ class Universities
     public function removeSubject(Subjects $subj): self
     {
         $this->subjects->removeElement($subj);
+        return $this;
+    }
+
+    public function getLat(): ?float
+    {
+        return $this->lat;
+    }
+
+    public function setLat(?float $lat): self
+    {
+        $this->lat = $lat;
+
+        return $this;
+    }
+
+    public function getLon(): ?float
+    {
+        return $this->lon;
+    }
+
+    public function setLon(?float $lon): self
+    {
+        $this->lon = $lon;
+
         return $this;
     }
 }

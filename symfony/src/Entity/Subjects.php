@@ -41,6 +41,11 @@ class Subjects
     private $hoursPerWeek = 0;
 
     /**
+     * @ORM\Column(type="boolean", name="subj_active")
+     */
+    private $active = true;
+
+    /**
      * @ORM\ManyToMany(targetEntity=Universities::class, mappedBy="subjects")
      */
     private $universities;
@@ -123,6 +128,18 @@ class Subjects
         if ($this->universities->removeElement($university)) {
             $university->removeSubject($this);
         }
+        return $this;
+    }
+
+    public function getActive(): ?bool
+    {
+        return $this->active;
+    }
+
+    public function setActive(bool $active): self
+    {
+        $this->active = $active;
+
         return $this;
     }
 }

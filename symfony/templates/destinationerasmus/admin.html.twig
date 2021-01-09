@@ -61,14 +61,12 @@
 						<input type="text" name="name" id="modifUnivName" placeholder="Nom de l'université" required value="efzef">
 						<input type="text" name="city" id="modifUnivCity" placeholder="Ville" required value="efzef">
 						<input type="text" name="country" id="modifUnivCountry" placeholder="Pays" required value="efzef">
-						<input type="text" name="prerequisite" placeholder="Prérequis, laisser vide pour aucun">
+						<input type="text" name="prerequisite" id="modifUnivPreR" placeholder="Prérequis, laisser vide pour aucun">
 						<input type="hidden" name="lat" id="modifUnivLat">
 						<input type="hidden" name="long" id="modifUnivLong">
 						<button type="button" id="modifUnivChangeL" onclick="changeLocation()">Emplacement</button>
 					</div>
 					<div class="formright">
-						<label for="nbPlaces">Nombre de place :</label>
-						<input type="number" id="nbPlaces" placeholder="XX" required value="85">
 						<fieldset id="languagechoice">
 							<legend>Langue :</legend>
 							<label for="en">Anglais</label>
@@ -84,7 +82,7 @@
 				</div>
 				<div class="buttonwrapperFM">
 					<div class="filiereMajeureSelection">
-						<div id="filiereSelect">
+						{# <div id="filiereSelect">
 							<p>Filiere(s) :</p>
 							<div class="content">
 								<div class="row">
@@ -95,14 +93,14 @@
 									<button type="button" onclick="removeLine(this)">Supprimer</button>
 								</div>
 							</div>
-						</div>
+						</div> #}
 						<div id="majeureSelect">
 							<p>Majeure(s) :</p>
 							<div class="content">
 								<div class="row">
 									<select name="majeure[0]" class="selectmajeure">
 										{% for branch in branchList %}
-											<option value="{{ branch.id }}">{{ branch.name }}</option>
+											<option class="majeure{{branch.id}}" value="{{ branch.id }}">{{ branch.name }}</option>
 										{% endfor %}
 									</select>
 									<button type="button" onclick="removeLine(this)">Supprimer</button>
@@ -111,7 +109,7 @@
 						</div>
 					</div>
 					<div class="addButtonFM">
-						<button type="button" id="addFButton" onclick="addFiliere()">Ajouter</button>
+						{# <button type="button" id="addFButton" onclick="addFiliere()">Ajouter</button> #}
 						<button type="button" id="addMButton" onclick="addMajeure()">Ajouter</button>
 					</div>
 				</div>
@@ -147,7 +145,7 @@
 			<div id="map"></div>
 		</div>
 	</div>
-	<template id="hiddenBaseFiliereSelect">
+	{# <template id="hiddenBaseFiliereSelect">
 		<div class="row">
 			<select class="selectfiliere">
 				<option value="IR" selected>IR</option>
@@ -155,12 +153,12 @@
 			</select>
 			<button type="button" onclick="removeLine(this)">Supprimer</button>
 		</div>
-	</template>
+	</template> #}
 	<template id="hiddenBaseMajeureSelect">
 		<div class="row">
 			<select class="selectmajeure">
 				{% for branch in branchList %}
-					<option value="{{ branch.id }}">{{ branch.name }}</option>
+					<option class="majeure{{branch.id}}" value="{{ branch.id }}">{{ branch.name }}</option>
 				{% endfor %}
 			</select>
 			<button type="button" onclick="removeLine(this)">Supprimer</button>
