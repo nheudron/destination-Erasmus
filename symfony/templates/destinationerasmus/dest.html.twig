@@ -57,7 +57,7 @@
 				<section>
 					<p>Ceci est un commentaire</p>
 					<div class="authorComment">
-						<div class="cercle">NH</div>
+						<div class="cercle"><span>NH</span></div>
 						<span>Nicolas Heudron</span>
 						<span class="date"><i class="fas fa-calendar-week"></i> 18/04/2020</span>
 					</div>
@@ -126,10 +126,12 @@
 				<div class="scrollY">
 					{% for user in usersFav %}
 						<div><div class="cercle user{{user.id}} ">
-							<script>
+							<span>
+							<script> 
 								document.write("{{ user.getFirstName }}".substr(0, 1));
 								document.write("{{ user.lastName }}".substr(0, 1))
-								</script>
+							</script>
+							</span>
 						</div><span>{{ user.getFirstName }} {{ user.lastName }}</span></div>
 						
 						
