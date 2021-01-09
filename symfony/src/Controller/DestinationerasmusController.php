@@ -272,7 +272,7 @@ class DestinationerasmusController extends AbstractController
         $returnvar = new JsonResponse();
         $univ = $this->universityService->getUnivById($univId);
         $univjson = $this->serializer->serialize($univ,'json', [AbstractNormalizer::IGNORED_ATTRIBUTES => 
-                ["favUsersList","cityUniversities","countryCities","__initializer__","__cloner__","__isInitialized__"]
+                ["favUsersList","cityUniversities","countryCities","univQuestions","univComments","accommodations","flag","favNb","__initializer__","__cloner__","__isInitialized__"]
             ]);
         $returnvar->setData(json_decode($univjson));
         return $returnvar;
