@@ -109,9 +109,11 @@ class DestinationerasmusController extends AbstractController
     {
         $univ = $this->universityService->getUnivById($univId);
         $usersFav = $univ->getFavUsersList();
+        $subjectsList = $univ->getSubjects();
         return $this->render('destinationerasmus/dest.html.twig', [
             "univ" => $univ,
-            "usersFav" => $usersFav
+            "usersFav" => $usersFav,
+            "subjectsList" => $subjectsList
         ]);
     }
 
