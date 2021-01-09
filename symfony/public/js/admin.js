@@ -21,8 +21,33 @@ function updateForm(element) {
             document.getElementById("modifUnivName").value = jsonResponse["name"];
             document.getElementById("modifUnivCity").value = jsonResponse["univCity"]["name"];
             document.getElementById("modifUnivCountry").value = jsonResponse["univCity"]["cityCountry"]["name"];
-            document.getElementById("nbPlaces").value = jsonResponse["availablePlaces"];
             document.getElementById("dormitoriescb").checked = jsonResponse["dormitories"];
+            var majeurs = jsonResponse["majors"];
+            document.getElementById("majeureSelect").getElementsByClassName("content")[0].innerHTML = "";
+            majeureNumber = 0;
+            if (majeurs.length)
+                for (let i = 0; i < majeurs.length; i++) {
+                    var currentSelector = addMajeure();
+                    currentSelector.getElementsByClassName("majeure" + majeurs[i]["id"])[0].selected = true;
+                }
+            var prerequis = jsonResponse["prerequisites"];
+            if (prerequis.length) {
+                document.getElementById("modifUnivPreR").value = prerequis[prerequis.length - 1]["name"];
+            }
+            var matieres = jsonResponse["subjects"];
+            document.getElementById("courses").innerHTML = "";
+            coursenumber = 0;
+            if (matieres.length) {
+                for (let i = 0; i < matieres.length; i++) {
+                    var currentMatiere = addCourseToList();
+                    currentMatiere.getElementsByClassName("courseName")[0].value = matieres[i]["name"];
+                    currentMatiere.getElementsByClassName("courseHours")[0].value = matieres[i]["credits"];
+                    currentMatiere.getElementsByClassName("courseECTS")[0].value = matieres[i]["hoursPerWeek"];
+                    currentMatiere.getElementsByClassName("courseActive")[0].checked = matieres[i]["active"];
+                }
+            }
+            document.getElementById("modifUnivLat").value = jsonResponse["lat"];
+            document.getElementById("modifUnivLong").value = jsonResponse["lon"];
         };
         httpreq.send(null);
     }
@@ -90,34 +115,34 @@ function clearForm() {
     document.getElementById("courses").innerHTML = "";
     coursenumber = 0;
     addCourseToList();
-    document.getElementById("filiereSelect").getElementsByClassName("content")[0].innerHTML = "";
-    filiereNumber = 0;
-    addFiliere();
+    // document.getElementById("filiereSelect").getElementsByClassName("content")[0].innerHTML = "";
+    // filiereNumber = 0;
+    // addFiliere();
     document.getElementById("majeureSelect").getElementsByClassName("content")[0].innerHTML = "";
-    majeureNumber=0;
+    majeureNumber = 0;
     addMajeure();
 }
 
-function addFiliere(){
-    var container = document.getElementById("filiereSelect").getElementsByClassName("content")[0];
-    var rowsNB = container.getElementsByClassName("row").length;
-    if (rowsNB==2) {
-        return
-    }
+// function addFiliere(){
+//     var container = document.getElementById("filiereSelect").getElementsByClassName("content")[0];
+//     var rowsNB = container.getElementsByClassName("row").length;
+//     if (rowsNB==2) {
+//         return
+//     }
 
-    var fTemplate = document.getElementById("hiddenBaseFiliereSelect");
-    var clone = fTemplate.content.cloneNode(true);
-    container.appendChild(clone);
-    var selects = document.getElementsByClassName("selectfiliere");
-    var selector = selects[selects.length - 1];
-    selector.setAttribute("name","filiere["+filiereNumber+"]");
-    filiereNumber++;
-}
+//     var fTemplate = document.getElementById("hiddenBaseFiliereSelect");
+//     var clone = fTemplate.content.cloneNode(true);
+//     container.appendChild(clone);
+//     var selects = document.getElementsByClassName("selectfiliere");
+//     var selector = selects[selects.length - 1];
+//     selector.setAttribute("name","filiere["+filiereNumber+"]");
+//     filiereNumber++;
+// }
 
-function addMajeure(){
+function addMajeure() {
     var container = document.getElementById("majeureSelect").getElementsByClassName("content")[0];
     var rowsNB = container.getElementsByClassName("row").length;
-    if (rowsNB==nbFiliere) {
+    if (rowsNB == nbFiliere) {
         return
     }
 
@@ -126,11 +151,12 @@ function addMajeure(){
     container.appendChild(clone);
     var selects = document.getElementsByClassName("selectmajeure");
     var selector = selects[selects.length - 1];
-    selector.setAttribute("name","majeure["+majeureNumber+"]");
+    selector.setAttribute("name", "majeure[" + majeureNumber + "]");
     majeureNumber++;
+    return selector;
 }
 
-function removeLine(el){
+function removeLine(el) {
     el.parentNode.remove()
 }
 
@@ -143,6 +169,11 @@ function changeLocation() {
         var univNameText = document.getElementById("modifUnivName").value;
         document.getElementById("searchtext").value = univNameText;
         searchOPSM();
+        var univLat = document.getElementById("modifUnivLat").value;
+        var univLon = document.getElementById("modifUnivLat").value;
+        if (univLat & univLon) {
+            addCurrentUnivLocation(univLat,univLon)
+        }
         mapToggle = 1;
     } else {
         document.getElementById("formUpdatingUniv").className = "active";
@@ -151,7 +182,7 @@ function changeLocation() {
     }
 }
 
-function updateLocation(lat,long) {
+function updateLocation(lat, long) {
     document.getElementById("formUpdatingUniv").className = "active";
     document.getElementById("checkLocations").className = "";
     document.getElementById("modifUnivLat").value = lat;
