@@ -193,14 +193,21 @@ $base-color-dark: #677b8d;
         width: 30px;
         height: 30px;
         border-radius: 150px;
-        margin-left: 5px;
-        margin-right: 5px;
+        margin: 0px 5px;
         text-align: center;
         line-height: 30px;
         color: $base-color;
         display: inline-block;
         font-size: 14px;
       }
+      div{
+          margin-top: 5px;
+          span{
+            text-align: center;
+            position: relative;
+            left: 1px;
+          }
+        }
       .date{
         color: #cadae9;
       }
@@ -367,12 +374,19 @@ $base-color-dark: #677b8d;
         width: 30px;
         height: 30px;
         border-radius: 150px;
-        margin-left: 5px;
-        margin-right: 5px;
+        margin: 0px 5px;
         text-align: center;
         line-height: 30px;
         color: white;
         display: inline-block;
+      }
+      div{
+        margin-top: 5px;
+        span{
+          text-align: center;
+          position: relative;
+          left: 1px;
+        }
       }
     }
   }

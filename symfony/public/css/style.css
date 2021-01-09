@@ -240,13 +240,22 @@
   width: 30px;
   height: 30px;
   border-radius: 150px;
-  margin-left: 5px;
-  margin-right: 5px;
+  margin: 0px 5px;
   text-align: center;
   line-height: 30px;
   color: #859bae;
   display: inline-block;
   font-size: 14px;
+}
+
+.destBody .destMain .authorComment div {
+  margin-top: 5px;
+}
+
+.destBody .destMain .authorComment div span {
+  text-align: center;
+  position: relative;
+  left: 1px;
 }
 
 .destBody .destMain .authorComment .date {
@@ -456,11 +465,20 @@
   width: 30px;
   height: 30px;
   border-radius: 150px;
-  margin-left: 5px;
-  margin-right: 5px;
+  margin: 0px 5px;
   text-align: center;
   line-height: 30px;
   color: white;
   display: inline-block;
+}
+
+.destBody .destColumn .destBoxStyle div {
+  margin-top: 5px;
+}
+
+.destBody .destColumn .destBoxStyle div span {
+  text-align: center;
+  position: relative;
+  left: 1px;
 }
 /*# sourceMappingURL=style.css.map */
