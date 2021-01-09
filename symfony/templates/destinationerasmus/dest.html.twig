@@ -151,5 +151,11 @@
 {% endblock %}
 
 {% block javascripts %}
+	<script>
+		window.onload = function () {
+			// Fav
+			checkFav();
+		};
+	</script>
 	<script src="/js/fav.js"></script>
 {% endblock %}
