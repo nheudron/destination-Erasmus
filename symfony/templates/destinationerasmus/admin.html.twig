@@ -64,7 +64,7 @@
 						<input type="text" name="prerequisite" placeholder="Prérequis, laisser vide pour aucun">
 						<input type="hidden" name="lat" id="modifUnivLat">
 						<input type="hidden" name="long" id="modifUnivLong">
-						<button type="button" id="modifUnivChangeL" onclick="changeLocation()">Emplacements</button>
+						<button type="button" id="modifUnivChangeL" onclick="changeLocation()">Emplacement</button>
 					</div>
 					<div class="formright">
 						<label for="nbPlaces">Nombre de place :</label>
@@ -124,6 +124,7 @@
 	<script>
 		window.onload = function () { // map
 			initMap();
+			rechercheUniv();
 		};
 	</script>
 {% endblock %}

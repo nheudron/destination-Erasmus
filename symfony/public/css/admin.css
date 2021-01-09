@@ -88,6 +88,15 @@ form .leftrightwrapper{
     width: calc(60% - 5px);
 }
 
+#modifUnivChangeL{
+    width: 100%;
+}
+
+.searchpopup{
+    margin-top: 5px;
+    width: 100%;
+}
+
 .formright{
     padding-left: 5px;
     width: calc(40% - 5px);
@@ -174,6 +183,7 @@ form .leftrightwrapper{
 }
 
 #map{
+    margin-top: 10px;
     height: 600px;
 }
 

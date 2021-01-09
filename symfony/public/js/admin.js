@@ -6,10 +6,9 @@ baseurl = loc.protocol + "//" + loc.hostname + ":" + loc.port;
 
 function updateForm(element) {
     form = document.getElementById("formWrapper");
-    if (typeof(element) !== 'undefined') {
+    if (typeof (element) !== 'undefined') {
         id = parseInt(element.id.substring(4));
         univModifDetailsUrl = baseurl + "/univModifDetails/" + id;
-        document.getElementById("modifUnivChangeL").setAttribute("onclick","changeLocation("+id+")");
 
         var httpreq = new XMLHttpRequest();
         httpreq.overrideMimeType("application/json");
@@ -43,21 +42,21 @@ function addCourseToList() {
     left.className = "left";
     var inputName = document.createElement("input");
     inputName.setAttribute("type", "text");
-    inputName.setAttribute("name", "courseName["+coursenumber+"]");
+    inputName.setAttribute("name", "courseName[" + coursenumber + "]");
     inputName.setAttribute("placeholder", "Nom de la matière");
     inputName.setAttribute("required", "");
     inputName.className = "courseName";
     left.appendChild(inputName);
     var inputHours = document.createElement("input");
     inputHours.setAttribute("type", "number");
-    inputHours.setAttribute("name", "courseHours["+coursenumber+"]");
+    inputHours.setAttribute("name", "courseHours[" + coursenumber + "]");
     inputHours.setAttribute("placeholder", "Heure");
     inputHours.setAttribute("required", "");
     inputHours.className = "courseHours";
     left.appendChild(inputHours);
     var inputECTS = document.createElement("input");
     inputECTS.setAttribute("type", "number");
-    inputECTS.setAttribute("name", "courseECTS["+coursenumber+"]");
+    inputECTS.setAttribute("name", "courseECTS[" + coursenumber + "]");
     inputECTS.setAttribute("placeholder", "ECTS");
     inputECTS.setAttribute("required", "");
     inputECTS.className = "courseECTS";
@@ -67,7 +66,7 @@ function addCourseToList() {
     right.className = "right";
     var inputActive = document.createElement("input");
     inputActive.setAttribute("type", "checkbox");
-    inputActive.setAttribute("name", "courseActive["+coursenumber+"]");
+    inputActive.setAttribute("name", "courseActive[" + coursenumber + "]");
     inputActive.checked = true;
     inputActive.className = "courseActive";
     right.appendChild(inputActive);
@@ -85,24 +84,35 @@ function clearForm() {
     }
     document.getElementById("languagechoice").getElementsByTagName("input")[0].checked = true;
     document.getElementById("dormitoriescb").checked = false;
-    document.getElementById("modifUnivChangeL").setAttribute("onclick","changeLocation()");
+    document.getElementById("modifUnivChangeL").setAttribute("onclick", "changeLocation()");
     document.getElementById("courses").innerHTML = "";
     addCourseToList();
     coursenumber = 1;
 }
 
-function changeLocation(element){
-    if(mapToggle == 0){
-        document.getElementById("formUpdatingUniv").className ="";
+function changeLocation() {
+    if (mapToggle == 0) {
+        document.getElementById("formUpdatingUniv").className = "";
         document.getElementById("checkLocations").className = "active";
         macarte.invalidateSize();
         macarte.setView([lat, lon], 6);
+        var univNameText = document.getElementById("modifUnivName").value;
+        document.getElementById("searchtext").value = univNameText;
+        searchOPSM();
         mapToggle = 1;
-    }else{
-        document.getElementById("formUpdatingUniv").className ="active";
+    } else {
+        document.getElementById("formUpdatingUniv").className = "active";
         document.getElementById("checkLocations").className = "";
         mapToggle = 0;
     }
+}
+
+function updateLocation(lat,long) {
+    document.getElementById("formUpdatingUniv").className = "active";
+    document.getElementById("checkLocations").className = "";
+    document.getElementById("modifUnivLat").value = lat;
+    document.getElementById("modifUnivLong").value = long;
+    mapToggle = 0;
 }
 
 function updateUniv(element) {

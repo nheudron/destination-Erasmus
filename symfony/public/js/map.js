@@ -63,48 +63,30 @@ var cyanIcon = L.icon({
 
 function searchOPSM() {
     var search = document.getElementById("searchtext").value;
-    var searchbaseurl = "https://nominatim.openstreetmap.org/search?format=json&q=";
-    var url = searchbaseurl + search;
-    var httpreq = new XMLHttpRequest();
-    httpreq.overrideMimeType("application/json");
-    httpreq.open("GET", url, true);
-    httpreq.onload = function () {
-        var jsonResponse = JSON.parse(httpreq.responseText);
-        updatetext(jsonResponse);
-    };
-    httpreq.send(null);
-}
-
-function updatetext(jsonObjects) {
-    var searchResults = document.getElementById("searchResults");
-    while (searchResults.rows.length > 1) {
-        searchResults.deleteRow(1);
-    }
-    for (let index = 0; index < jsonObjects.length; index++) {
-        let ligne = searchResults.insertRow();
-        let cellule1 = ligne.insertCell();
-        let nom = document.createTextNode(jsonObjects[index].display_name);
-        cellule1.appendChild(nom);
-        let cellule2 = ligne.insertCell();
-        let coord = document.createTextNode(jsonObjects[index].lat + "," + jsonObjects[index].lon);
-        cellule2.appendChild(coord);
-        let cellule3 = ligne.insertCell();
-        var button = document.createElement('BUTTON');
-        let textbutton = document.createTextNode("Voir");
-        button.appendChild(textbutton);
-        button.setAttribute("onclick", "addtoMap(this)");
-        cellule3.appendChild(button);
-    }
-}
-
-function addtoMap(button) {
     recherche.clearLayers();
-    let obj = button.parentNode.parentNode;
-    let coord = obj.children[1].innerHTML.split(',');
-    let name = obj.children[0].innerHTML.split(',')[0];
-    var marker = L.marker(coord, { icon: redIcon }).addTo(recherche);
-    marker.bindPopup(name);
-    macarte.setView(coord, 15);
+    if (search != "") {
+        var searchbaseurl = "https://nominatim.openstreetmap.org/search?format=json&q=";
+        var url = searchbaseurl + search;
+        var httpreq = new XMLHttpRequest();
+        httpreq.overrideMimeType("application/json");
+        httpreq.open("GET", url, true);
+        httpreq.onload = function () {
+            var jsonResponse = JSON.parse(httpreq.responseText);
+            updateSearchMarkers(jsonResponse);
+        };
+        httpreq.send(null);
+    }
+}
+
+function updateSearchMarkers(jsonObjects) {
+    console.log(jsonObjects);
+    for (let i = 0; i < jsonObjects.length; i++) {
+        var coord = [jsonObjects[i].lat,jsonObjects[i].lon];
+        var markerName = jsonObjects[i].display_name.split(",")[0];
+        var marker = L.marker(coord, { icon: redIcon }).addTo(recherche);
+        marker.bindPopup(markerName+"<br><button type=\"button\" class=\"searchpopup\" onclick=\"updateLocation("+coord[0]+","+coord[1]+")\">Choisir</button>");
+    }
+    macarte.fitBounds(recherche.getBounds());
 }
 
 // Fonction d'initialisation de la carte
@@ -121,11 +103,11 @@ function initMap() {
     }).addTo(macarte);
 }
 
-function checkTicked(){
-    ir.on("add",function(ev){console.log("ir added")});
-    sep.on("add",function(ev){console.log("sep added")});
-    ir.on("remove",function(ev){console.log("ir removed")});
-    sep.on("remove",function(ev){console.log("sep removed")});
+function checkTicked() {
+    ir.on("add", function (ev) { console.log("ir added") });
+    sep.on("add", function (ev) { console.log("sep added") });
+    ir.on("remove", function (ev) { console.log("ir removed") });
+    sep.on("remove", function (ev) { console.log("sep removed") });
 }
 
 //utiliser un script comme dans home.html.twig pour lancé toute les fonction au démarrage
@@ -135,7 +117,7 @@ function checkTicked(){
 //     checkTicked();
 // };
 
-function addUnivToMap(){
+function addUnivToMap() {
     //initialisation layers
     sep = L.layerGroup().addTo(macarte);
     ir = L.layerGroup().addTo(macarte);
@@ -189,5 +171,6 @@ function addUnivToMap(){
     }
 }
 
-function rechercheUniv(){
+function rechercheUniv() {
+    recherche = L.featureGroup().addTo(macarte);
 }
