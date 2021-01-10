@@ -37,11 +37,12 @@ function updateForm(element) {
             var majeurs = jsonResponse["majors"];
             document.getElementById("majeureSelect").getElementsByClassName("content")[0].innerHTML = "";
             majeureNumber = 0;
-            if (majeurs.length)
+            if (majeurs.length){
                 for (let i = 0; i < majeurs.length; i++) {
                     var currentSelector = addMajeure();
                     currentSelector.getElementsByClassName("majeure" + majeurs[i]["id"])[0].selected = true;
                 }
+            }
             var prerequis = jsonResponse["prerequisites"];
             if (prerequis.length) {
                 document.getElementById("modifUnivPreR").value = prerequis[prerequis.length - 1]["name"];

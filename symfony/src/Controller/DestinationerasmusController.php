@@ -321,13 +321,13 @@ class DestinationerasmusController extends AbstractController
             }
             $country->setName($params["country"]);
             $city->setName($params["city"]);
-            if (isset($params["prerequisite"]) && $params["id"] != "") {
+            if (isset($params["prerequisite"]) && $params["prerequisite"] != "") {
                 $currentYear = intval(date("Y"));
                 if (count($currentUniv->getPrerequisites()) > 0) {
                     $prerequisites = $currentUniv->getPrerequisites();
-                    $last = $prerequisites[count($prerequisites)-1];
-                    if ($last.getYear() == $currentYear ) {
-                        $prerequis = $last;
+                    $lastPreR = $currentUniv->getPrerequisites()->last();
+                    if ($lastPreR.getYear() == $currentYear ) {
+                        $prerequis = $lastPreR;
                     }else{
                         $prerequis = new Prerequisites();
                         $this->em->persist($prerequis);
