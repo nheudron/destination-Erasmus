@@ -3,8 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Majors;
-use App\Entity\Search;
-use App\Entity\Filiere;
 use App\Service\IFiliereService;
 use App\Service\IUserService;
 use App\Service\IUniversityService;
@@ -94,14 +92,14 @@ class DestinationerasmusController extends AbstractController
 
         $univs = $this->universityService->getAllUniv();
         $univsjson = $this->serializer->serialize($univs,'json', [AbstractNormalizer::ATTRIBUTES => 
-                ['name', 'lat', 'lon', 'majors'=> 'branch']
+                ['name', 'lat', 'lon','language', 'majors'=>['branch']]
             ]);
         
         return $this->render('destinationerasmus/home.html.twig', [
             'branchList' => $majorList,
             'univPage' => $univPage,
             'isAdmin' => $isAdmin,
-            'univs' => json_encode(json_decode($univsjson))
+            'univs' => $univsjson
             /*'form' => $form->createView(),*/
         ]);
     }
@@ -123,7 +121,7 @@ class DestinationerasmusController extends AbstractController
         ]);
     }
 
-        /**
+    /**
      * @return Response
      * @Route(path="/lastTrip", name="lastTrip")
      */
@@ -140,6 +138,7 @@ class DestinationerasmusController extends AbstractController
             $favorites = $user->getFavorites();
 
             return $this->render('destinationerasmus/lastTrip.html.twig', [
+                'user' => $user,
                 'univPage' => $univPage
             ]);
         }else {
@@ -149,15 +148,37 @@ class DestinationerasmusController extends AbstractController
     }
 
     /**
+     * @param int $univId
+     * @return Response
+     * @Route(path="/contrib/{univId}", name="addContrib", requirements={ "univId": "\d+" })
+     */
+    public function addContrib(int $univId): Response
+    {
+        $univ = $this->universityService->getUnivById($univId);
+        $univ->addContributor($this->userService->getUserByMail($this->getUser()->getUsername()));
+        return $this->redirectToRoute("lastTrip");
+    }
+
+    /**
+     * @param int $univId
+     * @return Response
+     * @Route(path="/rContrib/{univId}", name="removeContrib", requirements={ "univId": "\d+" })
+     */
+    public function removeContrib(int $univId): Response
+    {
+        $univ = $this->universityService->getUnivById($univId);
+        $univ->removeContributor($this->userService->getUserByMail($this->getUser()->getUsername()));
+        return $this->redirectToRoute("lastTrip");
+    }
+
+    /**
      * @return Response
      * @Route(path="/user", name="userPage")
      */
     public function user(): Response
     {
-        $user = $this->userService->getUserByMail($this->getUser()->getUsername());
-
         return $this->render('destinationerasmus/user.html.twig', [
-            'user'=>$user
+            'user' => $this->userService->getUserByMail($this->getUser()->getUsername())
         ]);
     }
 

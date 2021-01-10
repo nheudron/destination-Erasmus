@@ -5,42 +5,47 @@
 {% endblock %}
 
 {% block title %}
-	Mon dernier séjours
+	Mon dernier séjour
 {% endblock %}
 
 {% block main %}
 	<div class="title">
 		<h2>Selectionne ta dernière destination erasmus</h2>
-		<br />
+		<br>
 		<p>Les destinations affichées ci-dessous ne sont pas toutes proposées cette année</p>
 	</div>
-			{% for univ in univPage %}
+
+	{% for univ in univPage %}
+		{% set contribution = false %}
+		{% for contrib in user.univContributors.values %}
+			{% if contrib.id == univ.id %}
+				{% set contribution = true %}
+			{% endif %}
+		{% endfor %}
 		<section class="destList">
 			<div class="destination">
+				{% if contribution == true %}
+					<a href="{{ path('removeContrib', { 'univId': univ.id }) }}">
+				{% else %}
+					<a href="{{ path('addContrib', { 'univId': univ.id }) }}">
+				{% endif %}
 				<header>
-					<a href="{{ path('dest', { 'univId': univ.id }) }}">
-						<h4>
-							<img src=" {{ univ.univCity.cityCountry.flag }} " class="flag">
-							{{ univ.name }}</h4>
-					</a>
+					<h4><img src=" {{ univ.univCity.cityCountry.flag }} " class="flag">{{ univ.name }}</h4>
 				</header>
 				<main>
-					<p>Country:
-						{{ univ.univCity.cityCountry.name }}<span class="right">Language:
-							{{ univ.language }}</span>
-					</p>
-					<p>City:
-						{{ univ.univCity.name }}
-					</p>
-					<p>Filières :</p>
-					<p>Majeures :</p>
-					<p>Cours :</p>
+					<p>Country: {{ univ.univCity.cityCountry.name }}<span class="right">Language:{{ univ.language }}</span></p>
+					<p>City: {{ univ.univCity.name }}</p>
+					<p>Filière : {% for branch in univ.majors.values %}{{ branch.branch }}{% endfor %}</p>
+					<p>Majeures : {% for major in univ.majors.values %}{{ major.name }}{% endfor %}</p>
 				</main>
 				<footer>
-					<p>
-					</p>
+					{% if contribution == true %}
+						<p>Appuyez pour retirer cette destination de votre liste</p>
+					{% else %}
+						<p>Appuyez pour ajouter cette destination à votre liste</p>
+					{% endif %}
 				</footer>
-
+				</a>
 			</div>
 		</section>
 	{% endfor %}

@@ -86,15 +86,12 @@
 					<p>City:
 						{{ univ.univCity.name }}
 					</p>
-					<p>Filière : 
+					<p>Filière : {% for branch in univ.majors.values %}{{ branch.branch }}{% endfor %}
 						
 					</p>
 					<p>Majeures :
-
-						{% for major in univ.majors %}
-							<span>{{ major.name }}</span>
-							{{dump(major)}}
-						{% endfor %}
+						{% for major in univ.majors.values %}{{ major.name }}{% endfor %}
+				
 					</p>
 					<p>Cours : 
 						
@@ -103,7 +100,6 @@
 							<span>{{ cours.name }} </span>
 						{% endfor %}
 					</p>
-
 				</main>
 				<footer>
 					<p>
@@ -118,7 +114,6 @@
 						cette destination aux favoris
 					</p>
 				</footer>
-
 			</div>
 		</section>
 	{% endfor %}
@@ -134,13 +129,13 @@
 	<script src="/js/filters.js"></script>
 
 	<script>
-		//var univsJSON = JSON.parse({{univs}});
-		//console.log(univsJSON);
+		var univsJSON = JSON.parse("{{univs}}".replaceAll("&quot;","\""));
 
 		window.onload = function () { // map
+			console.log(univsJSON);
 			initMap();
 			addUnivToMap();
-			checkTicked();
+			// checkTicked();
 			// Fav
 			checkFav();
 		};
@@ -148,7 +143,7 @@
 	<script>
 		$(document).ready(function () {
 
-			$("#submit").click(function {
+			$("#submit").click(function() {
 
 				$.post('connexion.php', { // Un script PHP que l'on va créer juste après
 						username: $("#username").val(), // Nous récupérons la valeur de nos inputs que l'on fait passer à connexion.php
