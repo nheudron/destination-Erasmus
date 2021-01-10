@@ -1,15 +1,13 @@
-var univs = {
-    "Esaip Angers": { "lat": 47.463972, "lon": -0.497227, "langue": "fr", "cursus": null },
-    "Esaip Aix-en-Provence": { "lat": 43.5276723, "lon": 5.4314262, "langue": "fr", "cursus": null },
-    "Université de Veliko Tarnovo": { "lat": 43.0783, "lon": 25.6492, "langue": "en", "cursus": "ir" },
-    "Universidad Pablo de Olavide": { "lat": 37.356080899999995, "lon": -5.938167775804539, "langue": "es", "cursus": "ir" },
-    "Leipzig University of Applied Sciences": { "lat": 51.3142081, "lon": 12.37297079388441, "langue": "de", "cursus": "sep" }
+var esaipUnivs = {
+    "Esaip Angers": { "lat": 47.463972, "lon": -0.497227 },
+    "Esaip Aix-en-Provence": { "lat": 43.5276723, "lon": 5.4314262 }
 }
 // On initialise la latitude et la longitude de l'ESAIP (centre de la carte)
 var lat = 47.463972;
 var lon = -0.497227;
 var macarte = null;
 var currentUnivLocation = null;
+var ignoreClick = 0;
 
 //initialisation layerGroups
 var recherche = null;
@@ -83,10 +81,10 @@ function searchOPSM() {
 
 function updateSearchMarkers(jsonObjects) {
     for (let i = 0; i < jsonObjects.length; i++) {
-        var coord = [jsonObjects[i].lat,jsonObjects[i].lon];
+        var coord = [jsonObjects[i].lat, jsonObjects[i].lon];
         var markerName = jsonObjects[i].display_name.split(",")[0];
         var marker = L.marker(coord, { icon: redIcon }).addTo(recherche);
-        marker.bindPopup(markerName+"<br><button type=\"button\" class=\"searchpopup\" onclick=\"updateLocation("+coord[0]+","+coord[1]+")\">Choisir</button>");
+        marker.bindPopup(markerName + "<br><button type=\"button\" class=\"searchpopup\" onclick=\"updateLocation(" + coord[0] + "," + coord[1] + ")\">Choisir</button>");
     }
 }
 
@@ -104,12 +102,12 @@ function initMap() {
     }).addTo(macarte);
 }
 
-function checkTicked() {
-    ir.on("add", function (ev) { console.log("ir added") });
-    sep.on("add", function (ev) { console.log("sep added") });
-    ir.on("remove", function (ev) { console.log("ir removed") });
-    sep.on("remove", function (ev) { console.log("sep removed") });
-}
+// function checkTicked() {
+//     ir.on("add", function (ev) { console.log("ir added") });
+//     sep.on("add", function (ev) { console.log("sep added") });
+//     ir.on("remove", function (ev) { console.log("ir removed") });
+//     sep.on("remove", function (ev) { console.log("sep removed") });
+// }
 
 //utiliser un script comme dans home.html.twig pour lancé toute les fonction au démarrage
 // window.onload = function () {
@@ -126,6 +124,28 @@ function addUnivToMap() {
     //Ajout du menu
     var langueDestination = { "Destinations IR": ir, "Destinations SEP": sep };
     L.control.layers(null, langueDestination).addTo(macarte);
+    //Code pour afficher les marker qui sont dans 2 trucs
+    ir.on("remove", function (ev) {
+        if (ignoreClick == 0) {
+            ignoreClick = 2;
+            sepButton = document.getElementsByClassName("leaflet-control-layers-selector")[1];
+            sepButton.click();
+            console.log("SEP Click");
+            setTimeout(() => { sepButton.click(); }, 20)
+        }
+        ignoreClick--;
+    });
+    sep.on("remove", function (ev) {
+        if (ignoreClick == 0) {
+            ignoreClick = 2;
+            irButton = document.getElementsByClassName("leaflet-control-layers-selector")[0];
+            irButton.click();
+            console.log("IR Click");
+            setTimeout(() => { sepButton.click(); }, 20)
+        }
+        ignoreClick--;
+    });
+
     //Ajout de la légende
     var legende = L.control({ position: "bottomleft" });
     legende.onAdd = function (macarte) {
@@ -138,41 +158,53 @@ function addUnivToMap() {
         return div;
     };
     legende.addTo(macarte);
-    for (univ in univs) {
-        var marker = null;
-        switch (univs[univ].langue) {
-            case "fr":
-                marker = L.marker([univs[univ].lat, univs[univ].lon], { icon: cyanIcon });
+    for (esaipUniv in esaipUnivs) {
+        var marker = L.marker([esaipUnivs[esaipUniv].lat, esaipUnivs[esaipUniv].lon], { icon: cyanIcon });;
+        marker.addTo(esaip);
+        marker.bindPopup(esaipUniv);
+    }
+    for (univ in univsJSON) {
+        univMarker = null;
+        switch (univsJSON[univ]["language"]) {
+            case "Anglais":
+                univMarker = L.marker([univsJSON[univ]["lat"], univsJSON[univ]["lon"]], { icon: blueIcon });
                 break;
-            case "en":
-                marker = L.marker([univs[univ].lat, univs[univ].lon], { icon: blueIcon });
+            case "Allemand":
+                univMarker = L.marker([univsJSON[univ]["lat"], univsJSON[univ]["lon"]], { icon: greenIcon });
                 break;
-            case "es":
-                marker = L.marker([univs[univ].lat, univs[univ].lon], { icon: yellowIcon });
-                break;
-            case "de":
-                marker = L.marker([univs[univ].lat, univs[univ].lon], { icon: greenIcon });
-                break;
-            default:
-                console.log(univ + " n'a pas de langue affecté, contacter l'administrateur du site")
-                break;
-        }
-        switch (univs[univ].cursus) {
-            case "sep":
-                marker.addTo(sep);
-                break;
-            case "ir":
-                marker.addTo(ir);
+            case "Espagnol":
+                univMarker = L.marker([univsJSON[univ]["lat"], univsJSON[univ]["lon"]], { icon: yellowIcon });
                 break;
             default:
-                marker.addTo(macarte);
+                univMarker = L.marker([univsJSON[univ]["lat"], univsJSON[univ]["lon"]], { icon: redIcon });
+                console.log("Probleme de langue sur l'université " + univsJSON[univ]["name"]);
                 break;
         }
-        marker.bindPopup(univ + "<br>" + univs[univ].langue + "," + univs[univ].cursus);
+        var usedMajor = [];
+        for (major in univsJSON[univ]["majors"]) {
+            if (!usedMajor.includes(univsJSON[univ]["majors"][major]["branch"])) {
+                usedMajor.push(univsJSON[univ]["majors"][major]["branch"]);
+                switch (univsJSON[univ]["majors"][major]["branch"]) {
+                    case "IR":
+                        univMarker.addTo(ir);
+                        break;
+                    case "SEP":
+                        univMarker.addTo(sep);
+                        break;
+                    default:
+                        univMarker.addTo(macarte);
+                        console.log("Probleme de majeur sur l'université " + univsJSON[univ]["name"]);
+                        break;
+                }
+            }
+        }
+        univMarker.bindPopup(univsJSON[univ]["name"]
+            + "<br>Langue : " + univsJSON[univ]["language"]
+            + "<br>Filière : " + usedMajor);
     }
 }
 
-function addCurrentUnivLocation(univLat,univLon){
+function addCurrentUnivLocation(univLat, univLon) {
     recherche.removeLayer(currentUnivLocation);
     currentUnivLocation = L.marker([univLat, univLon], { icon: greenIcon, pane: "currentLocation" });
     currentUnivLocation.bindPopup("Adresse actuelle");
