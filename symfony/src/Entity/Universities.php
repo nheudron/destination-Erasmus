@@ -62,6 +62,16 @@ class Universities
     private $favUsersList;
 
     /**
+     * @var ArrayCollection|null
+     * @ORM\ManyToMany(targetEntity=Users::class, inversedBy="user_contributors")
+     * @ORM\JoinTable(name="univ_contributors",
+     *      joinColumns={@ORM\JoinColumn(name="universities_id", referencedColumnName="univ_id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="users_id", referencedColumnName="user_id")}
+     * )
+     */
+    private $univ_contributors;
+
+    /**
      * @ORM\JoinColumn(name="univ_city", referencedColumnName="city_id")
      * @ORM\ManyToOne(targetEntity="Cities", inversedBy="city_universities")
      */
@@ -120,6 +130,7 @@ class Universities
     public function __construct()
     {
         $this->favUsersList = new ArrayCollection();
+        $this->univ_contributors = new ArrayCollection();
         $this->univ_comments = new ArrayCollection();
         $this->majors = new ArrayCollection();
         $this->accommodations = new ArrayCollection();
@@ -214,6 +225,28 @@ class Universities
         if ($this->favUsersList->removeElement($favUsersList)) {
             $favUsersList->removeFavorite($this);
         }
+        return $this;
+    }
+
+    /**
+     * @return Collection|Accommodations[]
+     */
+    public function getContributors(): Collection
+    {
+        return $this->univ_contributors;
+    }
+
+    public function addContributor(Users $univ_contributors): self
+    {
+        if (!$this->univ_contributors->contains($univ_contributors)) {
+            $this->univ_contributors[] = $univ_contributors;
+        }
+        return $this;
+    }
+
+    public function removeContributor(Users $univ_contributors): self
+    {
+        $this->univ_contributors->removeElement($univ_contributors);
         return $this;
     }
 

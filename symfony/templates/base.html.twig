@@ -59,8 +59,10 @@
 				</a>
 			{% endif %}
 		</div>
-		<main id="main" class="main"> {% block main %}{% endblock %}
-			</main>
+
+		<main id="main" class="main">
+			{% block main %}{% endblock %}
+		</main>
 
 			<footer id="footer">
 				<h3>Mentions légales</h3>
@@ -73,17 +75,17 @@
 			{% block javascripts %}{% endblock %}
 			<script>
 				const deroulant = document.getElementById('deroulant'),
-accountButton = document.getElementById('accountButton'),
-header = document.getElementById('header'),
-main = document.getElementById('main');
+				accountButton = document.getElementById('accountButton'),
+				header = document.getElementById('header'),
+				main = document.getElementById('main');
 
-accountButton.addEventListener('click', function (e) {
-e.preventDefault();
-deroulant.classList.toggle('deroulantHidden');
-});
-main.addEventListener('click', function (e) {
-deroulant.classList.add('deroulantHidden');
-});
+				accountButton.addEventListener('click', function (e) {
+				e.preventDefault();
+				deroulant.classList.toggle('deroulantHidden');
+				});
+				main.addEventListener('click', function (e) {
+				deroulant.classList.add('deroulantHidden');
+				});
 			</script>
 		</body>
 	</html>

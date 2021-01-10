@@ -4,7 +4,6 @@ namespace App\DataFixtures;
 
 use App\Entity\Cities;
 use App\Entity\Countries;
-use App\Entity\Filiere;
 use App\Entity\Majors;
 use App\Entity\Subjects;
 use App\Entity\Universities;
@@ -205,9 +204,15 @@ class AppFixtures extends Fixture implements ContainerAwareInterface
 
 
         $univ1->addMajor($major6);
+        $univ1->addContributor($user);
+        $univ1->addContributor($user2);
+        $univ1->addContributor($user3);
         $this->em->persist($univ1);
 
         $univ2->addMajor($major3);
+        $univ2->addContributor($user);
+        $univ2->addContributor($user2);
+        $univ2->addContributor($user3);
         $this->em->persist($univ2);
 
         $this->em->flush();

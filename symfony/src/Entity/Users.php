@@ -63,6 +63,11 @@ class Users implements UserInterface
      */
     private $favorites;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Universities::class, mappedBy="univ_contributors")
+     */
+    private $univ_contributors;
+
     public function __construct()
     {
         $this->favorites = new ArrayCollection();
@@ -198,5 +203,30 @@ class Users implements UserInterface
             $present = TRUE;
         }
         return $present;
+    }
+
+    /**
+     * @return Collection|Universities[]
+     */
+    public function getUnivContributors(): Collection
+    {
+        return $this->univ_contributors;
+    }
+
+    public function addContributor(Universities $univ_contributors): self
+    {
+        if (!$this->univ_contributors->contains($univ_contributors)) {
+            $this->univ_contributors[] = $univ_contributors;
+            $univ_contributors->addContributor($this);
+        }
+        return $this;
+    }
+
+    public function removeContributor(Universities $univ_contributors): self
+    {
+        if ($this->univ_contributors->removeElement($univ_contributors)) {
+            $univ_contributors->removeContributor($this);
+        }
+        return $this;
     }
 }
