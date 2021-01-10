@@ -91,11 +91,17 @@ class DestinationerasmusController extends AbstractController
             $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
             5,   // Nombre de résultats par page
         );
+
+        $univs = $this->universityService->getAllUniv();
+        $univsjson = $this->serializer->serialize($univs,'json', [AbstractNormalizer::ATTRIBUTES => 
+                ['name', 'lat', 'lon', 'majors'=> 'branch']
+            ]);
         
         return $this->render('destinationerasmus/home.html.twig', [
             'branchList' => $majorList,
             'univPage' => $univPage,
-            'isAdmin' => $isAdmin
+            'isAdmin' => $isAdmin,
+            'univs' => json_encode(json_decode($univsjson))
             /*'form' => $form->createView(),*/
         ]);
     }

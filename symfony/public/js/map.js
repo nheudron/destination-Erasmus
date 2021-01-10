@@ -63,8 +63,9 @@ var cyanIcon = L.icon({
 });
 
 function searchOPSM() {
+    macarte.removeLayer(recherche);
+    recherche = L.featureGroup().addTo(macarte);
     var search = document.getElementById("searchtext").value;
-    recherche.clearLayers();
     if (search != "") {
         var searchbaseurl = "https://nominatim.openstreetmap.org/search?format=json&q=";
         var url = searchbaseurl + search;
@@ -74,6 +75,7 @@ function searchOPSM() {
         httpreq.onload = function () {
             var jsonResponse = JSON.parse(httpreq.responseText);
             updateSearchMarkers(jsonResponse);
+            macarte.fitBounds(recherche.getBounds());
         };
         httpreq.send(null);
     }
@@ -86,7 +88,6 @@ function updateSearchMarkers(jsonObjects) {
         var marker = L.marker(coord, { icon: redIcon }).addTo(recherche);
         marker.bindPopup(markerName+"<br><button type=\"button\" class=\"searchpopup\" onclick=\"updateLocation("+coord[0]+","+coord[1]+")\">Choisir</button>");
     }
-    macarte.fitBounds(recherche.getBounds());
 }
 
 // Fonction d'initialisation de la carte
@@ -98,7 +99,7 @@ function initMap() {
     L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
         // Il est toujours bien de laisser le lien vers la source des données
         attribution: 'données © <a href="//osm.org/copyright">OpenStreetMap</a>/ODbL - rendu <a href="//openstreetmap.fr">OSM France</a> - <a href="https://www.openstreetmap.org/copyright">© les contributeurs d’OpenStreetMap</a>',
-        minZoom: 3,
+        minZoom: 2,
         maxZoom: 20,
     }).addTo(macarte);
 }
@@ -172,14 +173,14 @@ function addUnivToMap() {
 }
 
 function addCurrentUnivLocation(univLat,univLon){
-    if (currentUnivLocation) {
-        macarte.removeLayer(currentUnivLocation);
-    }
-    currentUnivLocation = L.marker([univLat, univLon], { icon: greenIcon });
+    recherche.removeLayer(currentUnivLocation);
+    currentUnivLocation = L.marker([univLat, univLon], { icon: greenIcon, pane: "currentLocation" });
     currentUnivLocation.bindPopup("Adresse actuelle");
-    currentUnivLocation.addTo(macarte);
+    currentUnivLocation.addTo(recherche);
 }
 
 function rechercheUniv() {
     recherche = L.featureGroup().addTo(macarte);
+    macarte.createPane("currentLocation");
+    macarte.getPane("currentLocation").style.zIndex = 999;
 }

@@ -19,6 +19,18 @@ function updateForm(element) {
             var jsonResponse = JSON.parse(httpreq.responseText);
             document.getElementById("modifUnivId").value = jsonResponse["id"];
             document.getElementById("modifUnivName").value = jsonResponse["name"];
+            var langue = jsonResponse["language"];
+            switch (langue) {
+                case "Anglais":
+                    document.getElementById("en").checked = true
+                    break;
+                case "Allemand":
+                    document.getElementById("de").checked = true
+                    break;
+                case "Espagnol":
+                    document.getElementById("es").checked = true
+                    break;
+            }
             document.getElementById("modifUnivCity").value = jsonResponse["univCity"]["name"];
             document.getElementById("modifUnivCountry").value = jsonResponse["univCity"]["cityCountry"]["name"];
             document.getElementById("dormitoriescb").checked = jsonResponse["dormitories"];
@@ -165,19 +177,21 @@ function changeLocation() {
         document.getElementById("formUpdatingUniv").className = "";
         document.getElementById("checkLocations").className = "active";
         macarte.invalidateSize();
-        macarte.setView([lat, lon], 6);
         var univNameText = document.getElementById("modifUnivName").value;
+        var univLat = document.getElementById("modifUnivLat").value;
+        var univLon = document.getElementById("modifUnivLong").value;
         document.getElementById("searchtext").value = univNameText;
         searchOPSM();
-        var univLat = document.getElementById("modifUnivLat").value;
-        var univLon = document.getElementById("modifUnivLat").value;
-        if (univLat & univLon) {
-            addCurrentUnivLocation(univLat,univLon)
+        if (univLat != "" && univLon != "") {
+            addCurrentUnivLocation(univLat, univLon);
+        } else {
+            macarte.setView([lat, lon], 6);
         }
         mapToggle = 1;
     } else {
         document.getElementById("formUpdatingUniv").className = "active";
         document.getElementById("checkLocations").className = "";
+        macarte.removeLayer(recherche);
         mapToggle = 0;
     }
 }
