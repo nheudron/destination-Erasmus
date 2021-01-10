@@ -347,13 +347,13 @@ class DestinationerasmusController extends AbstractController
             foreach ($currentUniv->getMajors() as $univMajor) {
                 $currentUniv->removeMajor($univMajor);
             }
-            foreach ($params["prerequisite"] as $majorID) {
+            foreach ($params["majeure"] as $majorID) {
                 $currentUniv->addMajor($this->branchService->getBranchById($majorID));
             }
             // cours
             foreach ($currentUniv->getSubjects() as $univSubject) {
                 $currentUniv->removeSubject($univSubject);
-                $this->em->remove($currentUniv);
+                $this->em->remove($univSubject);
             }
             for ($i=0; $i < count($params["courseName"]); $i++) { 
                 $currentSubject = new Subjects();
@@ -362,11 +362,11 @@ class DestinationerasmusController extends AbstractController
                 $currentSubject->setCredits($params["courseECTS"][$i]);
                 $currentSubject->setHoursPerWeek($params["courseHours"][$i]);
                 $currentSubject->setActive($params["courseActive"][$i]);
+                $currentUniv->addSubject($currentSubject);
             }
             $currentUniv->setDormitories($params["dormitories"]);
 
-            // $this->em->flush();
-            $params["id"] = $currentUniv->getId();
+            $this->em->flush();
             $returnvar->setData(['admin' => true,'content' => $params]);
         }else{
             $returnvar->setData(['admin' => false]);
