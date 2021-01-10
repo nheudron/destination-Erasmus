@@ -77,15 +77,10 @@
 					</a>
 				</header>
 				<main>
-					<p>Country:
-						{{ univ.univCity.cityCountry.name }}<span class="right">Language:
-							{{ univ.language }}</span>
-					</p>
-					<p>City:
-						{{ univ.univCity.name }}
-					</p>
-					<p>Filière : dump(univ.majors) {{ dump(univ.majors) }}</p>
-					<p>Majeures :</p>
+					<p>Country: {{ univ.univCity.cityCountry.name }}<span class="right">Language:{{ univ.language }}</span></p>
+					<p>City: {{ univ.univCity.name }}</p>
+					<p>Filière : {% for branch in univ.majors.values %}{{ branch.branch }}{% endfor %}</p>
+					<p>Majeures : {% for major in univ.majors.values %}{{ major.name }}{% endfor %}</p>
 				</main>
 				<footer>
 					<p>
@@ -130,7 +125,7 @@
 	<script>
 		$(document).ready(function () {
 
-			$("#submit").click(function {
+			$("#submit").click(function() {
 
 				$.post('connexion.php', { // Un script PHP que l'on va créer juste après
 						username: $("#username").val(), // Nous récupérons la valeur de nos inputs que l'on fait passer à connexion.php

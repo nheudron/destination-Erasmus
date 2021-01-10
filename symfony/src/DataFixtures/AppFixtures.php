@@ -105,6 +105,7 @@ class AppFixtures extends Fixture implements ContainerAwareInterface
         $subject3->setCredits("6");
         $subject3->setHoursPerWeek("8");
         $this->em->persist($subject3);
+
         //  UNIVERSITY
 
         $univ1 = new Universities();
@@ -166,6 +167,7 @@ class AppFixtures extends Fixture implements ContainerAwareInterface
         $user3->toggleFav($univ1);
         $user3->setPassword(password_hash("c",PASSWORD_DEFAULT));
         $this->em->persist($user3);
+
         // Filière
 
         $major = new Majors();
@@ -200,6 +202,13 @@ class AppFixtures extends Fixture implements ContainerAwareInterface
         $this->em->persist($major5);
         $this->em->persist($major6);
         $this->em->persist($major7);
+
+
+        $univ1->addMajor($major6);
+        $this->em->persist($univ1);
+
+        $univ2->addMajor($major3);
+        $this->em->persist($univ2);
 
         $this->em->flush();
 
