@@ -78,14 +78,32 @@
 				</header>
 				<main>
 					<p>Country:
-						{{ univ.univCity.cityCountry.name }}<span class="right">Language:
-							{{ univ.language }}</span>
+						{{ univ.univCity.cityCountry.name }}
+						<span class="right">Language:
+							{{ univ.language }}
+						</span>
 					</p>
 					<p>City:
 						{{ univ.univCity.name }}
 					</p>
-					<p>Filière : dump(univ.majors) {{ dump(univ.majors) }}</p>
-					<p>Majeures :</p>
+					<p>Filière : 
+						
+					</p>
+					<p>Majeures :
+
+						{% for major in univ.majors %}
+							<span>{{ major.name }}</span>
+							{{dump(major)}}
+						{% endfor %}
+					</p>
+					<p>Cours : 
+						
+
+						{% for cours in univ.subjects %}
+							<span>{{ cours.name }} </span>
+						{% endfor %}
+					</p>
+
 				</main>
 				<footer>
 					<p>
