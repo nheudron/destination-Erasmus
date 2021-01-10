@@ -4,6 +4,10 @@ namespace App\Controller;
 
 use App\Entity\Majors;
 use App\Entity\Universities;
+use App\Entity\Cities;
+use App\Entity\Countries;
+use App\Entity\Prerequisites;
+use App\Entity\Subjects;
 use App\Service\IFiliereService;
 use App\Service\IUserService;
 use App\Service\IUniversityService;
@@ -21,6 +25,8 @@ use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 
+use Doctrine\Persistence\ObjectManager;
+
 class DestinationerasmusController extends AbstractController
 {
     /** @var IUserService */
@@ -31,6 +37,8 @@ class DestinationerasmusController extends AbstractController
     private $branchService;
     /** @var Serializer */
     private $serializer;
+    /** @var EntityManager */
+    private $em;
 
     public function __construct
     (
@@ -276,22 +284,89 @@ class DestinationerasmusController extends AbstractController
     {
         $returnvar = new JsonResponse();
         if ($this->isCurrentUserAdmin()) {
+            $this->em = $this->getDoctrine()->getManager();
             $params = $request->query->all();
             for($i=0; $i < count($params["courseName"]); $i++){
                 if (!isset($params["courseActive"][$i])) {
-                    $params["courseActive"][$i] = "off";
+                    $params["courseActive"][$i] = false;
                 }
             }
             if(!isset($params["dormitories"])){
-                $params["dormitories"] = "off";
+                $params["dormitories"] = false;
             }
 
             if(isset($params["id"])){
                 $currentUniv = $this->universityService->getUnivById($params["id"]);
             }else{
                 $currentUniv = new Universities();
+                $this->em->persist($currentUniv);
             }
-            
+            $currentUniv->setName($params["name"]);
+            if ($currentUniv->getUnivCity() != null) {
+                $city = $currentUniv->getUnivCity();
+                if ($city->getCityCountry() != null) {
+                    $country = $city->getCityCountry();
+                }else{
+                    $country = new Countries();
+                    $this->em->persist($country);
+                    $city->setCityCountry($country);
+                }
+            }else{
+                $city = new Cities();
+                $this->em->persist($city);
+                $country = new Countries();
+                $this->em->persist($country);
+                $city->setCityCountry($country);
+                $currentUniv->setUnivCity($city);
+            }
+            $country->setName($params["country"]);
+            $city->setName($params["city"]);
+            if (isset($params["prerequisite"])) {
+                $currentYear = intval(date("Y"));
+                if (count($currentUniv->getPrerequisites()) > 0) {
+                    $prerequisites = $currentUniv->getPrerequisites();
+                    $last = $prerequisites[count($prerequisites)-1];
+                    if ($last.getYear() == $currentYear ) {
+                        $prerequis = $last;
+                    }else{
+                        $prerequis = new Prerequisites();
+                        $this->em->persist($prerequis);
+                    }
+                }else{
+                    $prerequis = new Prerequisites();
+                    $this->em->persist($prerequis);
+                }
+                $prerequis->setName($params["prerequisite"]);
+                $prerequis->setYear($currentYear);
+                $currentUniv->addPrerequisite($prerequis);
+            }
+            $currentUniv->setLat($params["lat"]);
+            $currentUniv->setLon($params["long"]);
+            $currentUniv->setLanguage($params["language"]);
+            // majeure
+            foreach ($currentUniv->getMajors() as $univMajor) {
+                $currentUniv->removeMajor($univMajor);
+            }
+            foreach ($params["prerequisite"] as $majorID) {
+                $currentUniv->addMajor($this->branchService->getBranchById($majorID));
+            }
+            // cours
+            foreach ($currentUniv->getSubjects() as $univSubject) {
+                $currentUniv->removeSubject($univSubject);
+                $this->em->remove($currentUniv);
+            }
+            for ($i=0; $i < count($params["courseName"]); $i++) { 
+                $currentSubject = new Subjects();
+                $this->em->persist($currentSubject);
+                $currentSubject->setName($params["courseName"][$i]);
+                $currentSubject->setCredits($params["courseECTS"][$i]);
+                $currentSubject->setHoursPerWeek($params["courseHours"][$i]);
+                $currentSubject->setActive($params["courseActive"][$i]);
+            }
+            $currentUniv->setDormitories($params["dormitories"]);
+
+            // $this->em->flush();
+            $params["id"] = $currentUniv->getId();
             $returnvar->setData(['admin' => true,'content' => $params]);
         }else{
             $returnvar->setData(['admin' => false]);
@@ -308,9 +383,11 @@ class DestinationerasmusController extends AbstractController
     {
         $returnvar = new JsonResponse();
         $univ = $this->universityService->getUnivById($univId);
-        $univjson = $this->serializer->serialize($univ,'json', [AbstractNormalizer::IGNORED_ATTRIBUTES => 
-                ["favUsersList","cityUniversities","countryCities","univQuestions","univComments","accommodations","flag","favNb","universities","__initializer__","__cloner__","__isInitialized__"]
-            ]);
+        $univjson = $this->serializer->serialize($univ,'json', 
+                [AbstractNormalizer::IGNORED_ATTRIBUTES => 
+                ["favUsersList","cityUniversities","countryCities","univQuestions","univComments","accommodations","flag","contributors","favNb","universities","__initializer__","__cloner__","__isInitialized__"]
+            ]
+        );
         $returnvar->setData(json_decode($univjson));
         return $returnvar;
     }
