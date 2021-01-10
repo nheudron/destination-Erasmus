@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  * @ORM\Table(name="Cities")
  */
-class Cities
+class Cities  TESTSTSFDSKGDFHSJK
 {
     /**
      * @var int
