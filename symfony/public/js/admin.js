@@ -21,14 +21,14 @@ function updateForm(element) {
             document.getElementById("modifUnivName").value = jsonResponse["name"];
             var langue = jsonResponse["language"];
             switch (langue) {
-                case "Anglais":
-                    document.getElementById("en").checked = true
-                    break;
                 case "Allemand":
-                    document.getElementById("de").checked = true
+                    document.getElementById("de").click();
                     break;
                 case "Espagnol":
-                    document.getElementById("es").checked = true
+                    document.getElementById("es").click();
+                    break;
+                default:
+                    document.getElementById("en").click();
                     break;
             }
             document.getElementById("modifUnivCity").value = jsonResponse["univCity"]["name"];
@@ -121,7 +121,10 @@ function clearForm() {
     for (let i = 0; i < inputs.length; i++) {
         inputs[i].value = "";
     }
-    document.getElementById("languagechoice").getElementsByTagName("input")[0].checked = true;
+    document.getElementById("en").value = "Anglais";
+    document.getElementById("de").value = "Allemand";
+    document.getElementById("es").value = "Espagnol";
+    document.getElementById("en").click();
     document.getElementById("dormitoriescb").checked = false;
     document.getElementById("modifUnivChangeL").setAttribute("onclick", "changeLocation()");
     document.getElementById("courses").innerHTML = "";

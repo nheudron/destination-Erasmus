@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Majors;
 use App\Entity\Search;
 use App\Entity\Filiere;
+use App\Entity\Universities;
 use App\Service\IFiliereService;
 use App\Service\IUserService;
 use App\Service\IUniversityService;
@@ -263,6 +264,13 @@ class DestinationerasmusController extends AbstractController
             if(!isset($params["dormitories"])){
                 $params["dormitories"] = "off";
             }
+
+            if(isset($params["id"])){
+                $currentUniv = $this->universityService->getUnivById($params["id"]);
+            }else{
+                $currentUniv = new Universities();
+            }
+            
             $returnvar->setData(['admin' => true,'content' => $params]);
         }else{
             $returnvar->setData(['admin' => false]);
