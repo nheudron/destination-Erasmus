@@ -77,10 +77,29 @@
 					</a>
 				</header>
 				<main>
-					<p>Country: {{ univ.univCity.cityCountry.name }}<span class="right">Language:{{ univ.language }}</span></p>
-					<p>City: {{ univ.univCity.name }}</p>
-					<p>Filière : {% for branch in univ.majors.values %}{{ branch.branch }}{% endfor %}</p>
-					<p>Majeures : {% for major in univ.majors.values %}{{ major.name }}{% endfor %}</p>
+					<p>Country:
+						{{ univ.univCity.cityCountry.name }}
+						<span class="right">Language:
+							{{ univ.language }}
+						</span>
+					</p>
+					<p>City:
+						{{ univ.univCity.name }}
+					</p>
+					<p>Filière : {% for branch in univ.majors.values %}{{ branch.branch }}{% endfor %}
+						
+					</p>
+					<p>Majeures :
+						{% for major in univ.majors.values %}{{ major.name }}{% endfor %}
+				
+					</p>
+					<p>Cours : 
+						
+
+						{% for cours in univ.subjects %}
+							<span>{{ cours.name }} </span>
+						{% endfor %}
+					</p>
 				</main>
 				<footer>
 					<p>
