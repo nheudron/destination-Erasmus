@@ -95,7 +95,6 @@
 						cette destination aux favoris
 					</p>
 				</footer>
-
 			</div>
 		</section>
 	{% endfor %}
@@ -111,13 +110,13 @@
 	<script src="/js/filters.js"></script>
 
 	<script>
-		//var univsJSON = JSON.parse({{univs}});
-		//console.log(univsJSON);
+		var univsJSON = JSON.parse("{{univs}}".replaceAll("&quot;","\""));
 
 		window.onload = function () { // map
+			console.log(univsJSON);
 			initMap();
 			addUnivToMap();
-			checkTicked();
+			// checkTicked();
 			// Fav
 			checkFav();
 		};

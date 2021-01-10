@@ -92,14 +92,14 @@ class DestinationerasmusController extends AbstractController
 
         $univs = $this->universityService->getAllUniv();
         $univsjson = $this->serializer->serialize($univs,'json', [AbstractNormalizer::ATTRIBUTES => 
-                ['name', 'lat', 'lon', 'majors'=> 'branch']
+                ['name', 'lat', 'lon','language', 'majors'=>['branch']]
             ]);
         
         return $this->render('destinationerasmus/home.html.twig', [
             'branchList' => $majorList,
             'univPage' => $univPage,
             'isAdmin' => $isAdmin,
-            'univs' => json_encode(json_decode($univsjson))
+            'univs' => $univsjson
             /*'form' => $form->createView(),*/
         ]);
     }

@@ -105,70 +105,7 @@ class AppFixtures extends Fixture implements ContainerAwareInterface
         $subject3->setHoursPerWeek("8");
         $this->em->persist($subject3);
 
-        //  UNIVERSITY
-
-        $univ1 = new Universities();
-        $univ1->setName("Obuda University");
-        $univ1->setAvailablePlaces(12);
-        $univ1->setLanguage("LV1");
-        $univ1->setUnivCity($city1);
-        $univ1->addSubject($subject1);
-        $univ1->addSubject($subject2);
-        $univ1->addSubject($subject3);
-        $this->em->persist($univ1);
-
-        $univ2 = new Universities();
-        $univ2->setName("Super university");
-        $univ2->setAvailablePlaces(3);
-        $univ2->setLanguage("LV1");
-        $univ2->setUnivCity($city2);
-        $univ2->addSubject($subject1);
-        $univ2->addSubject($subject3);
-        $this->em->persist($univ2);
-
-        for($i = 1; $i <= 5; $i++){
-            $univ = new Universities();
-            $univ->setName("université $i");
-            $univ->setAvailablePlaces("$i");
-            $univ->setLanguage("LV2");
-            $univ->setUnivCity($city);
-            $univ->addSubject($subject2);
-            $univ->addSubject($subject3);
-            $this->em->persist($univ);
-        }
-        
-        //  USER
-
-        $user = new Users();
-        $user->setEmail("test@esaip.org");
-        $user->setPassword(password_hash("c",PASSWORD_DEFAULT));
-        $user->setLastName("Poisson");
-        $user->setFirstName("Nicolas");
-        $user->setRoles(["ROLE_ADMIN"]);
-        $user->toggleFav($univ1);
-        $user->toggleFav($univ2);
-        $this->em->persist($user);
-
-        $user2 = new Users();
-        $user2->setEmail("user@esaip.org");
-        $user2->setFirstName("Regular");
-        $user2->setLastName("User");
-        $user2->setRoles(["ROLE_USER"]);
-        $user2->toggleFav($univ1);
-        $user2->setPassword(password_hash("c",PASSWORD_DEFAULT));
-        $this->em->persist($user2);
-
-        $user3 = new Users();
-        $user3->setEmail("nheudron@esaip.org");
-        $user3->setFirstName("Nicolas");
-        $user3->setLastName("Heudron");
-        $user3->setRoles(["ROLE_USER"]);
-        $user3->toggleFav($univ1);
-        $user3->setPassword(password_hash("c",PASSWORD_DEFAULT));
-        $this->em->persist($user3);
-
         // Filière
-
         $major = new Majors();
         $major1 = new Majors();
         $major2 = new Majors();
@@ -202,6 +139,78 @@ class AppFixtures extends Fixture implements ContainerAwareInterface
         $this->em->persist($major6);
         $this->em->persist($major7);
 
+        //  UNIVERSITY
+        $univ1 = new Universities();
+        $univ1->setName("Obuda University");
+        $univ1->setAvailablePlaces(12);
+        $univ1->setLanguage("Anglais");
+        $univ1->setUnivCity($city1);
+        $univ1->addSubject($subject1);
+        $univ1->addSubject($subject2);
+        $univ1->addSubject($subject3);
+        $univ1->setLat(-39.90261);
+        $univ1->setLon(-69.69234);
+        $univ1->addMajor($major2);
+        $univ1->addMajor($major5);
+        $this->em->persist($univ1);
+
+        $univ2 = new Universities();
+        $univ2->setName("Super university");
+        $univ2->setAvailablePlaces(3);
+        $univ2->setLanguage("Espagnol");
+        $univ2->setUnivCity($city2);
+        $univ2->addSubject($subject1);
+        $univ2->addSubject($subject3);
+        $univ2->setLat(-19.92056);
+        $univ2->setLon(144.36009);
+        $univ2->addMajor($major2);
+        $univ2->addMajor($major1);
+        $this->em->persist($univ2);
+
+        for($i = 1; $i <= 5; $i++){
+            $univ = new Universities();
+            $univ->setName("université $i");
+            $univ->setAvailablePlaces("$i");
+            $univ->setLanguage("Allemand");
+            $univ->setUnivCity($city);
+            $univ->addSubject($subject2);
+            $univ->addSubject($subject3);
+            $univ->setLat(46.13224);
+            $univ->setLon(132.71830);
+            $univ->addMajor($major6);
+            $univ->addMajor($major5);
+            $this->em->persist($univ);
+        }
+        
+        //  USER
+
+        $user = new Users();
+        $user->setEmail("test@esaip.org");
+        $user->setPassword(password_hash("c",PASSWORD_DEFAULT));
+        $user->setLastName("Poisson");
+        $user->setFirstName("Nicolas");
+        $user->setRoles(["ROLE_ADMIN"]);
+        $user->toggleFav($univ1);
+        $user->toggleFav($univ2);
+        $this->em->persist($user);
+
+        $user2 = new Users();
+        $user2->setEmail("user@esaip.org");
+        $user2->setFirstName("Regular");
+        $user2->setLastName("User");
+        $user2->setRoles(["ROLE_USER"]);
+        $user2->toggleFav($univ1);
+        $user2->setPassword(password_hash("c",PASSWORD_DEFAULT));
+        $this->em->persist($user2);
+
+        $user3 = new Users();
+        $user3->setEmail("nheudron@esaip.org");
+        $user3->setFirstName("Nicolas");
+        $user3->setLastName("Heudron");
+        $user3->setRoles(["ROLE_USER"]);
+        $user3->toggleFav($univ1);
+        $user3->setPassword(password_hash("c",PASSWORD_DEFAULT));
+        $this->em->persist($user3);
 
         $univ1->addMajor($major6);
         $univ1->addContributor($user);
