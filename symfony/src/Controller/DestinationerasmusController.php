@@ -295,7 +295,7 @@ class DestinationerasmusController extends AbstractController
                 $params["dormitories"] = false;
             }
 
-            if(isset($params["id"])){
+            if(isset($params["id"]) && $params["id"] != ""){
                 $currentUniv = $this->universityService->getUnivById($params["id"]);
             }else{
                 $currentUniv = new Universities();
@@ -321,7 +321,7 @@ class DestinationerasmusController extends AbstractController
             }
             $country->setName($params["country"]);
             $city->setName($params["city"]);
-            if (isset($params["prerequisite"])) {
+            if (isset($params["prerequisite"]) && $params["id"] != "") {
                 $currentYear = intval(date("Y"));
                 if (count($currentUniv->getPrerequisites()) > 0) {
                     $prerequisites = $currentUniv->getPrerequisites();
@@ -340,8 +340,8 @@ class DestinationerasmusController extends AbstractController
                 $prerequis->setYear($currentYear);
                 $currentUniv->addPrerequisite($prerequis);
             }
-            $currentUniv->setLat($params["lat"]);
-            $currentUniv->setLon($params["long"]);
+            $currentUniv->setLat(floatval($params["lat"]));
+            $currentUniv->setLon(floatval($params["long"]));
             $currentUniv->setLanguage($params["language"]);
             // majeure
             foreach ($currentUniv->getMajors() as $univMajor) {
@@ -367,7 +367,7 @@ class DestinationerasmusController extends AbstractController
             $currentUniv->setDormitories($params["dormitories"]);
 
             $this->em->flush();
-            $returnvar->setData(['admin' => true,'content' => $params]);
+            $returnvar->setData(['admin' => true,'done' => true,'content' => $params]);
         }else{
             $returnvar->setData(['admin' => false]);
         }

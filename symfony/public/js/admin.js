@@ -211,5 +211,18 @@ function updateUniv(element) {
     updateUrl = baseurl + "/updateUniv?"
     const formData = new FormData(element);
     const asString = new URLSearchParams(formData).toString();
-    prompt("Copy to clipboard: Ctrl+C, Enter", updateUrl + asString);
+    var httpreq = new XMLHttpRequest();
+    httpreq.overrideMimeType("application/json");
+    httpreq.open("GET", updateUrl+asString, true);
+    httpreq.onload = function () {
+        var jsonResponse = JSON.parse(httpreq.responseText);
+        console.log(jsonResponse);
+        if (jsonResponse["done"]) {
+            window.location.reload();
+        }else{
+            console.log(updateUrl+asString);
+            alert("Erreur de modification ou d'ajout");
+        }
+    };
+    httpreq.send(null);
 }
