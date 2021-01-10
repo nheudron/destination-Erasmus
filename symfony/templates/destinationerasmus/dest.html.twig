@@ -118,34 +118,53 @@
 			<div class="destBoxStyle">
 				<h4>Les étudiants déjà partis</h4>
 				<div class="scrollY">
-					<div><div class="cercle">NH</div><span>Nicolas Heudron</span><span>(2020)</span></div>
+					{% for contributor in univ.contributors.values %}
+						<div>
+							<div class="cercle user{{contributor.id}} ">
+								<span>
+									<script>
+										document.write("{{ contributor.getFirstName }}".substr(0, 1));
+										document.write("{{ contributor.lastName }}".substr(0, 1))
+									</script>
+								</span>
+							</div>
+							<span>
+								{{ contributor.getFirstName }} {{ contributor.lastName }}
+							</span>
+						</div>
+					{% endfor %}
 				</div>
 			</div>
 			<div class="destBoxStyle">
 				<h4>Destination ajoutées aux favoris par</h4>
 				<div class="scrollY">
 					{% for user in usersFav %}
-						<div><div class="cercle user{{user.id}} ">
+						<div>
+							<div class="cercle user{{user.id}} ">
+								<span>
+									<script>
+										document.write("{{ user.getFirstName }}".substr(0, 1));
+										document.write("{{ user.lastName }}".substr(0, 1))
+									</script>
+								</span>
+							</div>
 							<span>
-							<script> 
-								document.write("{{ user.getFirstName }}".substr(0, 1));
-								document.write("{{ user.lastName }}".substr(0, 1))
-							</script>
+								{{ user.getFirstName }} {{ user.lastName }}
 							</span>
-						</div><span>{{ user.getFirstName }} {{ user.lastName }}</span></div>
-						
-						
+						</div>
 					{% endfor %}
 				</div>
 			</div>
-			<div class="destBoxStyle">
-				<h4>Modifier l'image d'en-tête</h4>
-				<div class="image">
-					<br />
-					<button>Importer une nouvelle image</button>
-					<p>Celle-ci écrasera l'ancienne</p>
+			{% if is_granted("ROLE_CONTRIB") %}
+				<div class="destBoxStyle">
+					<h4>Modifier l'image d'en-tête</h4>
+					<div class="image">
+						<br />
+						<button>Importer une nouvelle image</button>
+						<p>Celle-ci écrasera l'ancienne</p>
+					</div>
 				</div>
-			</div>
+			{% endif %}
 		</section>
 	</div>
 {% endblock %}
