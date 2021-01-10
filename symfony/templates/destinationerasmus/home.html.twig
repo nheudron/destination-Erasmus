@@ -86,11 +86,11 @@
 					<p>City:
 						{{ univ.univCity.name }}
 					</p>
-					<p>Filière : {% for branch in univ.majors.values %}{{ branch.branch }}{% endfor %}
+					<p>Filière : {% for branch in univ.majors.values %} <span>{{ branch.branch }} </span>{% endfor %}
 						
 					</p>
 					<p>Majeures :
-						{% for major in univ.majors.values %}{{ major.name }}{% endfor %}
+						{% for major in univ.majors.values %} <span>{{ major.name }} </span>{% endfor %}
 				
 					</p>
 					<p>Cours : 
