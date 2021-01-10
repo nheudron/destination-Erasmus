@@ -326,7 +326,7 @@ class DestinationerasmusController extends AbstractController
                 if (count($currentUniv->getPrerequisites()) > 0) {
                     $prerequisites = $currentUniv->getPrerequisites();
                     $lastPreR = $currentUniv->getPrerequisites()->last();
-                    if ($lastPreR.getYear() == $currentYear ) {
+                    if ($lastPreR->getYear() == $currentYear ) {
                         $prerequis = $lastPreR;
                     }else{
                         $prerequis = new Prerequisites();
