@@ -124,6 +124,7 @@
 	<script src="/js/filters.js"></script>
 
 	<script>
+		console.log({{univs}});
 		var univsJSON = JSON.parse("{{univs}}".replaceAll("&quot;","\""));
 
 		window.onload = function () { // map
