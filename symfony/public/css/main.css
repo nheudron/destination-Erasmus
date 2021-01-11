@@ -195,6 +195,10 @@ button:hover {
   width: 800px;
   margin: auto;
   color: #859bae;
+  
+}
+*
+.filters form{
   display: flex;
 }
 .destList {
