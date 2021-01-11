@@ -38,30 +38,13 @@
 
 	<div class="filtresLines">
 		<div class="filters">
-			<form id="form">
-				<i class="fas fa-sliders-h"></i>
-				<select class="custom-select">
-					<option value="irsep">IR & SEP</option>
-					<option value="ir">IR</option>
-					<option value="sep">SEP</option>
-				</select>
-				<select class="custom-select">
-					<option value="default">LV1 & LV2</option>
-					<option value="lv1">LV1</option>
-					<option value="lv2e">LV2 Espagnol</option>
-					<option value="lv2a">LV2 Allemand</option>
-				</select>
-				<select class="custom-select">
-					<option selected="true">Toutes les majeures</option>
-					{% for branch in branchList %}
-						<option value="{{ branch.id }}">{{ branch.name }}</option>
-					{% endfor %}
-				</select>
-				<button class="submitButton">Rechercher</button>
-			</form>
+			{{form_start(form)}}
+			<i class="fas fa-sliders-h"></i>
+			{{ form_rest(form)}}
+                <button type="submit">Envoyer</button>
+            {{form_end(form)}}
 		</div>
 	</div>
-
 	{% for univ in univPage %}
 		<section class="destList">
 			<div class="destination">
@@ -118,6 +101,11 @@
 		</section>
 	{% endfor %}
 	{{ knp_pagination_render(univPage) }}
+
+	<br />
+
+		
+
 {% endblock %}
 
 {% block javascripts %}

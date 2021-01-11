@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Data\SearchData;
 use App\Entity\Majors;
 use App\Entity\Universities;
+use App\Form\SearchForm;
 use App\Service\IFiliereService;
 use App\Service\IUserService;
 use App\Service\IUniversityService;
@@ -77,31 +79,38 @@ class DestinationerasmusController extends AbstractController
         $isAdmin = $this->isCurrentUserAdmin();
         
 
-        /*$search = new Search();
-        $form = $this->createForm(SearchType::class, $search);
-        $form = handleRequest($request);*/
+        $data = new SearchData();
+        dump($data);
+        $data->page = $request->get('page', 1);
+        $form = $this->createForm(SearchForm::class, $data);
+        $form->handleRequest($request);
 
+        //$products = $this->universityService->findSearch($paginator, $data);
+        //$products2 =  $this->universityService->getAllUnivByQuery();
 
         /** @var Majors[] $majorList */
         $majorList = $this->branchService->getAllBranches();
 
         $univPage = $paginator->paginate (
-            $this->universityService->getAllUnivByQuery(),  // Requête contenant les données à paginer (ici nos universités)
-            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            $this->universityService->findSearch($data),  // Requête contenant les données à paginer (ici nos universités)
+            $request->query->getInt('page', $data->page), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
             5,   // Nombre de résultats par page
         );
+
 
         $univs = $this->universityService->getAllUniv();
         $univsjson = $this->serializer->serialize($univs,'json', [AbstractNormalizer::ATTRIBUTES => 
                 ['name', 'lat', 'lon','language', 'majors'=>['branch']]
             ]);
         
+
         return $this->render('destinationerasmus/home.html.twig', [
             'branchList' => $majorList,
             'univPage' => $univPage,
             'isAdmin' => $isAdmin,
-            'univs' => $univsjson
-            /*'form' => $form->createView(),*/
+            'univs' => $univsjson,
+            'form' => $form->createView(),
+            //'products' => $products,
         ]);
     }
 
