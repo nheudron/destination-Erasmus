@@ -123,11 +123,9 @@
 	<script src="/js/filters.js"></script>
 
 	<script>
-		console.log({{univs}});
-		var univsJSON = JSON.parse("{{univs}}".replaceAll("&quot;","\""));
+		var univsString = "{{univs}}";
 
 		window.onload = function () { // map
-			console.log(univsJSON);
 			initMap();
 			addUnivToMap();
 			// checkTicked();

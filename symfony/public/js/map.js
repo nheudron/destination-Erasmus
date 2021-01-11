@@ -118,6 +118,12 @@ function initMap() {
 // };
 
 function addUnivToMap() {
+    //generationJSON
+    var textArea = document.createElement('textarea');
+    textArea.innerHTML = univsString;
+    var content = textArea.value;
+    var univsJSON = JSON.parse(content);
+    textArea.remove();
     //initialisation layers
     sep = L.layerGroup().addTo(macarte);
     ir = L.layerGroup().addTo(macarte);
