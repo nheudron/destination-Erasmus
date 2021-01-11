@@ -103,7 +103,7 @@ class DestinationerasmusController extends AbstractController
         $univPage = $paginator->paginate (
             $this->universityService->findSearch($data),  // Requête contenant les données à paginer (ici nos universités)
             $request->query->getInt('page', $data->page), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
-            5,   // Nombre de résultats par page
+            10,   // Nombre de résultats par page
         );
 
 

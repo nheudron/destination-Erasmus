@@ -127,6 +127,12 @@ class Universities
      */
     private $subjects;
 
+    /**
+     * @var string
+     * @ORM\Column(type="string", name="univ_web")
+     */
+    private $website = "";
+
     public function __construct()
     {
         $this->favUsersList = new ArrayCollection();
