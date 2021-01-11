@@ -47,8 +47,14 @@
 					<p>City:
 						{{ univ.univCity.name }}
 					</p>
-					<p>Filière : {% for branch in univ.majors.values %} <span>  {{ branch.branch }} </span> {% endfor %}
-						
+					<p>Filière : 
+						{% set fil = [] %}
+						{% for branch in univ.majors.values %}
+							{% if not(branch.branch in fil) %}
+								{% set fil = fil|merge([branch.branch]) %}
+								<span>  {{ branch.branch }} </span>
+							{% endif %}
+						{% endfor %}
 					</p>
 					<p>Majeures :
 						{% for major in univ.majors.values %} <span> {{ major.name }} </span> {% endfor %}
