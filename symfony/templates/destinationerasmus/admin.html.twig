@@ -24,6 +24,7 @@
 	</div>
 
 	{% for univ in univs %}
+
 		<section class="destList">
 			<div class="destination">
 				<header>
@@ -38,16 +39,28 @@
 				</header>
 				<main>
 					<p>Country:
-						{{ univ.univCity.cityCountry.name }}<span class="right">Language:
-							{{ univ.language }}</span>
+						{{ univ.univCity.cityCountry.name }}
+						<span class="right">Language:
+							{{ univ.language }}
+						</span>
 					</p>
 					<p>City:
-						{{ univ.univCity.name }}<span class="right">Available places:
-							{{ univ.availablePlaces }}</span>
+						{{ univ.univCity.name }}
 					</p>
-					<p>Formation:</p>
-					<p>Maujeure:</p>
-					<p>Lessons:</p>
+					<p>Filière : {% for branch in univ.majors.values %} <span>  {{ branch.branch }} </span> {% endfor %}
+						
+					</p>
+					<p>Majeures :
+						{% for major in univ.majors.values %} <span> {{ major.name }} </span> {% endfor %}
+				
+					</p>
+					<p>Cours : 
+						
+
+						{% for cours in univ.subjects %}
+							<span>{{ cours.name }} </span>
+						{% endfor %}
+					</p>
 				</main>
 			</div>
 		</section>
@@ -58,9 +71,9 @@
 				<div class="leftrightwrapper">
 					<div class="formleft">
 						<input type="hidden" name="id" id="modifUnivId">
-						<input type="text" name="name" id="modifUnivName" placeholder="Nom de l'université" required value="efzef">
-						<input type="text" name="city" id="modifUnivCity" placeholder="Ville" required value="efzef">
-						<input type="text" name="country" id="modifUnivCountry" placeholder="Pays" required value="efzef">
+						<input type="text" name="name" id="modifUnivName" placeholder="Nom de l'université" required>
+						<input type="text" name="city" id="modifUnivCity" placeholder="Ville" required>
+						<input type="text" name="country" id="modifUnivCountry" placeholder="Pays" required>
 						<input type="text" name="prerequisite" id="modifUnivPreR" placeholder="Prérequis, laisser vide pour aucun">
 						<input type="hidden" name="lat" id="modifUnivLat">
 						<input type="hidden" name="long" id="modifUnivLong">
@@ -120,9 +133,9 @@
 				<div id="courses">
 					<div class="coursescontent">
 						<div class="left">
-							<input type="text" name="courseName[0]" class="courseName" placeholder="Nom de la matière" required value="efzef">
-							<input type="number" name="courseHours[0]" class="courseHours" placeholder="Heure" required value="845">
-							<input type="number" name="courseECTS[0]" class="courseECTS" placeholder="ECTS" required value="52">
+							<input type="text" name="courseName[0]" class="courseName" placeholder="Nom de la matière" required>
+							<input type="number" name="courseHours[0]" class="courseHours" placeholder="Heure" required>
+							<input type="number" name="courseECTS[0]" class="courseECTS" placeholder="ECTS" required>
 						</div>
 						<div class="right">
 							<input type="checkbox" name="courseActive[0]" class="courseActive" checked>

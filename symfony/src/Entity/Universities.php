@@ -337,7 +337,7 @@ class Universities
      */
     public function getPrerequisites(): Collection
     {
-        return $this->accommodations;
+        return $this->prerequisites;
     }
 
     public function addPrerequisite(Prerequisites $prer): self

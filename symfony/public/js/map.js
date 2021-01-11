@@ -63,6 +63,7 @@ var cyanIcon = L.icon({
 function searchOPSM() {
     macarte.removeLayer(recherche);
     recherche = L.featureGroup().addTo(macarte);
+    if(currentUnivLocation){currentUnivLocation.addTo(recherche);}
     var search = document.getElementById("searchtext").value;
     if (search != "") {
         var searchbaseurl = "https://nominatim.openstreetmap.org/search?format=json&q=";

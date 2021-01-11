@@ -37,11 +37,12 @@ function updateForm(element) {
             var majeurs = jsonResponse["majors"];
             document.getElementById("majeureSelect").getElementsByClassName("content")[0].innerHTML = "";
             majeureNumber = 0;
-            if (majeurs.length)
+            if (majeurs.length){
                 for (let i = 0; i < majeurs.length; i++) {
                     var currentSelector = addMajeure();
                     currentSelector.getElementsByClassName("majeure" + majeurs[i]["id"])[0].selected = true;
                 }
+            }
             var prerequis = jsonResponse["prerequisites"];
             if (prerequis.length) {
                 document.getElementById("modifUnivPreR").value = prerequis[prerequis.length - 1]["name"];
@@ -211,5 +212,18 @@ function updateUniv(element) {
     updateUrl = baseurl + "/updateUniv?"
     const formData = new FormData(element);
     const asString = new URLSearchParams(formData).toString();
-    prompt("Copy to clipboard: Ctrl+C, Enter", updateUrl + asString);
+    var httpreq = new XMLHttpRequest();
+    httpreq.overrideMimeType("application/json");
+    httpreq.open("GET", updateUrl+asString, true);
+    httpreq.onload = function () {
+        var jsonResponse = JSON.parse(httpreq.responseText);
+        console.log(jsonResponse);
+        if (jsonResponse["done"]) {
+            window.location.reload();
+        }else{
+            console.log(updateUrl+asString);
+            alert("Erreur de modification ou d'ajout");
+        }
+    };
+    httpreq.send(null);
 }
