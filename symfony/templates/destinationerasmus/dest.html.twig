@@ -32,7 +32,11 @@
 				<body>
 					<section>
 						<h3>Prérequis</h3>
-						<p>Aucun Prérequis pour cette destination</p>
+						{% if univ.prerequisites|last %}
+							<p>Année : {{univ.prerequisites|last.year}}, {{univ.prerequisites|last.name}} </p>
+						{% else %}
+							<p>Aucun Prérequis pour cette destination</p>
+						{% endif %}
 					</section>
 					<table>
 						<h3>Matières</h3>

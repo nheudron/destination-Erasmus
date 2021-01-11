@@ -24,6 +24,7 @@
 	</div>
 
 	{% for univ in univs %}
+
 		<section class="destList">
 			<div class="destination">
 				<header>
@@ -38,16 +39,28 @@
 				</header>
 				<main>
 					<p>Country:
-						{{ univ.univCity.cityCountry.name }}<span class="right">Language:
-							{{ univ.language }}</span>
+						{{ univ.univCity.cityCountry.name }}
+						<span class="right">Language:
+							{{ univ.language }}
+						</span>
 					</p>
 					<p>City:
-						{{ univ.univCity.name }}<span class="right">Available places:
-							{{ univ.availablePlaces }}</span>
+						{{ univ.univCity.name }}
 					</p>
-					<p>Formation:</p>
-					<p>Maujeure:</p>
-					<p>Lessons:</p>
+					<p>Filière : {% for branch in univ.majors.values %} <span>  {{ branch.branch }} </span> {% endfor %}
+						
+					</p>
+					<p>Majeures :
+						{% for major in univ.majors.values %} <span> {{ major.name }} </span> {% endfor %}
+				
+					</p>
+					<p>Cours : 
+						
+
+						{% for cours in univ.subjects %}
+							<span>{{ cours.name }} </span>
+						{% endfor %}
+					</p>
 				</main>
 			</div>
 		</section>
