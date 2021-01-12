@@ -43,6 +43,11 @@ class Comments
     private $comm_universities;
 
     /**
+    * @ORM\ManyToOne(targetEntity=Users::class)
+    */
+    private $author_id;
+
+    /**
      * @return int
      */
     public function getId(): int
@@ -97,4 +102,21 @@ class Comments
     {
         $this->comm_universities = $comm_universities;
     }
+
+    /**
+     * @return int
+     */
+    public function getAuthor(): string
+    {
+        return $this->author_id;
+    }
+
+    /**
+     * @param int $author_id
+     */
+    public function setAuthor(string $Author): void
+    {
+        $this->author_id = $Author;
+    }
+
 }

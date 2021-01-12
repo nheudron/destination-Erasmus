@@ -97,6 +97,22 @@ class Countries
         $this->language = $language;
     }
 
+     /**
+     * @return mixed
+     */
+    public function getCurrency()
+    {
+        return $this->currency;
+    }
+
+    /**
+     * @param mixed $currency
+     */
+    public function setCurrency($currency): void
+    {
+        $this->currency = $currency;
+    }
+
     /**
      * @return mixed
      */
