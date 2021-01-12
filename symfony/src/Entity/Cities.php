@@ -30,14 +30,8 @@ class Cities
     private $name = "";
 
     /**
-     * @var int
-     * @ORM\Column(type="integer", name="city_inhabitants", nullable=false)
-     */
-    private $inhabitants = 0;
-
-    /**
      * @var string
-     * @ORM\Column(type="string", name="city_pres", length=255, nullable=false)
+     * @ORM\Column(type="text", name="city_pres", length=6553, nullable=false)
      */
     private $presentation = "";
 
@@ -79,22 +73,6 @@ class Cities
     public function setName(string $name): void
     {
         $this->name = $name;
-    }
-
-    /**
-     * @return int
-     */
-    public function getInhabitants(): int
-    {
-        return $this->inhabitants;
-    }
-
-    /**
-     * @param int $inhabitants
-     */
-    public function setInhabitants(int $inhabitants): void
-    {
-        $this->inhabitants = $inhabitants;
     }
 
     /**
