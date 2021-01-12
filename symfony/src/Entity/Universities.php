@@ -39,7 +39,7 @@ class Universities
      * @var string
      * @ORM\Column(type="string", name="univ_language")
      */
-    private $language = "";
+    private $language = ""; 
 
     /**
      * @ORM\Column(type="boolean", name="univ_dormitories")
