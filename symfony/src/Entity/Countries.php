@@ -36,12 +36,6 @@ class Countries
     private $language = "";
 
     /**
-     * @var string
-     * @ORM\Column(type="string", name="country_currency", length=255, nullable=false)
-     */
-    private $currency = "";
-
-    /**
      * @ORM\Column(type="string", name="country_flag", length=255, nullable=false)
      */
     private $flag = "";

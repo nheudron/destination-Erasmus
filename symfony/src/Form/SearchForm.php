@@ -5,9 +5,10 @@ namespace App\Form;
 use App\Data\SearchData;
 use App\Entity\Majors;
 use App\Entity\Universities;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -33,17 +34,15 @@ class SearchForm extends AbstractType
                     'class' => 'custom-select'
                 ]
             ])
-            ->add('majeure', EntityType::class, [
+            ->add('nomUniv', TextType::class, [
                 'label' => false,
                 'required'   => false,
-                'multiple' => false,
-                'class' => Majors::class, 
-                'mapped' => false,
-                'empty_data' => 'Toutes les majeures',
                 'attr' =>[
-                    'class' => 'custom-select',
+                    'placeholder' => 'Recherche par nom',
+                    'class' => 'custom-select'
                 ],
             ])
+
             ->add('langue', ChoiceType::class, [
                 'label' => false,
                 'required'   => true,

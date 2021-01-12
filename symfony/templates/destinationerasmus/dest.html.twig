@@ -21,13 +21,29 @@
 			<p><span class="js-nb-likes-{{ univ.id }}">
 							{{ univ.FavNb }}
 						</span>
-				favs</p>
+				FAV</p>
 		</div>
 	</div>
 
 	<div class="destBody">
 		<section class="destMain">
 			<div class="destBoxStyle2">
+				<body>
+					<table>
+						<tr>
+							<td>Pays : {{ univ.univCity.cityCountry.name }}</td>
+							<td>Langue locale : {{ univ.univCity.cityCountry.language }}</td>
+						</tr>
+					</table>
+				</body>
+				<br />
+				<h2>La ville : {{ univ.univCity.name }}</h2>
+				<body>
+					<section>
+						<p>{{ univ.univCity.presentation }}</p>
+					</section>
+				</body>
+				<br />
 				<h2>L'université</h2>
 				<body>
 					<section>

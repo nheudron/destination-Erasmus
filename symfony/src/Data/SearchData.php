@@ -17,7 +17,7 @@ class SearchData
      *
      * @var string
      */
-    public $majeure = '';
+    public $nomUniv = '';
 
     /**
      * Undocumented variable
