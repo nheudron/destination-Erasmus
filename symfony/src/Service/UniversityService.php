@@ -86,19 +86,19 @@ class UniversityService extends CrudService implements IUniversityService
                     ->setParameter('filiere', "%{$search->filiere}%");
             }
 
-            if($search->majeure == ""){
-                $majeure = '';
+            if($search->nomUniv == ""){
+                $nomUniv = '';
             }else{
-                $majeure = $search->majeure;
+                $nomUniv = $search->nomUniv;
             }
 
-            if(!empty($majeure)){
+            if(!empty($nomUniv)){
                 $query = $query
-                    ->andWhere('Majors.name LIKE :majeure')
-                    ->setParameter('majeure', "%{$search->majeure}%");
+                    ->andWhere('universities.name LIKE :nomUniv')
+                    ->setParameter('nomUniv', "%{$search->nomUniv}%");
             }
 
-            if($search->langue == ""){
+            if($search->langue == "all"){
                 $langue = '';
             }else{
                 $langue = $search->langue;
