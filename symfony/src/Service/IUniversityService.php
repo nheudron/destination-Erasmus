@@ -13,6 +13,11 @@ interface IUniversityService
     public function getAllUniv() : iterable;
 
     /**
+     * @inheritDoc
+     */
+    public function getAllUnivAlphaOrder(): iterable;
+
+    /**
      * @return Query
      */
     public function getAllUnivByQuery(): Query;

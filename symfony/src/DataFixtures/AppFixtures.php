@@ -42,21 +42,21 @@ class AppFixtures extends Fixture implements ContainerAwareInterface
 
         $country1 = new Countries();
         $country1->setName("Hungary");
-        $country1->setCurrency("Forint");
+        // $country1->setCurrency("Forint");
         $country1->setLanguage("Magyar");
         $country1->setFlag("https://upload.wikimedia.org/wikipedia/commons/c/c1/Flag_of_Hungary.svg");
         $this->em->persist($country1);
 
         $country2 = new Countries();
         $country2->setName("Super Country");
-        $country2->setCurrency("SuperDollar");
+        // $country2->setCurrency("SuperDollar");
         $country2->setLanguage("Super tongue");
         $country2->setFlag("https://upload.wikimedia.org/wikipedia/en/c/c3/Flag_of_France.svg");
         $this->em->persist($country2);
 
         $country = new Countries();
         $country->setName("Lambda");
-        $country->setCurrency("Lambda Dollar");
+        // $country->setCurrency("Lambda Dollar");
         $country->setLanguage("Lambdalala");
         $country->setFlag("https://upload.wikimedia.org/wikipedia/commons/f/fe/Flag_of_C%C3%B4te_d%27Ivoire.svg");
         $this->em->persist($country);
@@ -66,21 +66,21 @@ class AppFixtures extends Fixture implements ContainerAwareInterface
         $city1 = new Cities();
         $city1->setName("Budapest");
         $city1->setCityCountry($country1);
-        $city1->setInhabitants("1700000");
+        // $city1->setInhabitants("1700000");
         $city1->setPresentation("Charmante ville wsh");
         $this->em->persist($city1);
 
         $city2 = new Cities();
         $city2->setName("Super City");
         $city2->setCityCountry($country2);
-        $city2->setInhabitants("10000000");
+        // $city2->setInhabitants("10000000");
         $city2->setPresentation("Super ville wsh");
         $this->em->persist($city2);
 
         $city = new Cities();
         $city->setName("lambdaTown");
         $city->setCityCountry($country);
-        $city->setInhabitants("1");
+        // $city->setInhabitants("1");
         $city->setPresentation("ville lambda");
         $this->em->persist($city);
 
