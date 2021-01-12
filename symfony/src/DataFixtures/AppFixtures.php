@@ -187,8 +187,8 @@ class AppFixtures extends Fixture implements ContainerAwareInterface
         $user = new Users();
         $user->setEmail("test@esaip.org");
         $user->setPassword(password_hash("c",PASSWORD_DEFAULT));
-        $user->setLastName("Poisson");
-        $user->setFirstName("Nicolas");
+        $user->setLastName("Test");
+        $user->setFirstName("Test");
         $user->setRoles(["ROLE_ADMIN"]);
         $this->em->persist($user);
 
@@ -201,12 +201,52 @@ class AppFixtures extends Fixture implements ContainerAwareInterface
         $this->em->persist($user2);
 
         $user3 = new Users();
-        $user3->setEmail("nheudron@esaip.org");
+        $user3->setEmail("nheudron.ir2022@esaip.org");
         $user3->setFirstName("Nicolas");
         $user3->setLastName("Heudron");
         $user3->setRoles(["ROLE_USER"]);
         $user3->setPassword(password_hash("c",PASSWORD_DEFAULT));
         $this->em->persist($user3);
+
+        $user4 = new Users();
+        $user4->setEmail("ljolly.ing2022@esaip.org");
+        $user4->setFirstName("Léonie");
+        $user4->setLastName("Jolly");
+        $user4->setRoles(["ROLE_USER"]);
+        $user4->setPassword(password_hash("c",PASSWORD_DEFAULT));
+        $this->em->persist($user4);
+
+        $user5 = new Users();
+        $user5->setEmail("npoisson.ing2022@esaip.org");
+        $user5->setFirstName("Nicolas");
+        $user5->setLastName("Poisson");
+        $user5->setRoles(["ROLE_USER"]);
+        $user5->setPassword(password_hash("c",PASSWORD_DEFAULT));
+        $this->em->persist($user5);
+
+        $user6 = new Users();
+        $user6->setEmail("fchataigner.ing2022@esaip.org");
+        $user6->setFirstName("Firmin");
+        $user6->setLastName("Chataigner");
+        $user6->setRoles(["ROLE_USER"]);
+        $user6->setPassword(password_hash("c",PASSWORD_DEFAULT));
+        $this->em->persist($user6);
+
+        $user7 = new Users();
+        $user7->setEmail("bde.angers@esaip.org");
+        $user7->setFirstName("BDE");
+        $user7->setLastName("Admin");
+        $user7->setRoles(["ROLE_ADMIN"]);
+        $user7->setPassword(password_hash("c",PASSWORD_DEFAULT));
+        $this->em->persist($user7);
+
+        $user8 = new Users();
+        $user8->setEmail("admin@esaip.org");
+        $user8->setFirstName("Admin");
+        $user8->setLastName("ESAIP");
+        $user8->setRoles(["ROLE_ADMIN"]);
+        $user8->setPassword(password_hash("c",PASSWORD_DEFAULT));
+        $this->em->persist($user8);
 
         /*
         $univ1->addMajor($major6);
