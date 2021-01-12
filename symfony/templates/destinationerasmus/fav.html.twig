@@ -18,44 +18,66 @@
 		</div>
 	{% else %}
 		{% for univ in favorites %}
-			<section class="destList">
-				<div class="destination">
-					<header>
-						<a href="{{ path('dest', { 'univId': univ.id }) }}">
-							<h4>
-								<i class="fas fa-globe-europe"></i>
-								{{ univ.name }}</h4>
-						</a>
-						<a class="addFavs" id="univ{{univ.id}}" onclick="toggleFav(this,{{univ.id}})">
+		<section class="destList">
+			<div class="destination">
+				<header>
+					<a href="{{ path('dest', { 'univId': univ.id }) }}">
+						<h4>
+							<img src=" {{ univ.univCity.cityCountry.flag }} " class="flag">
+							{{ univ.name }}</h4>
+					</a>
+
+					<a class="addFavs" id="univ{{univ.id}}" onclick="toggleFav(this,{{univ.id}})">
 							<i class="fas fa-heart"></i>
 						</a>
-					</header>
-					<main>
-						<p>Country:<span class="right">Language:
-								{{ univ.language }}</span>
-						</p>
-						<p>City:<span class="right">Available places:
-								{{ univ.availablePlaces }}</span>
-						</p>
-						<p>Formation:</p>
-						<p>Maujeure:</p>
-						<p>Lessons:</p>
-					</main>
-					<footer>
-						<p>
-							<span class="js-nb-likes-{{ univ.id }}">
+				</header>
+				<main>
+					<p>Country:
+						{{ univ.univCity.cityCountry.name }}
+						<span class="right">Language:
+							{{ univ.language }}
+						</span>
+					</p>
+					<p>City:
+						{{ univ.univCity.name }}
+					</p>
+					<p>Filière : 
+						{% set fil = [] %}
+						{% for branch in univ.majors.values %}
+							{% if not(branch.branch in fil) %}
+								{% set fil = fil|merge([branch.branch]) %}
+								<span>  {{ branch.branch }} </span>
+							{% endif %}
+						{% endfor %}
+					</p>
+					<p>Majeures :
+						{% for major in univ.majors.values %} <span> {{ major.name }} </span> {% endfor %}
+				
+					</p>
+					{#
+					<p>Cours : 
+						
+
+						{% for cours in univ.subjects %}
+							<span>{{ cours.name }} </span>
+						{% endfor %}
+					</p>#}
+				</main>
+				<footer>
+					<p>
+						<span class="js-nb-likes-{{ univ.id }}">
 							{{ univ.FavNb }}
 						</span>
-							{% if univ.FavNb > 1 %}
-								personnes ont ajoutées
-							{% else %}
-								personne a ajoutée
-							{% endif %}
-							cette destination aux favoris
-						</p>
-					</footer>
-				</div>
-			</section>
+						{% if univ.FavNb > 1 %}
+							personnes ont ajouté
+						{% else %}
+							personne a ajouté
+						{% endif %}
+						cette destination aux favoris
+					</p>
+				</footer>
+			</div>
+		</section>
 		{% endfor %}
 	{% endif %}
 
