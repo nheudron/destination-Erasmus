@@ -208,6 +208,20 @@ class AppFixtures extends Fixture implements ContainerAwareInterface
         $user3->setPassword(password_hash("c",PASSWORD_DEFAULT));
         $this->em->persist($user3);
 
+        /*
+        $univ1->addMajor($major6);
+        $univ1->addContributor($user);
+        $univ1->addContributor($user2);
+        $univ1->addContributor($user3);
+        $this->em->persist($univ1);
+
+        $univ2->addMajor($major3);
+        $univ2->addContributor($user);
+        $univ2->addContributor($user2);
+        $univ2->addContributor($user3);
+        $this->em->persist($univ2);
+        */
+
         $this->em->flush();
 
         echo "QUERIES: ".count($stackLogger->queries)."\n"; //numbers of queries (persists)
