@@ -15,6 +15,11 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Comments
 {
+    public function __construct()
+    {
+        $today = new \DateTime('now');
+        $this->year = $today->format('Y');
+    }
     /**
      * @var int
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -43,9 +48,11 @@ class Comments
     private $comm_universities;
 
     /**
-    * @ORM\ManyToOne(targetEntity=Users::class)
+     * @var Users|null
+    * @ORM\JoinColumn(name="author", referencedColumnName="user_id")
+    * @ORM\ManyToOne(targetEntity=Users::class, inversedBy="user_comments")
     */
-    private $author_id;
+    private $author;
 
     /**
      * @return int
@@ -108,15 +115,15 @@ class Comments
      */
     public function getAuthor(): string
     {
-        return $this->author_id;
+        return $this->author;
     }
 
     /**
      * @param int $author_id
      */
-    public function setAuthor(string $Author): void
+    public function setAuthor(string $author): void
     {
-        $this->author_id = $Author;
+        $this->author = $author;
     }
 
 }

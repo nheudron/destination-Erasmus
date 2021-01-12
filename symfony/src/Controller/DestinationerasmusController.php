@@ -2,15 +2,18 @@
 
 namespace App\Controller;
 
+use App\Data\CommentData;
 use App\Data\SearchData;
 use App\Entity\Majors;
 use App\Entity\Universities;
 
 use App\Form\SearchForm;
 use App\Entity\Cities;
+use App\Entity\Comments;
 use App\Entity\Countries;
 use App\Entity\Prerequisites;
 use App\Entity\Subjects;
+use App\Form\AddCommentForm;
 use App\Service\IFiliereService;
 use App\Service\IUserService;
 use App\Service\IUniversityService;
@@ -89,7 +92,6 @@ class DestinationerasmusController extends AbstractController
         
 
         $data = new SearchData();
-        dump($data);
         $data->page = $request->get('page', 1);
         $form = $this->createForm(SearchForm::class, $data);
         $form->handleRequest($request);
@@ -123,22 +125,45 @@ class DestinationerasmusController extends AbstractController
         ]);
     }
 
+
     /**
      * @param int $univId
      * @return Response
      * @Route(path="/destination/{univId}", name="dest", requirements={ "univId": "\d+" })
      */
-    public function univ(int $univId): Response
+    public function univ(Request $request,  int $univId): Response
     {
         $univ = $this->universityService->getUnivById($univId);
         $usersFav = $univ->getFavUsersList();
         $subjectsList = $univ->getSubjects();
+        dump($univ);
+        $dataComment = new CommentData(); //on créé le jeu de données
+        $formComment = $this->createForm(AddCommentForm::class, $dataComment); //on créé le formulaire
+        $formComment->handleRequest($request); 
+
+        
+        if($formComment->isSubmitted() && $formComment->isValid())
+        {
+            $comment = new Comments();
+            $user = $this->userService->getUserByMail($this->getUser()->getUsername());
+
+            /*
+            $comment->setComment($request->request->get('comment'))
+                    ->setCommUniversities($univ)
+                    ->setAuthor($user);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($comment);
+            $em->flush();*/
+        }
+        
         return $this->render('destinationerasmus/dest.html.twig', [
             "univ" => $univ,
             "usersFav" => $usersFav,
-            "subjectsList" => $subjectsList
+            "subjectsList" => $subjectsList,
+            'formComment' => $formComment->createView(),
         ]);
     }
+
 
     /**
      * @return Response

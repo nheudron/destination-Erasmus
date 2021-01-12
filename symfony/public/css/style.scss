@@ -221,6 +221,11 @@ $base-color-dark: #677b8d;
         width: 100%;
         display: flex;
         justify-content: space-around;
+
+        div{
+          width: calc(100% - 200px);
+          display: inline-block;
+        }
         .text{
           font-size: 15px;
           padding: 8px 15px;
@@ -232,7 +237,7 @@ $base-color-dark: #677b8d;
           appearance: none;
           outline: none;
           border-radius: 12px;
-          width: calc(100% - 200px)
+          width: 100%
         }
         button{
           background-color: white!important;

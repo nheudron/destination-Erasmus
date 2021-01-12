@@ -84,17 +84,18 @@
 						<p>{{ comment.comment }} Ceci est un commentaire</p>
 						<div class="authorComment">
 							<div class="cercle"><span>NH</span></div>
-							<span>Nicolas Heudron</span>
+							<span>{{ comment.author.name }} Nicolas Heudron</span>
 							<span class="date"><i class="fas fa-calendar-week"></i> {{ comment.year }} 18/04/2020</span>
 						</div>
 					</section>
 				{% endfor %}
 
 				<div id="addCommentBox" class="addCommentBox">
-					<form>
-						<input type="text" class="text" placeholder="Votre Commentaire"></input>
-						<button type="submit" >Commenter</button>
-					</form>
+					{{form_start(formComment)}}
+					{{ form_rest(formComment)}}
+						<button type="submit">Commenter</button>
+					{{form_end(formComment)}}
+					
 				</div>
 			</div>
 

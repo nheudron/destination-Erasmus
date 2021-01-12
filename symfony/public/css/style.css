@@ -277,6 +277,11 @@
       justify-content: space-around;
 }
 
+.destBody .destMain .addCommentBox form div {
+  width: calc(100% - 200px);
+  display: inline-block;
+}
+
 .destBody .destMain .addCommentBox form .text {
   font-size: 15px;
   padding: 8px 15px;
@@ -288,7 +293,7 @@
   appearance: none;
   outline: none;
   border-radius: 12px;
-  width: calc(100% - 200px);
+  width: 100%;
 }
 
 .destBody .destMain .addCommentBox form button {
