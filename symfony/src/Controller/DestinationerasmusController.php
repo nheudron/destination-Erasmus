@@ -401,4 +401,19 @@ class DestinationerasmusController extends AbstractController
         $returnvar->setData(json_decode($univjson));
         return $returnvar;
     }
+
+    /**
+     * @return JSONResponse
+     * @Route(path="/mapDetails", name="mapDetails")
+     */
+    public function mapDetails(): Response
+    {
+        $returnvar = new JsonResponse();
+        $univs = $this->universityService->getAllUniv();
+        $univsjson = $this->serializer->serialize($univs,'json', [AbstractNormalizer::ATTRIBUTES => 
+                ['name', 'lat', 'lon','language', 'majors'=>['branch']]
+            ]);
+        $returnvar->setData(json_decode($univsjson));
+        return $returnvar;
+    }
 }

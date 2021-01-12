@@ -63,7 +63,7 @@ var cyanIcon = L.icon({
 function searchOPSM() {
     macarte.removeLayer(recherche);
     recherche = L.featureGroup().addTo(macarte);
-    if(currentUnivLocation){currentUnivLocation.addTo(recherche);}
+    if (currentUnivLocation) { currentUnivLocation.addTo(recherche); }
     var search = document.getElementById("searchtext").value;
     if (search != "") {
         var searchbaseurl = "https://nominatim.openstreetmap.org/search?format=json&q=";
@@ -137,7 +137,6 @@ function addUnivToMap() {
             ignoreClick = 2;
             sepButton = document.getElementsByClassName("leaflet-control-layers-selector")[1];
             sepButton.click();
-            console.log("SEP Click");
             setTimeout(() => { sepButton.click(); }, 20)
         }
         ignoreClick--;
@@ -147,8 +146,7 @@ function addUnivToMap() {
             ignoreClick = 2;
             irButton = document.getElementsByClassName("leaflet-control-layers-selector")[0];
             irButton.click();
-            console.log("IR Click");
-            setTimeout(() => { sepButton.click(); }, 20)
+            setTimeout(() => { irButton.click(); }, 20)
         }
         ignoreClick--;
     });
@@ -170,6 +168,7 @@ function addUnivToMap() {
         marker.addTo(esaip);
         marker.bindPopup(esaipUniv);
     }
+    var univMarker;
     for (univ in univsJSON) {
         univMarker = null;
         switch (univsJSON[univ]["language"]) {
@@ -177,9 +176,11 @@ function addUnivToMap() {
                 univMarker = L.marker([univsJSON[univ]["lat"], univsJSON[univ]["lon"]], { icon: blueIcon });
                 break;
             case "Allemand":
+                console.log("Allemand");
                 univMarker = L.marker([univsJSON[univ]["lat"], univsJSON[univ]["lon"]], { icon: greenIcon });
                 break;
             case "Espagnol":
+                console.log("Espagnol");
                 univMarker = L.marker([univsJSON[univ]["lat"], univsJSON[univ]["lon"]], { icon: yellowIcon });
                 break;
             default:
@@ -188,22 +189,27 @@ function addUnivToMap() {
                 break;
         }
         var usedMajor = [];
-        for (major in univsJSON[univ]["majors"]) {
-            if (!usedMajor.includes(univsJSON[univ]["majors"][major]["branch"])) {
-                usedMajor.push(univsJSON[univ]["majors"][major]["branch"]);
-                switch (univsJSON[univ]["majors"][major]["branch"]) {
-                    case "IR":
-                        univMarker.addTo(ir);
-                        break;
-                    case "SEP":
-                        univMarker.addTo(sep);
-                        break;
-                    default:
-                        univMarker.addTo(macarte);
-                        console.log("Probleme de majeur sur l'université " + univsJSON[univ]["name"]);
-                        break;
+        if (univsJSON[univ]["majors"].length) {
+            for (major in univsJSON[univ]["majors"]) {
+                if (!usedMajor.includes(univsJSON[univ]["majors"][major]["branch"])) {
+                    usedMajor.push(univsJSON[univ]["majors"][major]["branch"]);
+                    switch (univsJSON[univ]["majors"][major]["branch"]) {
+                        case "IR":
+                            univMarker.addTo(ir);
+                            break;
+                        case "SEP":
+                            univMarker.addTo(sep);
+                            break;
+                        default:
+                            univMarker.addTo(macarte);
+                            console.log("Probleme de majeur sur l'université " + univsJSON[univ]["name"]);
+                            break;
+                    }
                 }
             }
+        }else{
+            univMarker.addTo(macarte);
+            console.log("Pas de majeure sur l'université " + univsJSON[univ]["name"]);
         }
         univMarker.bindPopup(univsJSON[univ]["name"]
             + "<br>Langue : " + univsJSON[univ]["language"]
@@ -222,4 +228,16 @@ function rechercheUniv() {
     recherche = L.featureGroup().addTo(macarte);
     macarte.createPane("currentLocation");
     macarte.getPane("currentLocation").style.zIndex = 999;
+}
+
+function requestUnivs() {
+    url = baseurl + "/mapDetails";
+    var httpreq = new XMLHttpRequest();
+    httpreq.overrideMimeType("application/json");
+    httpreq.open("GET", url, true);
+    httpreq.onload = function () {
+        univsString = httpreq.responseText;
+        addUnivToMap();
+    };
+    httpreq.send(null);
 }
