@@ -42,14 +42,15 @@
 						<h3>Matières</h3>
 
 						{% for subjects in subjectsList %}
-						
-							<tr>
-								<td>{{subjects.getName}}</td>
-								<td>{{subjects.getHoursPerWeek}} heures</td>
-								<td>{{subjects.getCredits}} ECTS</td>
-							</tr>
-						
-					{% endfor %}
+							{% if subjects.active %}
+							
+								<tr>
+									<td>{{subjects.getName}}</td>
+									<td>{{subjects.getHoursPerWeek}} heures</td>
+									<td>{{subjects.getCredits}} ECTS</td>
+								</tr>
+							{% endif %}
+						{% endfor %}
 						
 					</table>
 				</body>
