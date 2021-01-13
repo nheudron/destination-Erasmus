@@ -310,7 +310,6 @@ class DestinationerasmusController extends AbstractController
     public function admin(Request $request, PaginatorInterface $paginator): Response
     {
         if($this->isCurrentUserAdmin()){
-            $univs = $this->universityService->getAllUnivAlphaOrder();
 
             /*
             $univs = $paginator->paginate (
@@ -319,6 +318,7 @@ class DestinationerasmusController extends AbstractController
                 20,   // Nombre de résultats par page
             );*/
 
+            $univs = $this->universityService->getAllUnivInverse();
             $branchList = $this->branchService->getAllBranches();
 
             $returnvar = $this->render('destinationerasmus/admin.html.twig', [
