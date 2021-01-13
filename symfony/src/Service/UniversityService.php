@@ -36,6 +36,14 @@ class UniversityService extends CrudService implements IUniversityService
         return $this->getRepo()->findBy([], ['name' => 'ASC']);
     }
 
+    /**
+     * @inheritDoc
+     */
+    public function getAllUnivInverse(): iterable
+    {
+        return $this->getRepo()->findBy([], ['id' => 'DESC']);
+    }
+
     public function getAllUnivByQuery(): Query
     {
         return $this

@@ -272,7 +272,7 @@ class DestinationerasmusController extends AbstractController
     public function admin(): Response
     {
         if($this->isCurrentUserAdmin()){
-            $univs = $this->universityService->getAllUnivAlphaOrder();
+            $univs = $this->universityService->getAllUnivInverse();
             $branchList = $this->branchService->getAllBranches();
 
             $returnvar = $this->render('destinationerasmus/admin.html.twig', [
