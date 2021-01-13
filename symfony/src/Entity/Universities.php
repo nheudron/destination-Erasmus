@@ -128,6 +128,11 @@ class Universities
     private $subjects;
 
     /**
+     * @ORM\Column(type="string", name="imageHeader", length=255, nullable=false)
+     */
+    private $imageHeader = "";
+
+    /**
      * @var string
      * @ORM\Column(type="string", name="univ_web")
      */
@@ -361,9 +366,9 @@ class Universities
     }
 
     /**
-     * @return ArrayCollection|null
+     *  @return Collection|univComments[]
      */
-    public function getUnivComments(): ?ArrayCollection
+    public function getUnivComments(): Collection
     {
         return $this->univ_comments;
     }
@@ -424,5 +429,21 @@ class Universities
     public function __toString()
     {
         return $this->name;
+    }
+
+      /**
+     * @return mixed
+     */
+    public function getImageHeader()
+    {
+        return $this->imageHeader;
+    }
+
+    /**
+     * @param mixed $imageHeader
+     */
+    public function setImageHeader($imageHeader): void
+    {
+        $this->imageHeader = $imageHeader;
     }
 }

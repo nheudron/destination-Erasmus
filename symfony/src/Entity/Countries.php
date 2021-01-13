@@ -36,6 +36,13 @@ class Countries
     private $language = "";
 
     /**
+     * @var string
+     * @ORM\Column(type="string", name="country_currency", length=255, nullable=false)
+     */
+    private $currency = "";
+
+    
+    /**
      * @ORM\Column(type="string", name="country_flag", length=255, nullable=false)
      */
     private $flag = "";
@@ -88,6 +95,22 @@ class Countries
     public function setLanguage(string $language): void
     {
         $this->language = $language;
+    }
+
+     /**
+     * @return mixed
+     */
+    public function getCurrency()
+    {
+        return $this->currency;
+    }
+
+    /**
+     * @param mixed $currency
+     */
+    public function setCurrency($currency): void
+    {
+        $this->currency = $currency;
     }
 
     /**

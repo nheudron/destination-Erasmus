@@ -68,6 +68,14 @@ class Users implements UserInterface
      */
     private $univ_contributors;
 
+    /**
+    * @ORM\JoinColumn(name="user_comments", referencedColumnName="comments_id")
+     * @ORM\OneToMany(targetEntity=Comments::class, mappedBy="author")
+     * @var ArrayCollection|null
+     */
+    private $user_comments;
+
+
     public function __construct()
     {
         $this->favorites = new ArrayCollection();
