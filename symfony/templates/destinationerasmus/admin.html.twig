@@ -30,8 +30,10 @@
 				<header>
 					<a href="{{ path('dest', { 'univId': univ.id }) }}">
 						<h4>
-							<img src=" {{ univ.univCity.cityCountry.flag }} " class="flag">
+							<i class="fas fa-globe-europe"></i>
+							<!--<img src=" {{ univ.univCity.cityCountry.flag }} " class="flag">-->
 							{{ univ.name }}</h4>
+							
 					</a>
 					<a class="changeuniv" id="univ{{univ.id}}" onclick="updateForm(this)">
 						<i class="fas fa-pen"></i>
