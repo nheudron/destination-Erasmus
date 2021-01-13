@@ -94,34 +94,23 @@ class Comments
         $this->year = $year;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getCommUniversities()
+
+    public function getCommUniversities(): universities
     {
         return $this->comm_universities;
     }
 
-    /**
-     * @param mixed $comm_universities
-     */
-    public function setCommUniversities($comm_universities): void
+    public function setCommUniversities(Universities $comm_universities): void
     {
         $this->comm_universities = $comm_universities;
     }
 
-    /**
-     * @return int
-     */
-    public function getAuthor(): string
+    public function getAuthor(): users
     {
         return $this->author;
     }
 
-    /**
-     * @param int $author_id
-     */
-    public function setAuthor(string $author): void
+    public function setAuthor(users $author): void
     {
         $this->author = $author;
     }

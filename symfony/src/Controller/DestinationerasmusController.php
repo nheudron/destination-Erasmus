@@ -32,6 +32,8 @@ use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 
 use Doctrine\Persistence\ObjectManager;
+use Knp\Component\Pager\Pagination\PaginationInterface;
+use Knp\Component\Pager\Paginator;
 
 class DestinationerasmusController extends AbstractController
 {
@@ -141,21 +143,23 @@ class DestinationerasmusController extends AbstractController
         $formComment = $this->createForm(AddCommentForm::class, $dataComment); //on créé le formulaire
         $formComment->handleRequest($request); 
 
-        
+        $user = $this->userService->getUserByMail($this->getUser()->getUsername());
+
+            
+
         if($formComment->isSubmitted() && $formComment->isValid())
         {
-            $comment = new Comments();
-            $user = $this->userService->getUserByMail($this->getUser()->getUsername());
+            $this->em = $this->getDoctrine()->getManager();
+            $newComment = new Comments();
 
-            /*
-            $comment->setComment($request->request->get('comment'))
-                    ->setCommUniversities($univ)
-                    ->setAuthor($user);
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($comment);
-            $em->flush();*/
+            $newComment->setComment($request->request->get('comment'));
+            $newComment->setCommUniversities($univ);
+            $newComment->setAuthor($user);
+
+            $this->em->persist($newComment);
+            $this->em->flush();   
         }
-        
+
         return $this->render('destinationerasmus/dest.html.twig', [
             "univ" => $univ,
             "usersFav" => $usersFav,
@@ -171,8 +175,14 @@ class DestinationerasmusController extends AbstractController
      */
     public function lastTrip(Request $request, PaginatorInterface $paginator): Response
     {
+
+        /*$data = new SearchData();
+        $data->page = $request->get('page', 1);
+        $form = $this->createForm(SearchForm::class, $data);
+        $form->handleRequest($request);*/
+
         $univPage = $paginator->paginate (
-            $this->universityService->getAllUnivByQuery(),  // Requête contenant les données à paginer (ici nos universités)
+            $this->universityService->getAllUnivAlphaOrder(),  // Requête contenant les données à paginer (ici nos universités)
             $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
             5   // Nombre de résultats par page
         );
@@ -183,7 +193,8 @@ class DestinationerasmusController extends AbstractController
 
             return $this->render('destinationerasmus/lastTrip.html.twig', [
                 'user' => $user,
-                'univPage' => $univPage
+                'univPage' => $univPage,
+                //'form' => $form
             ]);
         }else {
             $returnvar = $this->redirectToRoute("app_login");
@@ -291,13 +302,23 @@ class DestinationerasmusController extends AbstractController
     }
 
     /**
+     * @param Request $request
+     * @param PaginatorInterface $paginator
      * @return Response
      * @Route(path="/admin", name="adminPage")
      */
-    public function admin(): Response
+    public function admin(Request $request, PaginatorInterface $paginator): Response
     {
         if($this->isCurrentUserAdmin()){
             $univs = $this->universityService->getAllUnivAlphaOrder();
+
+            /*
+            $univs = $paginator->paginate (
+                $this->universityService->getAllUnivAlphaOrder(),  // Requête contenant les données à paginer (ici nos universités)
+                $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+                20,   // Nombre de résultats par page
+            );*/
+
             $branchList = $this->branchService->getAllBranches();
 
             $returnvar = $this->render('destinationerasmus/admin.html.twig', [

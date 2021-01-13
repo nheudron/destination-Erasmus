@@ -81,11 +81,18 @@
 
 				{% for comment in univ.UnivComments.values %}
 					<section>
-						<p>{{ comment.comment }} Ceci est un commentaire</p>
+						<p>{{ comment.comment }}</p>
 						<div class="authorComment">
-							<div class="cercle"><span>NH</span></div>
-							<span>{{ comment.author.name }} Nicolas Heudron</span>
-							<span class="date"><i class="fas fa-calendar-week"></i> {{ comment.year }} 18/04/2020</span>
+							<div class="cercle user{{comment.author.id}} ">
+								<span>
+									<script>
+										document.write("{{ comment.author.getFirstName }} ".substr(0, 1));
+										document.write("{{ comment.author.getLastName }}".substr(0, 1))
+									</script>
+								</span>
+							</div>
+							<span>{{ comment.author.getFirstName }} {{ comment.author.getLastName }}</span>
+							<span class="date"><i class="fas fa-calendar-week"></i> {{ comment.year }}</span>
 						</div>
 					</section>
 				{% endfor %}
@@ -99,7 +106,7 @@
 				</div>
 			</div>
 
-			<a href="#addCommentBox" class="addQuestion">
+			<!--<a href="#addCommentBox" class="addQuestion">
 				<div class="addQuestionButton">
 						<p>+</p>
 				</div>Ajouter un commentaire
@@ -132,8 +139,10 @@
 			<a href="#" class="addQuestion">
 				<div class="addQuestionButton">
 					<p>+</p>
-				</div>Ajouter une question</a>
+				</div>Ajouter une question</a>-->
 		</section>
+
+
 		<section class="destColumn">
 			<!--<div class="date">
 				<p>Période</p>
