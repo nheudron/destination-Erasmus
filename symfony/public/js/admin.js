@@ -210,6 +210,7 @@ function updateLocation(lat, long) {
 
 function updateUniv(element) {
     updateUrl = baseurl + "/updateUniv?"
+    //https://restcountries.eu/rest/v2/all?fields=name;flag;currencies;translations
     const formData = new FormData(element);
     const asString = new URLSearchParams(formData).toString();
     var httpreq = new XMLHttpRequest();
